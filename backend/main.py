@@ -69,29 +69,60 @@ class AssistantRequest(BaseModel):
     selected_job: Optional[dict[str, Any]] = None
 
 
-async def fetch_104_vacancies(keyword: str = "", page: int = 1) -> dict[str, Any]:
-    """Mengambil data lowongan dari 104 Job Bank API di sisi backend."""
-    if not JOB104_API_URL:
+async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -> dict[str, Any]:
+    """Mengambil data lowongan langsung dari endpoint pencarian publik www.104.com.tw."""
+    search_keyword = keyword.strip() or "Product Manager"
+    url = "https://www.104.com.tw/jobs/search/api/jobs"
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+        ),
+        "Referer": "https://www.104.com.tw/jobs/search/",
+        "Accept": "application/json, text/plain, */*",
+    }
+    params = {
+        "keyword": search_keyword,
+        "page": page,
+        "pagesize": 10,
+        "order": 15,  # Urutkan berdasarkan kesesuaian / terbaru
+    }
+
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            resp = await client.get(url, headers=headers, params=params)
+            resp.raise_for_status()
+            payload = resp.json()
+
+        raw_list = payload.get("data", []) if isinstance(payload, dict) else []
+        jobs = []
+        for item in raw_list:
+            job_link = item.get("link", {}).get("job", "")
+            full_url = f"https:{job_link}" if job_link.startswith("//") else (job_link or "https://www.104.com.tw/")
+            jobs.append({
+                "job_id": str(item.get("jobNo", "")),
+                "source": "104",
+                "source_url": full_url,
+                "job_title_original": item.get("jobName", ""),
+                "company_name_original": item.get("custName", ""),
+                "location": item.get("jobAddrNoDesc", ""),
+                "salary_display": item.get("salaryDesc", "Not provided"),
+                "posting_date": item.get("appearDate", ""),
+                "job_description_original": item.get("description", ""),
+            })
+
+        return {
+            "source_mode": "104_live_web",
+            "keyword": search_keyword,
+            "total_fetched": len(jobs),
+            "jobs": jobs if jobs else FALLBACK_JOBS,
+        }
+    except Exception as exc:
         return {
             "source_mode": "fallback_sample",
-            "note": "JOB104_API_URL not yet configured; returning sample record.",
+            "note": f"104 live fetch fallback triggered: {exc}",
             "jobs": FALLBACK_JOBS,
         }
-
-    headers: dict[str, str] = {"Accept": "application/json"}
-    if JOB104_API_KEY:
-        headers["Authorization"] = f"Bearer {JOB104_API_KEY}"
-
-    params = {"keyword": keyword, "page": page}
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        resp = await client.get(JOB104_API_URL, headers=headers, params=params)
-        resp.raise_for_status()
-        payload = resp.json()
-
-    return {
-        "source_mode": "104_api",
-        "jobs": payload if isinstance(payload, list) else payload.get("data", []),
-    }
 
 
 def require_openai() -> OpenAI:
