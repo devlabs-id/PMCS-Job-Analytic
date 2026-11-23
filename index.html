@@ -2419,5 +2419,44 @@
       updateAssistantContextBadge();
     });
   </script>
+<script>
+  const API_BASE_URL = "https://pmcs-job-analytic.onrender.com";
+
+  async function callBackend(path, payload = null, method = "GET") {
+    const options = {
+      method,
+      headers: { "Content-Type": "application/json" }
+    };
+    if (payload && method !== "GET") {
+      options.body = JSON.stringify(payload);
+    }
+
+    const response = await fetch(`${API_BASE_URL}${path}`, options);
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(data.detail || data.message || `HTTP ${response.status}`);
+    }
+    return data;
+  }
+
+  // Contoh 1: Ambil data lowongan (dari 104 atau fallback sampel di backend)
+  async function loadJobs(keyword = "") {
+    const query = keyword ? `?keyword=${encodeURIComponent(keyword)}` : "";
+    return await callBackend(`/api/jobs/104${query}`);
+  }
+
+  // Contoh 2: Kirim data ke backend untuk diolah OpenAI
+  async function analyzeWithOpenAI(inputData) {
+    return await callBackend("/api/analyze-job", inputData, "POST");
+  }
+
+  // Contoh 3: Helper render hasil ke elemen di halaman
+  function renderResult(targetEl, contentText, isError = false) {
+    if (!targetEl) return;
+    targetEl.textContent = contentText;
+    targetEl.style.color = isError ? "#b91c1c" : "inherit";
+  }
+</script>
 </body>
 </html>
