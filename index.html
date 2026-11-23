@@ -2424,7 +2424,7 @@
 
   async function callBackend(path, payload = null, method = "GET") {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 20000);
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     try {
       const options = {
@@ -2452,6 +2452,89 @@
     return typeof appState !== "undefined" && appState.lang === "zh" ? "zh-TW" : "en";
   }
 
+  function inferRoleCategory(title = "", jd = "") {
+    const text = `${title} ${jd}`.toLowerCase();
+    const hasPm = /\bpm\b|product manager|產品經理|產品企劃|roadmap/.test(text);
+    const hasPjm = /\bpjm\b|project manager|專案經理|專案管理|wbs/.test(text);
+    if (hasPm && hasPjm) return "Hybrid";
+    if (hasPm) return "PM";
+    if (hasPjm) return "PjM";
+    return "Unclear";
+  }
+
+  function normalizeLocationKey(locText = "") {
+    if (/新北|new taipei/i.test(locText)) return "New Taipei";
+    if (/台北|臺北|taipei/i.test(locText)) return "Taipei";
+    if (/新竹|hsinchu/i.test(locText)) return "Hsinchu";
+    if (/台中|臺中|taichung/i.test(locText)) return "Taichung";
+    return "Taipei";
+  }
+
+  // 1. Ambil data lowongan asli dari 104 via Render backend dan tampilkan ke Job Explorer
+  async function loadLive104Jobs(keyword = "Product Manager") {
+    try {
+      const data = await callBackend(`/api/jobs/104?keyword=${encodeURIComponent(keyword)}`, null, "GET");
+      if (!data || !Array.isArray(data.jobs) || data.jobs.length === 0) return;
+
+      const mappedJobs = data.jobs.map((item, idx) => {
+        const title = item.job_title_original || `104 Vacancy #${idx + 1}`;
+        const jd = item.job_description_original || "No detailed JD text returned.";
+        const cat = inferRoleCategory(title, jd);
+        const locRaw = item.location || "Taiwan";
+
+        return {
+          id: `live-104-${item.job_id || idx}`,
+          source: "104 Job Bank (Live)",
+          sourceUrl: item.source_url || "https://www.104.com.tw/",
+          titleOriginal: title,
+          companyOriginal: item.company_name_original || "104 Employer",
+          location: normalizeLocationKey(locRaw),
+          locationDisplay: { en: locRaw, zh: locRaw },
+          salaryDisplay: {
+            en: item.salary_display || "Not provided",
+            zh: item.salary_display || "待遇面議"
+          },
+          salaryMin: 50000,
+          postingDate: item.posting_date || "2026-11-24",
+          lastChecked: "Live 104 API Sync",
+          classification: cat,
+          relatedTags: [],
+          managementObject: {
+            en: cat === "PjM" ? "Project Delivery & Coordination" : "Product & Cross-Functional Execution",
+            zh: cat === "PjM" ? "專案交付與跨團隊協調" : "產品規劃與跨職能執行"
+          },
+          summary: {
+            en: jd.slice(0, 220) + (jd.length > 220 ? "..." : ""),
+            zh: jd.slice(0, 220) + (jd.length > 220 ? "..." : "")
+          },
+          rationale: {
+            en: `Live vacancy fetched from 104 Job Bank (${locRaw}). Click "Analyze with OpenAI" in detail view for full KSA breakdown.`,
+            zh: `即時從 104 人力銀行擷取之真實職缺（${locRaw}）。點擊詳情可進行 OpenAI 深度職能拆解。`
+          },
+          jdOriginal: jd,
+          competencies: [
+            {
+              category: "Skills",
+              name: { en: "104 Live JD Requirement (Click Detail for OpenAI Analysis)", zh: "104 即時職缺條件（開啟詳情執行 OpenAI 分析）" },
+              requirement: "Required",
+              evidenceType: "Explicit",
+              excerpt: jd.slice(0, 120)
+            }
+          ]
+        };
+      });
+
+      jobsData.splice(0, jobsData.length, ...mappedJobs);
+      appState.selectedForCompare = new Set(mappedJobs.slice(0, 2).map((j) => j.id));
+      renderJobs();
+      renderCompetencyInsights();
+      populateFitTargetDropdown();
+    } catch (_) {
+      // Tetap gunakan data bawaan jika backend belum siap
+    }
+  }
+
+  // 2. Sambungkan Career Fit Assessment ke OpenAI via Render
   const _origRunCareerFitAssessment = window.runCareerFitAssessment;
   window.runCareerFitAssessment = async function () {
     const narrative = document.getElementById("fitNarrativeInput").value.trim();
@@ -2467,8 +2550,8 @@
     container.innerHTML = `
       <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs sm:text-sm font-medium text-blue-800 dark:text-blue-200">
         ${mapBackendLang() === "en"
-          ? "Analyzing career fit via Render backend & OpenAI..."
-          : "正在透過 Render 後端與 OpenAI 分析職涯適配度..."}
+          ? "Analyzing 104 vacancy & your narrative with OpenAI..."
+          : "正在透過 OpenAI 分析 104 職缺與你的經驗敘述..."}
       </div>
     `;
 
@@ -2476,7 +2559,7 @@
       const aiResult = await callBackend("/api/career-fit", {
         narrative,
         target_job_title: targetJob.titleOriginal,
-        target_jd_summary: targetJob.summary[appState.lang] || targetJob.summary.en,
+        target_jd_summary: targetJob.jdOriginal || targetJob.summary[appState.lang],
         language: mapBackendLang()
       }, "POST");
 
@@ -2484,7 +2567,7 @@
         <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <span class="text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-              ${mapBackendLang() === "en" ? "AI Career Fit Analysis (OpenAI via Render)" : "AI 職涯適配度分析結果（Render + OpenAI）"}
+              ${mapBackendLang() === "en" ? "AI Career Fit Analysis (Live 104 + OpenAI)" : "AI 職涯適配度分析（104 即時職缺 + OpenAI）"}
             </span>
             <span class="text-[11px] font-mono text-slate-500">Model: ${escapeHtml(aiResult.model || "gpt-4o-mini")}</span>
           </div>
@@ -2493,10 +2576,15 @@
           )}</pre>
         </div>
       `;
-    } catch (err) {
+    } catch (_) {
       _origRunCareerFitAssessment();
     }
   };
+
+  // 3. Jalankan sinkronisasi 104 live saat halaman dibuka
+  window.addEventListener("DOMContentLoaded", () => {
+    loadLive104Jobs("Product Manager");
+  });
 </script>
 </body>
 </html>
