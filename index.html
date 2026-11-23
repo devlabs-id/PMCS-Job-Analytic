@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMCS_G1_TP_v1.0 | AI-Powered PM/PjM Job Discovery & Career Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9eaff',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              900: '#172554',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    }
+    .glass-header {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .evidence-highlight {
+      background-color: rgba(250, 204, 21, 0.35);
+      border-bottom: 2px solid #eab308;
+      padding: 1px 4px;
+      border-radius: 4px;
+      transition: all 0.25s ease;
+    }
+    .dark .evidence-highlight {
+      background-color: rgba(234, 179, 8, 0.28);
+      border-bottom: 2px solid #facc15;
+    }
+    /* Custom thin scrollbar for drawers and comparison panels */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.45);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 overflow-x-hidden">
+
+  <!-- Sticky Global Navigation Header -->
+  <header class="sticky top-0 z-40 glass-header bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-2">
+        <!-- Brand Identity -->
+        <a href="#overview" class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm">
+            PM
+          </div>
+          <div class="truncate">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm sm:text-base tracking-tight truncate">PMCS Career Intelligence</span>
+              <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200">
+                PMCS_G1_TP_v1.0
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate" data-i18n="header.subtitle">
+              104 Job Bank Evidence-Backed PM/PjM Explorer
+            </p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-1 text-sm font-medium" aria-label="Main Navigation">
+          <a href="#overview" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.overview">Overview</a>
+          <a href="#guide" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.guide">Career Guide</a>
+          <a href="#explorer" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.explorer">Job Explorer</a>
+          <a href="#insights" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.insights">Competency Insights</a>
+          <a href="#assessment" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.assessment">Career Fit</a>
+          <a href="#operations" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.operations">Agent & Team</a>
+        </nav>
+
+        <!-- Global Controls: Bilingual Toggle, Theme Toggle, Mobile Menu Button -->
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- Language Switch (EN / 繁體中文) -->
+          <button
+            id="langToggleBtn"
+            type="button"
+            onclick="toggleLanguage()"
+            class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5"
+            aria-label="Switch Language"
+          >
+            <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span id="langLabel">繁體中文</span>
+          </button>
+
+          <!-- Light / Dark Theme Toggle -->
+          <button
+            id="themeToggleBtn"
+            type="button"
+            onclick="toggleTheme()"
+            class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+            aria-label="Toggle Light or Dark Theme"
+            title="Toggle Light / Dark Mode"
+          >
+            <!-- Sun Icon (shown in dark mode) -->
+            <svg id="sunIcon" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <!-- Moon Icon (shown in light mode) -->
+            <svg id="moonIcon" class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+
+          <!-- Mobile Drawer Menu Toggle -->
+          <button
+            id="mobileMenuBtn"
+            type="button"
+            onclick="toggleMobileMenu()"
+            class="lg:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition"
+            aria-label="Open Navigation Menu"
+            aria-expanded="false"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapsible Mobile Drawer Menu -->
+    <div id="mobileMenuDrawer" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1">
+      <a href="#overview" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.overview">Overview</a>
+      <a href="#guide" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.guide">Career Guide: PM or PjM?</a>
+      <a href="#explorer" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.explorer">Job Explorer & Comparison</a>
+      <a href="#insights" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.insights">Competency Insights</a>
+      <a href="#assessment" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.assessment">Career Fit Assessment</a>
+      <a href="#operations" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.operations">Agent Activity & Team</a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <!-- =========================================================
+         SECTION 1: OVERVIEW & PIPELINE SUMMARY
+    ========================================================== -->
+    <section id="overview" class="space-y-8 scroll-mt-20">
+      <!-- Top Course & Provenance Banner -->
+      <div class="rounded-2xl border border-blue-200 dark:border-blue-900/70 bg-blue-50/80 dark:bg-blue-950/40 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-start sm:items-center gap-3">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shrink-0">
+            PMCS_G1_TP_v1.0
+          </span>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+            <span class="font-semibold" data-i18n="banner.advisorLabel">Faculty Advisor:</span>
+            <span class="font-bold text-blue-700 dark:text-blue-300">PROF. SHIHMIN LO</span>
+            <span class="mx-1.5">•</span>
+            <span data-i18n="banner.scopeNotice">Course MVP Demo using curated 104 Job Bank sample vacancies (illustrative dataset, not complete Taiwan market coverage).</span>
+          </p>
+        </div>
+        <div class="text-xs font-medium text-slate-600 dark:text-slate-400 shrink-0 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span data-i18n="banner.syncLabel">Last Successful Sync:</span>
+          <span class="font-mono font-semibold text-slate-800 dark:text-slate-200">2026-11-23 06:00 CST</span>
+        </div>
+      </div>
+
+      <!-- Hero Card -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+              <span>PRD v1.6</span>
+              <span>•</span>
+              <span data-i18n="hero.badge">Responsibilities Over Titles • Evidence Over Assumptions</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight" data-i18n="hero.title">
+              From Job Descriptions to Career Clarity
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="hero.desc">
+              An AI-powered PM/PjM Job Discovery and Career Intelligence Platform built exclusively around authorized 104 Job Bank vacancy evidence. Understand what Product and Project Management roles actually do, distinguish explicit requirements from AI inferences, and evaluate your career fit.
+            </p>
+            <div class="flex flex-wrap gap-3 pt-1">
+              <a href="#explorer" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition inline-flex items-center gap-2">
+                <span data-i18n="hero.ctaExplorer">Explore 104 Vacancies</span>
+                <span>→</span>
+              </a>
+              <a href="#guide" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold text-sm transition" data-i18n="hero.ctaGuide">
+                Learn PM vs PjM
+              </a>
+              <a href="#assessment" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/70 font-semibold text-sm transition" data-i18n="hero.ctaFit">
+                Try Career Fit Check
+              </a>
+            </div>
+          </div>
+
+          <!-- Dataset Snapshot Metrics -->
+          <div class="lg:col-span-5 grid grid-cols-2 gap-3.5">
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.totalLabel">Curated 104 Sample</div>
+              <div class="text-2xl sm:text-3xl font-extrabold mt-1 text-blue-600 dark:text-blue-400">6 <span class="text-sm font-semibold text-slate-500" data-i18n="metrics.rolesUnit">Vacancies</span></div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.totalSub">100% preserved original JDs</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.taxonomyLabel">Role Breakdown</div>
+              <div class="text-lg sm:text-xl font-extrabold mt-1.5 text-slate-800 dark:text-slate-100">2 PM • 1 PjM • 1 Hybrid</div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.taxonomySub">+ 1 Unclear, 1 Other</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.ksaLabel">Extracted KSA Signals</div>
+              <div class="text-2xl sm:text-3xl font-extrabold mt-1 text-emerald-600 dark:text-emerald-400">24</div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.ksaSub">16 Explicit • 8 AI-Inferred</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.sourceLabel">Exclusive Data Source</div>
+              <div class="text-lg sm:text-xl font-extrabold mt-1.5 text-amber-600 dark:text-amber-400">104 Job Bank</div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.sourceSub">Authorized API design</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End-to-End Technical & Design Pipeline Diagram (PRD Section 1.7) -->
+        <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="pipeline.heading">
+              End-to-End Design Rationale & Data Pipeline (PRD v1.6 Conceptual Architecture)
+            </h2>
+            <span class="text-xs text-slate-500 dark:text-slate-400" data-i18n="pipeline.note">Click any stage to inspect data governance rules</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="pipelineStages">
+            <!-- Populated by JS for bilingual reactivity -->
+          </div>
+          <div id="pipelineDetailBox" class="mt-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: CAREER GUIDE — PM OR PjM?
+    ========================================================== -->
+    <section id="guide" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="guide.eyebrow">01 • Career Foundation</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-1" data-i18n="guide.title">Career Guide: Product Manager (PM) vs. Project Manager (PjM)</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl" data-i18n="guide.subtitle">
+          Job titles across companies are inconsistent. We classify roles by their primary management object and ultimate accountability—not title keywords alone.
+        </p>
+      </div>
+
+      <!-- Side-by-Side PM vs PjM Comparison Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- PM Card -->
+        <div class="rounded-3xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900/60 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200">PM • Product Manager</span>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400" data-i18n="guide.pmObjectTag">Object: The Product</span>
+          </div>
+          <blockquote class="p-3.5 rounded-2xl bg-blue-50/80 dark:bg-blue-950/40 border-l-4 border-blue-600 text-sm font-semibold italic text-slate-800 dark:text-slate-200" data-i18n="guide.pmQuestion">
+            “What product should we build, and why?”
+          </blockquote>
+          <div class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <p><strong class="text-slate-900 dark:text-white" data-i18n="guide.ultimateLabel">Ultimate Responsibility:</strong> <span data-i18n="guide.pmUltimate">Product value and business/user outcomes; ensuring the product solves the right problems.</span></p>
+            <div>
+              <strong class="text-slate-900 dark:text-white" data-i18n="guide.respLabel">Core Responsibilities:</strong>
+              <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs sm:text-sm" id="pmRespList"></ul>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button type="button" onclick="filterFromGuide('PM')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline" data-i18n="guide.explorePmBtn">
+              Filter PM Vacancies in Explorer →
+            </button>
+          </div>
+        </div>
+
+        <!-- PjM Card -->
+        <div class="rounded-3xl bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-900/60 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/70 dark:text-emerald-200">PjM • Project Manager</span>
+            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400" data-i18n="guide.pjmObjectTag">Object: The Project</span>
+          </div>
+          <blockquote class="p-3.5 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/40 border-l-4 border-emerald-600 text-sm font-semibold italic text-slate-800 dark:text-slate-200" data-i18n="guide.pjmQuestion">
+            “How do we deliver the agreed work within scope, time, and resource constraints?”
+          </blockquote>
+          <div class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <p><strong class="text-slate-900 dark:text-white" data-i18n="guide.ultimateLabel">Ultimate Responsibility:</strong> <span data-i18n="guide.pjmUltimate">Project objectives and on-time, within-budget, quality delivery across stakeholders.</span></p>
+            <div>
+              <strong class="text-slate-900 dark:text-white" data-i18n="guide.respLabel">Core Responsibilities:</strong>
+              <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs sm:text-sm" id="pjmRespList"></ul>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button type="button" onclick="filterFromGuide('PjM')" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline" data-i18n="guide.explorePjmBtn">
+              Filter PjM Vacancies in Explorer →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-Category Classification Taxonomy Explorer -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h3 class="text-lg font-bold" data-i18n="guide.taxonomyTitle">5-Category Responsibility Classification Taxonomy</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400" data-i18n="guide.taxonomyRule">Rule: Unrelated vacancies are excluded during scope screening before labeling.</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="taxonomyGrid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: JOB EXPLORER & MULTI-JOB COMPARISON
+    ========================================================== -->
+    <section id="explorer" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="explorer.eyebrow">02 • Evidence-Backed Discovery</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-1" data-i18n="explorer.title">Job Explorer & Multi-Job Comparison</h2>
+        </div>
+        <div class="text-xs text-slate-500 dark:text-slate-400" data-i18n="explorer.sourceNote">
+          Original job titles and source JDs remain intact in their original language.
+        </div>
+      </div>
+
+      <!-- Search, Natural-Language Query & Filter Control Panel -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-5">
+        <!-- Search Mode Tabs -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="inline-flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1">
+            <button type="button" id="modeKeywordBtn" onclick="setSearchMode('keyword')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 shadow-sm transition" data-i18n="explorer.modeKeyword">
+              Keyword & Filters
+            </button>
+            <button type="button" id="modeNlBtn" onclick="setSearchMode('nl')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 transition" data-i18n="explorer.modeNl">
+              AI Natural-Language Search
+            </button>
+          </div>
+          <button type="button" onclick="resetFilters()" class="text-xs font-semibold text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition" data-i18n="explorer.resetBtn">
+            Reset All Filters
+          </button>
+        </div>
+
+        <!-- Keyword Search Input -->
+        <div id="keywordSearchBox" class="grid grid-cols-1 md:grid-cols-12 gap-3">
+          <div class="md:col-span-6 relative">
+            <input
+              id="searchInput"
+              type="text"
+              oninput="handleSearchInput()"
+              placeholder="Search title, company, or JD keyword (e.g. roadmap, Agile, 產品規劃)..."
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div class="md:col-span-3">
+            <select id="locationFilter" onchange="renderJobs()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="ALL" data-i18n="explorer.allLocations">All Locations</option>
+              <option value="Taipei">Taipei / 台北市</option>
+              <option value="New Taipei">New Taipei / 新北市</option>
+              <option value="Hsinchu">Hsinchu / 新竹市</option>
+              <option value="Taichung">Taichung / 台中市</option>
+            </select>
+          </div>
+          <div class="md:col-span-3">
+            <select id="sortSelect" onchange="renderJobs()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="newest" data-i18n="explorer.sortNewest">Sort: Posting Date (Newest)</option>
+              <option value="salaryDesc" data-i18n="explorer.sortSalary">Sort: Stated Min Salary (High → Low)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- AI Natural-Language Search Box (PRD Section 7.4 / FR-024..FR-027) -->
+        <div id="nlSearchBox" class="hidden space-y-3">
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input
+              id="nlInput"
+              type="text"
+              placeholder="e.g., Find PM jobs in Taipei with salary above NT$50,000 and roadmap experience"
+              class="flex-1 px-4 py-2.5 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50/40 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button type="button" onclick="parseNaturalLanguageQuery()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition shrink-0" data-i18n="explorer.parseBtn">
+              Parse & Apply
+            </button>
+          </div>
+          <!-- Sample NL Prompts -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="text-slate-500 dark:text-slate-400" data-i18n="explorer.samplePromptsLabel">Try sample query:</span>
+            <button type="button" onclick="applySampleNl('PM jobs in Taipei above NT$55,000')" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-slate-700 dark:text-slate-300 transition">
+              "PM jobs in Taipei above NT$55,000"
+            </button>
+            <button type="button" onclick="applySampleNl('PjM or Hybrid roles with cross-functional delivery and no direct reports')" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-slate-700 dark:text-slate-300 transition">
+              "PjM or Hybrid roles with cross-functional delivery & no direct reports"
+            </button>
+          </div>
+          <!-- Parsed Editable Conditions Display -->
+          <div id="parsedConditionsBox" class="hidden p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-2 text-xs"></div>
+        </div>
+
+        <!-- Multi-select Classification Filter Pills (FR-022) -->
+        <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1" data-i18n="explorer.filterRoleLabel">Role Classification:</span>
+          <div id="classificationPills" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <!-- Comparison Selection Toolbar (FR-035..FR-037) -->
+      <div id="compareBar" class="rounded-2xl bg-indigo-600 text-white p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+        <div class="flex items-center gap-3">
+          <span class="px-2.5 py-1 rounded-lg bg-white/20 text-xs font-extrabold" id="compareCountBadge">0 Selected</span>
+          <p class="text-xs sm:text-sm font-medium" id="compareStatusText" data-i18n="compare.hint">
+            Select 2 or more vacancies (including across PM, PjM, Hybrid, Unclear, or Other) to run an evidence-backed comparison.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button type="button" onclick="clearCompareSelection()" class="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-semibold transition" data-i18n="compare.clearBtn">
+            Clear
+          </button>
+          <button type="button" id="openCompareBtn" onclick="openComparisonModal()" disabled class="px-4 py-2 rounded-xl bg-white text-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-xs sm:text-sm shadow-sm transition" data-i18n="compare.runBtn">
+            Compare Selected Vacancies
+          </button>
+        </div>
+      </div>
+
+      <!-- Job Cards Grid -->
+      <div id="jobsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: COMPETENCY INSIGHTS (KSA AGGREGATION)
+    ========================================================== -->
+    <section id="insights" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="insights.eyebrow">03 • Dataset Patterns</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-1" data-i18n="insights.title">Competency Insights (KSA Framework)</h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <label for="insightRoleFilter" class="text-xs font-semibold text-slate-500 dark:text-slate-400" data-i18n="insights.filterLabel">Dataset Slice:</label>
+          <select id="insightRoleFilter" onchange="renderCompetencyInsights()" class="px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs sm:text-sm font-medium">
+            <option value="ALL" data-i18n="insights.sliceAll">All Analyzed Vacancies (n = 6)</option>
+            <option value="PM">PM Only (n = 2)</option>
+            <option value="PjM">PjM Only (n = 1)</option>
+            <option value="Hybrid">Hybrid Only (n = 1)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
+        <!-- Sample Size & Coverage Limitation Banner (FR-049) -->
+        <div class="p-3.5 rounded-2xl bg-amber-50/90 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/70 text-xs text-amber-900 dark:text-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <span id="insightSampleNotice"></span>
+          <span class="font-semibold shrink-0" data-i18n="insights.explicitLegend">Solid = Explicit JD Requirement • Striped/Light = AI-Inferred Signal</span>
+        </div>
+
+        <!-- KSA Bars Container -->
+        <div id="ksaBarsContainer" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: CAREER FIT ASSESSMENT (SESSION-SCOPED)
+    ========================================================== -->
+    <section id="assessment" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="fit.eyebrow">04 • Exploratory Reflection</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-1" data-i18n="fit.title">Career Fit Assessment</h2>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300" data-i18n="fit.sessionBadge">
+          Session-Temporary • Not Stored Permanently
+        </span>
+      </div>
+
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
+        <!-- Exploratory Disclaimer (FR-055, FR-056) -->
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-600 dark:text-slate-300" data-i18n="fit.disclaimer">
+          This exploratory tool compares your self-reported experience narrative against competencies extracted from our curated 104 Job Bank sample. It is not a psychological test, certification, or hiring probability score, and your input stays strictly in this browser session.
+        </div>
+
+        <!-- Free-Text Narrative Input (Option A per PRD Section 18.1 #8) -->
+        <div class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <label for="fitNarrativeInput" class="text-sm font-bold" data-i18n="fit.inputLabel">
+              Describe your projects, internships, coursework, or work responsibilities & outcomes:
+            </label>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <button type="button" onclick="fillSampleNarrative('pmStudent')" class="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-semibold hover:bg-blue-100 transition" data-i18n="fit.samplePmBtn">
+                Sample: Student App Project (PM-leaning)
+              </button>
+              <button type="button" onclick="fillSampleNarrative('pjmGrad')" class="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold hover:bg-emerald-100 transition" data-i18n="fit.samplePjmBtn">
+                Sample: Event & Delivery Lead (PjM-leaning)
+              </button>
+            </div>
+          </div>
+
+          <textarea
+            id="fitNarrativeInput"
+            rows="4"
+            placeholder="Example: I led a 4-person university capstone team building a campus food-waste app. I interviewed 25 students to define user pain points, prioritized MVP features on our roadmap, and coordinated weekly sprints with engineers..."
+            class="w-full p-4 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <label for="fitTargetJobSelect" class="text-xs font-semibold text-slate-500 dark:text-slate-400" data-i18n="fit.targetJobLabel">Compare against vacancy:</label>
+              <select id="fitTargetJobSelect" class="px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs sm:text-sm font-medium"></select>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="clearAssessmentSession()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="fit.clearBtn">
+                Clear Session
+              </button>
+              <button type="button" onclick="runCareerFitAssessment()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-sm transition" data-i18n="fit.analyzeBtn">
+                Analyze Career Fit
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Assessment Output Area -->
+        <div id="fitResultContainer" class="hidden pt-4 border-t border-slate-200 dark:border-slate-800 space-y-5"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: AGENT ACTIVITY & GROUP 1 TEAM / ADVISOR
+    ========================================================== -->
+    <section id="operations" class="space-y-8 scroll-mt-20">
+      <!-- Agent Activity & Daily Sync Monitor (PRD Section 7.8 & 14.9) -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400" data-i18n="ops.eyebrow">05 • Data Operations & Provenance</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5" data-i18n="ops.title">Agent Activity & Daily 104 Sync Status</h2>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200" data-i18n="ops.statusBadge">
+            Status: Healthy (Last Run Verified)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.scheduleLabel">Scheduled Sync</div>
+            <div class="font-bold mt-1">06:00 Asia/Taipei</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.lastSuccessLabel">Last Successful Sync</div>
+            <div class="font-bold mt-1">2026-11-23 06:02:14</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.dedupLabel">Deduplication & Validation</div>
+            <div class="font-bold mt-1" data-i18n="ops.dedupVal">6 Valid • 0 Corrupted</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+            <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.queueLabel">AI Batch Queue</div>
+            <div class="font-bold mt-1" data-i18n="ops.queueVal">6/6 Analyzed (v1.6)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group 1 Team Introductions & Faculty Advisor Card (Course Mandatory Requirement) -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-200 dark:border-slate-800">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 mb-2">
+              Group 1 • PMCS_G1_TP_v1.0
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="team.title">Project Team & Task Assignments</h2>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="team.advisorTitle">Faculty Advisor / 指導老師</div>
+            <div class="text-lg sm:text-xl font-extrabold text-blue-700 dark:text-blue-300 mt-0.5">PROF. SHIHMIN LO</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="teamCardsGrid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div>
+        <strong class="text-slate-800 dark:text-slate-200">PMCS_G1_TP_v1.0</strong> — AI-Powered PM/PjM Job Discovery & Career Intelligence Platform
+      </div>
+      <div>
+        <span data-i18n="footer.advisor">Faculty Advisor:</span> <strong class="text-slate-800 dark:text-slate-200">PROF. SHIHMIN LO</strong> • <span data-i18n="footer.source">Data Source: 104 Job Bank (Curated MVP Sample)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       MODAL 1: JOB DETAIL & EVIDENCE ANALYSIS MODAL
+  ========================================================== -->
+  <div id="jobDetailModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap" id="modalBadges"></div>
+          <h3 id="modalJobTitle" class="text-lg sm:text-xl font-extrabold mt-1 truncate"></h3>
+          <p id="modalJobMeta" class="text-xs text-slate-500 dark:text-slate-400"></p>
+        </div>
+        <button type="button" onclick="closeJobDetailModal()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition shrink-0" aria-label="Close modal">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Body -->
+      <div id="modalBody" class="p-6 overflow-y-auto space-y-6 text-sm"></div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 flex flex-wrap items-center justify-between gap-3">
+        <button type="button" onclick="askAssistantAboutCurrentJob()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition" data-i18n="modal.askAssistantBtn">
+          Ask Floating AI Assistant About This Vacancy
+        </button>
+        <button type="button" onclick="closeJobDetailModal()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="modal.closeBtn">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: MULTI-JOB COMPARISON MODAL (FR-038..FR-044)
+  ========================================================== -->
+  <div id="comparisonModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg sm:text-xl font-extrabold" data-i18n="compareModal.title">Multi-Job Responsibility & Evidence Comparison</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="compareModal.subtitle">Grouped by original AI classification without forcing Unclear or Other roles into PM/PjM.</p>
+        </div>
+        <button type="button" onclick="closeComparisonModal()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+          ✕
+        </button>
+      </div>
+      <div id="comparisonModalBody" class="p-6 overflow-y-auto space-y-6 text-sm"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PERSISTENT FLOATING AI ASSISTANT (FR-057..FR-061)
+  ========================================================== -->
+  <div class="fixed bottom-4 right-4 z-40 flex flex-col items-end">
+    <!-- Chat Window -->
+    <div id="assistantPanel" class="hidden mb-3 w-[calc(100vw-2rem)] sm:w-96 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[75vh]">
+      <div class="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
+        <div>
+          <div class="font-bold text-sm flex items-center gap-2">
+            <span>PMCS AI Career Assistant</span>
+          </div>
+          <div id="assistantContextBadge" class="text-[11px] text-blue-100 mt-0.5">
+            Mode: General PM/PjM Career Guidance
+          </div>
+        </div>
+        <button type="button" onclick="toggleAssistant()" class="p-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs">✕</button>
+      </div>
+
+      <!-- Messages Feed -->
+      <div id="assistantMessages" class="p-4 overflow-y-auto space-y-3 text-xs sm:text-sm flex-1 min-h-[220px] max-h-[340px]"></div>
+
+      <!-- Quick Prompt Chips -->
+      <div id="assistantQuickChips" class="px-3 py-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-wrap gap-1.5"></div>
+
+      <!-- Input Form -->
+      <form onsubmit="handleAssistantSubmit(event)" class="p-3 border-t border-slate-200 dark:border-slate-800 flex gap-2">
+        <input
+          id="assistantInput"
+          type="text"
+          placeholder="Ask about PM/PjM or current vacancy..."
+          class="flex-1 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button type="submit" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition" data-i18n="assistant.sendBtn">
+          Send
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Trigger Button -->
+    <button
+      type="button"
+      onclick="toggleAssistant()"
+      class="px-4 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs sm:text-sm shadow-lg flex items-center gap-2 transition"
+      aria-label="Open Floating AI Assistant"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+      </svg>
+      <span data-i18n="assistant.fabLabel">AI Career Assistant</span>
+    </button>
+  </div>
+
+  <!-- =========================================================
+       APPLICATION DATA & LOGIC (VANILLA JS)
+  ========================================================== -->
+  <script>
+    // ---------------------------------------------------------
+    // 1. STATE MANAGEMENT
+    // ---------------------------------------------------------
+    const appState = {
+      lang: 'en', // 'en' | 'zh'
+      theme: 'light', // 'light' | 'dark'
+      activePipelineStep: 0,
+      searchMode: 'keyword', // 'keyword' | 'nl'
+      selectedCategories: new Set(['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']),
+      selectedForCompare: new Set(['job-104-01', 'job-104-02']),
+      activeDetailJobId: null,
+      assistantOpen: false,
+      chatHistory: []
+    };
+
+    // ---------------------------------------------------------
+    // 2. BILINGUAL UI DICTIONARY (EN & 繁體中文)
+    // ---------------------------------------------------------
+    const i18n = {
+      en: {
+        'header.subtitle': '104 Job Bank Evidence-Backed PM/PjM Explorer',
+        'nav.overview': 'Overview',
+        'nav.guide': 'Career Guide',
+        'nav.explorer': 'Job Explorer',
+        'nav.insights': 'Competency Insights',
+        'nav.assessment': 'Career Fit',
+        'nav.operations': 'Agent & Team',
+        'banner.advisorLabel': 'Faculty Advisor:',
+        'banner.scopeNotice': 'Course MVP Demo using curated 104 Job Bank sample vacancies (illustrative dataset, not complete Taiwan market coverage).',
+        'banner.syncLabel': 'Last Successful Sync:',
+        'hero.badge': 'Responsibilities Over Titles • Evidence Over Assumptions',
+        'hero.title': 'From Job Descriptions to Career Clarity',
+        'hero.desc': 'An AI-powered PM/PjM Job Discovery and Career Intelligence Platform built exclusively around authorized 104 Job Bank vacancy evidence. Understand what Product and Project Management roles actually do, distinguish explicit requirements from AI inferences, and evaluate your career fit.',
+        'hero.ctaExplorer': 'Explore 104 Vacancies',
+        'hero.ctaGuide': 'Learn PM vs PjM',
+        'hero.ctaFit': 'Try Career Fit Check',
+        'metrics.totalLabel': 'Curated 104 Sample',
+        'metrics.rolesUnit': 'Vacancies',
+        'metrics.totalSub': '100% preserved original JDs',
+        'metrics.taxonomyLabel': 'Role Breakdown',
+        'metrics.taxonomySub': '+ 1 Unclear, 1 Other',
+        'metrics.ksaLabel': 'Extracted KSA Signals',
+        'metrics.ksaSub': '16 Explicit • 8 AI-Inferred',
+        'metrics.sourceLabel': 'Exclusive Data Source',
+        'metrics.sourceSub': 'Authorized API design',
+        'pipeline.heading': 'End-to-End Design Rationale & Data Pipeline (PRD v1.6 Conceptual Architecture)',
+        'pipeline.note': 'Click any stage to inspect data governance rules',
+        'guide.eyebrow': '01 • Career Foundation',
+        'guide.title': 'Career Guide: Product Manager (PM) vs. Project Manager (PjM)',
+        'guide.subtitle': 'Job titles across companies are inconsistent. We classify roles by their primary management object and ultimate accountability—not title keywords alone.',
+        'guide.pmObjectTag': 'Object: The Product',
+        'guide.pmQuestion': '“What product should we build, and why?”',
+        'guide.ultimateLabel': 'Ultimate Responsibility:',
+        'guide.pmUltimate': 'Product value and business/user outcomes; ensuring the product solves the right problems.',
+        'guide.respLabel': 'Core Responsibilities:',
+        'guide.explorePmBtn': 'Filter PM Vacancies in Explorer →',
+        'guide.pjmObjectTag': 'Object: The Project',
+        'guide.pjmQuestion': '“How do we deliver the agreed work within scope, time, and resource constraints?”',
+        'guide.pjmUltimate': 'Project objectives and on-time, within-budget, quality delivery across stakeholders.',
+        'guide.explorePjmBtn': 'Filter PjM Vacancies in Explorer →',
+        'guide.taxonomyTitle': '5-Category Responsibility Classification Taxonomy',
+        'guide.taxonomyRule': 'Rule: Unrelated vacancies are excluded during scope screening before labeling.',
+        'explorer.eyebrow': '02 • Evidence-Backed Discovery',
+        'explorer.title': 'Job Explorer & Multi-Job Comparison',
+        'explorer.sourceNote': 'Original job titles and source JDs remain intact in their original language.',
+        'explorer.modeKeyword': 'Keyword & Filters',
+        'explorer.modeNl': 'AI Natural-Language Search',
+        'explorer.resetBtn': 'Reset All Filters',
+        'explorer.allLocations': 'All Locations',
+        'explorer.sortNewest': 'Sort: Posting Date (Newest)',
+        'explorer.sortSalary': 'Sort: Stated Min Salary (High → Low)',
+        'explorer.parseBtn': 'Parse & Apply',
+        'explorer.samplePromptsLabel': 'Try sample query:',
+        'explorer.filterRoleLabel': 'Role Classification:',
+        'compare.hint': 'Select 2 or more vacancies (including across PM, PjM, Hybrid, Unclear, or Other) to run an evidence-backed comparison.',
+        'compare.clearBtn': 'Clear',
+        'compare.runBtn': 'Compare Selected Vacancies',
+        'insights.eyebrow': '03 • Dataset Patterns',
+        'insights.title': 'Competency Insights (KSA Framework)',
+        'insights.filterLabel': 'Dataset Slice:',
+        'insights.sliceAll': 'All Analyzed Vacancies (n = 6)',
+        'insights.explicitLegend': 'Solid = Explicit JD Requirement • Striped/Light = AI-Inferred Signal',
+        'fit.eyebrow': '04 • Exploratory Reflection',
+        'fit.title': 'Career Fit Assessment',
+        'fit.sessionBadge': 'Session-Temporary • Not Stored Permanently',
+        'fit.disclaimer': 'This exploratory tool compares your self-reported experience narrative against competencies extracted from our curated 104 Job Bank sample. It is not a psychological test, certification, or hiring probability score, and your input stays strictly in this browser session.',
+        'fit.inputLabel': 'Describe your projects, internships, coursework, or work responsibilities & outcomes:',
+        'fit.samplePmBtn': 'Sample: Student App Project (PM-leaning)',
+        'fit.samplePjmBtn': 'Sample: Event & Delivery Lead (PjM-leaning)',
+        'fit.targetJobLabel': 'Compare against vacancy:',
+        'fit.clearBtn': 'Clear Session',
+        'fit.analyzeBtn': 'Analyze Career Fit',
+        'ops.eyebrow': '05 • Data Operations & Provenance',
+        'ops.title': 'Agent Activity & Daily 104 Sync Status',
+        'ops.statusBadge': 'Status: Healthy (Last Run Verified)',
+        'ops.scheduleLabel': 'Scheduled Sync',
+        'ops.lastSuccessLabel': 'Last Successful Sync',
+        'ops.dedupLabel': 'Deduplication & Validation',
+        'ops.dedupVal': '6 Valid • 0 Corrupted',
+        'ops.queueLabel': 'AI Batch Queue',
+        'ops.queueVal': '6/6 Analyzed (v1.6)',
+        'team.title': 'Project Team & Task Assignments',
+        'team.advisorTitle': 'Faculty Advisor / 指導老師',
+        'footer.advisor': 'Faculty Advisor:',
+        'footer.source': 'Data Source: 104 Job Bank (Curated MVP Sample)',
+        'modal.askAssistantBtn': 'Ask Floating AI Assistant About This Vacancy',
+        'modal.closeBtn': 'Close',
+        'compareModal.title': 'Multi-Job Responsibility & Evidence Comparison',
+        'compareModal.subtitle': 'Grouped by original AI classification without forcing Unclear or Other roles into PM/PjM.',
+        'assistant.fabLabel': 'AI Career Assistant',
+        'assistant.sendBtn': 'Send'
+      },
+      zh: {
+        'header.subtitle': '104 人力銀行實證導向 PM/PjM 職涯探索平台',
+        'nav.overview': '平台總覽',
+        'nav.guide': '職涯指南',
+        'nav.explorer': '職缺探索與比較',
+        'nav.insights': '職能洞察',
+        'nav.assessment': '適配度評估',
+        'nav.operations': '系統狀態與團隊',
+        'banner.advisorLabel': '指導老師：',
+        'banner.scopeNotice': '課程 MVP 展示版：採用精選 104 人力銀行範例職缺資料（僅供教學與概念驗證，非台灣全市場普查）。',
+        'banner.syncLabel': '最近成功同步時間：',
+        'hero.badge': '職責優先於職稱 • 實證優先於臆測',
+        'hero.title': '從繁雜職缺描述，走向清晰職涯方向',
+        'hero.desc': '專為學生與初入職場者打造的 AI 驅動 PM/PjM 職缺探索與職涯情報平台。獨家整合授權 104 人力銀行職缺實證，拆解產品經理與專案經理的真實職責，區分明文要求與 AI 推論，協助你做出有依據的職涯規劃。',
+        'hero.ctaExplorer': '探索 104 精選職缺',
+        'hero.ctaGuide': '認識 PM 與 PjM 差異',
+        'hero.ctaFit': '進行職涯適配度評估',
+        'metrics.totalLabel': '精選 104 範例資料集',
+        'metrics.rolesUnit': '筆職缺',
+        'metrics.totalSub': '100% 完整保留原始 JD 原文',
+        'metrics.taxonomyLabel': '職責分類分佈',
+        'metrics.taxonomySub': '+ 1 筆 Unclear、1 筆 Other',
+        'metrics.ksaLabel': '萃取 KSA 職能訊號',
+        'metrics.ksaSub': '16 項明文要求 • 8 項 AI 推論',
+        'metrics.sourceLabel': '唯一外部資料來源',
+        'metrics.sourceSub': '授權 104 API 架構設計',
+        'pipeline.heading': '端到端設計理念與資料處理管線（PRD v1.6 概念架構）',
+        'pipeline.note': '點擊任一階段檢視資料治理與驗證規則',
+        'guide.eyebrow': '01 • 職涯基礎認知',
+        'guide.title': '職涯指南：產品經理 (PM) 與專案經理 (PjM) 差在哪？',
+        'guide.subtitle': '各企業對職稱的定義並不一致。本平台依據「主要管理對象」與「最終當責目標」進行分類，而非僅看職稱關鍵字。',
+        'guide.pmObjectTag': '管理對象：產品 (Product)',
+        'guide.pmQuestion': '「我們應該打造什麼產品？為什麼它能創造價值？」',
+        'guide.ultimateLabel': '最終當責目標：',
+        'guide.pmUltimate': '產品價值與商業／使用者成效，確保團隊解決正確的問題並持續迭代產品生命週期。',
+        'guide.respLabel': '核心工作職責：',
+        'guide.explorePmBtn': '在職缺探索中篩選 PM 職缺 →',
+        'guide.pjmObjectTag': '管理對象：專案 (Project)',
+        'guide.pjmQuestion': '「如何在既定範疇、時程、資源與品質限制下成功交付成果？」',
+        'guide.ultimateLabel': '最終當責目標：',
+        'guide.pjmUltimate': '專案目標與如期如質交付，協調跨部門資源並控管時程與風險。',
+        'guide.explorePjmBtn': '在職缺探索中篩選 PjM 職缺 →',
+        'guide.taxonomyTitle': '五類別職責分類架構（5-Category Taxonomy）',
+        'guide.taxonomyRule': '範圍篩選規則：與產品或專案管理無關的職缺會在分類前先被排除。',
+        'explorer.eyebrow': '02 • 實證導向職缺探索',
+        'explorer.title': '職缺探索與跨職缺比較',
+        'explorer.sourceNote': '原始職稱與 104 JD 原文均完整保留，不被 AI 翻譯或改寫覆蓋。',
+        'explorer.modeKeyword': '關鍵字與結構化篩選',
+        'explorer.modeNl': 'AI 自然語言搜尋',
+        'explorer.resetBtn': '重設所有條件',
+        'explorer.allLocations': '所有地區',
+        'explorer.sortNewest': '排序：發布日期（最新優先）',
+        'explorer.sortSalary': '排序：明文最低月薪（高 → 低）',
+        'explorer.parseBtn': '解析並套用條件',
+        'explorer.samplePromptsLabel': '試試自然語言範例：',
+        'explorer.filterRoleLabel': '職責分類篩選：',
+        'compare.hint': '勾選 2 筆以上職缺（支援跨 PM、PjM、Hybrid、Unclear 或 Other 類別比較），產生實證對照分析。',
+        'compare.clearBtn': '清除勾選',
+        'compare.runBtn': '開始比較已選職缺',
+        'insights.eyebrow': '03 • 資料集職能分佈',
+        'insights.title': '職能洞察（KSA 知識・技能・態度架構）',
+        'insights.filterLabel': '資料集篩選維度：',
+        'insights.sliceAll': '全部已分析職缺 (n = 6)',
+        'insights.explicitLegend': '實色條 = JD 明文要求 (Explicit) • 淺色條 = AI 推論訊號 (Inferred)',
+        'fit.eyebrow': '04 • 探索性自我檢視',
+        'fit.title': '職涯適配度評估（Career Fit Assessment）',
+        'fit.sessionBadge': '僅限本次瀏覽階段 • 不永久儲存個資',
+        'fit.disclaimer': '本工具為探索性比對功能，將你填寫的專案、實習或修課經驗敘述與 104 範例職缺需求進行對照。此結果並非心理測驗、專業認證或錄取機率預測，且資料僅暫存於目前瀏覽器階段。',
+        'fit.inputLabel': '請用自然語言描述你的專案、實習、社團、修課或工作經驗、負責內容與成果：',
+        'fit.samplePmBtn': '代入範例：校園 App 專案（偏 PM）',
+        'fit.samplePjmBtn': '代入範例：大型活動與交付統籌（偏 PjM）',
+        'fit.targetJobLabel': '選擇比對目標職缺：',
+        'fit.clearBtn': '清除本次紀錄',
+        'fit.analyzeBtn': '執行適配度實證比對',
+        'ops.eyebrow': '05 • 資料管線與來源透明度',
+        'ops.title': 'Agent 運行狀態與每日 104 同步監控',
+        'ops.statusBadge': '狀態：正常運作（最近同步已驗證）',
+        'ops.scheduleLabel': '排程同步時間',
+        'ops.lastSuccessLabel': '最近成功更新時間',
+        'ops.dedupLabel': '資料驗證與去重',
+        'ops.dedupVal': '6 筆有效 • 0 筆異常',
+        'ops.queueLabel': 'AI 批次分析佇列',
+        'ops.queueVal': '6/6 已完成分析 (v1.6)',
+        'team.title': '第一組專題團隊與工作分配',
+        'team.advisorTitle': '指導老師 / Faculty Advisor',
+        'footer.advisor': '指導老師：',
+        'footer.source': '資料來源：104 人力銀行（課程 MVP 精選範例集）',
+        'modal.askAssistantBtn': '針對此職缺詢問懸浮 AI 助理',
+        'modal.closeBtn': '關閉視窗',
+        'compareModal.title': '多職缺職責與實證對照報告',
+        'compareModal.subtitle': '依據原始 AI 分類分組比較，絕不將 Unclear 或 Other 職缺強行歸類為 PM 或 PjM。',
+        'assistant.fabLabel': 'AI 職涯助理',
+        'assistant.sendBtn': '發送'
+      }
+    };
+
+    // ---------------------------------------------------------
+    // 3. CURATED 104 JOB BANK SAMPLE DATASET (PRD v1.6 COMPLIANT)
+    // ---------------------------------------------------------
+    const jobsData = [
+      {
+        id: 'job-104-01',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: '資深產品經理 Senior Product Manager (SaaS 平台)',
+        companyOriginal: '雲脈數位科技股份有限公司',
+        location: 'Taipei',
+        locationDisplay: { en: 'Taipei City (Xinyi Dist.)', zh: '台北市信義區' },
+        salaryDisplay: { en: 'NT$65,000 – 85,000 / month', zh: '月薪 65,000 ~ 85,000 元' },
+        salaryMin: 65000,
+        postingDate: '2026-11-22',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'PM',
+        relatedTags: [],
+        managementObject: { en: 'B2B Cloud SaaS Product & User Value', zh: 'B2B 雲端 SaaS 產品與用戶價值' },
+        summary: {
+          en: 'Owns end-to-end B2B SaaS product strategy, customer discovery interviews, feature prioritization, and product adoption metrics.',
+          zh: '負責 B2B SaaS 產品策略規劃、客戶訪談需求探索、功能優先級排序與產品導入成效指標。'
+        },
+        rationale: {
+          en: 'Classified as PM because the role is directly accountable for product roadmap prioritization, user problem discovery, and product value KPIs rather than pure schedule tracking.',
+          zh: '判定為 PM：職缺明確要求主導產品路線圖（Roadmap）排序、用戶痛點研究與產品留存價值指標，管理核心為「產品本身」。'
+        },
+        jdOriginal: `【工作內容】
+1. 負責 B2B 雲端協作產品之長期產品策略與季度 Roadmap 規劃，定義產品核心價值主張。
+2. 進行企業客戶深度訪談與市場競品分析，將商業痛點轉化為具體 PRD 與 User Story。
+3. 依據數據指標（如激活率、留存率）動態調整功能開發優先順序（Prioritization）。
+4. 與 UI/UX 設計師及前後端工程團隊緊密協作，確保產品體驗符合用戶需求。
+
+【條件要求】
+- 2年以上軟體或網路產品經理（PM）相關經驗，具備從 0 到 1 產品規劃經驗者佳。
+- 熟悉數據分析工具（GA4 / SQL 基礎查詢）與敏捷開發流程。
+- 具備優秀的跨部門溝通協調能力與結構化邏輯思維。`,
+        competencies: [
+          {
+            category: 'Knowledge',
+            name: { en: 'Product Strategy & Roadmapping', zh: '產品策略與路線圖規劃' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '負責 B2B 雲端協作產品之長期產品策略與季度 Roadmap 規劃'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'User Research & PRD Writing', zh: '用戶訪談與 PRD 撰寫' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '進行企業客戶深度訪談與市場競品分析，將商業痛點轉化為具體 PRD 與 User Story'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Data Analytics (GA4 / SQL)', zh: '數據分析（GA4 / SQL）' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '熟悉數據分析工具（GA4 / SQL 基礎查詢）'
+          },
+          {
+            category: 'Attitudes',
+            name: { en: 'Outcome-Oriented Prioritization', zh: '價值導向決策與排序' },
+            requirement: 'Unclear',
+            evidenceType: 'Inferred',
+            excerpt: '依據數據指標（如激活率、留存率）動態調整功能開發優先順序'
+          }
+        ]
+      },
+      {
+        id: 'job-104-02',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: '技術專案經理 Technical Project Manager (系統整合交付)',
+        companyOriginal: '緯星智慧系統股份有限公司',
+        location: 'New Taipei',
+        locationDisplay: { en: 'New Taipei City (Banqiao Dist.)', zh: '新北市板橋區' },
+        salaryDisplay: { en: 'NT$58,000 – 75,000 / month', zh: '月薪 58,000 ~ 75,000 元' },
+        salaryMin: 58000,
+        postingDate: '2026-11-21',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'PjM',
+        relatedTags: [],
+        managementObject: { en: 'Enterprise System Integration Projects', zh: '企業系統整合專案交付' },
+        summary: {
+          en: 'Manages project schedules, WBS milestones, vendor/engineering resource allocation, risk mitigation, and on-time client delivery.',
+          zh: '統籌企業系統整合專案時程、WBS 里程碑追蹤、內外部資源調度、風險控管與如期驗收交付。'
+        },
+        rationale: {
+          en: 'Classified as PjM because the position manages agreed project scope, budget, milestones, and delivery risks without owning product market strategy.',
+          zh: '判定為 PjM：工作核心圍繞專案範疇（Scope）、時程（WBS）、預算與客戶驗收交付，並無主導產品市場定價或產品策略。'
+        },
+        jdOriginal: `【工作內容】
+1. 負責大型企業系統整合專案之全生命週期管理，制定專案計畫書、WBS 與關鍵里程碑。
+2. 追蹤跨部門研發、測試與維運團隊進度，確保專案在既定預算與時程內如期交付驗收。
+3. 識別專案執行風險與範疇變更（Scope Change），主導客戶與內部利害關係人溝通協調。
+4. 定期產出專案進度週報與風險評估報告，協助排除資源瓶頸。
+
+【條件要求】
+- 2年以上 IT 或軟體專案管理經驗，具備 PMP 或 PMI-ACP 證照者優先考慮。
+- 熟悉 Jira、MS Project 等專案管理工具。
+- 具備高度責任感、抗壓性與跨團隊衝突解決能力。`,
+        competencies: [
+          {
+            category: 'Knowledge',
+            name: { en: 'Project Lifecycle & WBS Planning', zh: '專案生命週期與 WBS 規劃' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '負責大型企業系統整合專案之全生命週期管理，制定專案計畫書、WBS 與關鍵里程碑'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Risk & Scope Change Management', zh: '專案風險與範疇變更控管' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '識別專案執行風險與範疇變更（Scope Change），主導客戶與內部利害關係人溝通協調'
+          },
+          {
+            category: 'Knowledge',
+            name: { en: 'PMP / Agile Certification Knowledge', zh: 'PMP / 敏捷專案管理知識' },
+            requirement: 'Preferred',
+            evidenceType: 'Explicit',
+            excerpt: '具備 PMP 或 PMI-ACP 證照者優先考慮'
+          },
+          {
+            category: 'Attitudes',
+            name: { en: 'Stress Resilience & Accountability', zh: '高抗壓性與交付當責態度' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '具備高度責任感、抗壓性與跨團隊衝突解決能力'
+          }
+        ]
+      },
+      {
+        id: 'job-104-03',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: '數位產品專案經理 Digital Product & Project Manager',
+        companyOriginal: '晨光金融科技股份有限公司',
+        location: 'Taipei',
+        locationDisplay: { en: 'Taipei City (Songshan Dist.)', zh: '台北市松山區' },
+        salaryDisplay: { en: 'NT$60,000 – 80,000 / month', zh: '月薪 60,000 ~ 80,000 元' },
+        salaryMin: 60000,
+        postingDate: '2026-11-20',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'Hybrid',
+        relatedTags: [],
+        managementObject: { en: 'Mobile Banking Feature Value + Cross-Team Release Delivery', zh: '行動金融產品體驗價值與跨團隊專案交付' },
+        summary: {
+          en: 'Carries dual accountability for defining mobile app feature requirements/KPIs (PM) and driving multi-vendor release schedules & compliance milestones (PjM).',
+          zh: '同時承擔行動 App 功能需求與轉換率指標（PM 職責），以及跨廠商開發時程與合規上線里程碑控管（PjM 職責）。'
+        },
+        rationale: {
+          en: 'Classified as Hybrid because the JD demonstrates substantive accountability for both product value outcomes (conversion KPIs, feature design) and formal project delivery governance.',
+          zh: '判定為 Hybrid：JD 同時具備實質的產品價值指標（轉化率、功能設計）與嚴謹的跨部門專案時程與合規交付責任。'
+        },
+        jdOriginal: `【工作內容】
+1. 規劃行動銀行 App 新功能需求、用戶旅程優化與產品轉換率指標（KPI），撰寫完整規格書。
+2. 統籌跨資訊、法遵、行銷與外部合作廠商之專案時程排程，控管各階段上線里程碑。
+3. 追蹤用戶上線後數據回饋以推動產品迭代，同時負責專案預算控管與風險回報。
+
+【條件要求】
+- 2年以上數位金融或電商產品／專案管理經驗。
+- 熟悉需求規格分析（Wireframe / Flow）與專案時程管理工具。
+- 善於在快速變動環境中平衡商業目標與交付時程。`,
+        competencies: [
+          {
+            category: 'Skills',
+            name: { en: 'User Journey & Functional Spec Design', zh: '用戶旅程與功能規格設計' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '規劃行動銀行 App 新功能需求、用戶旅程優化與產品轉換率指標（KPI），撰寫完整規格書'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Multi-Stakeholder Schedule & Budget Control', zh: '跨部門時程與專案預算控管' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '統籌跨資訊、法遵、行銷與外部合作廠商之專案時程排程，控管各階段上線里程碑'
+          },
+          {
+            category: 'Attitudes',
+            name: { en: 'Balancing Value & Delivery Constraints', zh: '平衡產品價值與交付時程' },
+            requirement: 'Required',
+            evidenceType: 'Inferred',
+            excerpt: '善於在快速變動環境中平衡商業目標與交付時程'
+          }
+        ]
+      },
+      {
+        id: 'job-104-04',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: '產品企劃專員 Associate Product Specialist',
+        companyOriginal: '海風消費電子有限公司',
+        location: 'Hsinchu',
+        locationDisplay: { en: 'Hsinchu City (East Dist.)', zh: '新竹市東區' },
+        salaryDisplay: { en: 'Not provided (Employer listed negotiable)', zh: '待遇面議（經常性薪資達 4 萬元或以上）' },
+        salaryMin: 40000,
+        postingDate: '2026-11-19',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'Unclear',
+        relatedTags: ['PM-related'],
+        managementObject: { en: 'Insufficient JD Evidence (Product Support / Coordination)', zh: 'JD 證據不足（產品支援／行政協調）' },
+        summary: {
+          en: 'Assists product team with market data collection, documentation, and meeting follow-ups. Primary accountability between PM strategy and PjM delivery is not specified.',
+          zh: '協助產品團隊蒐集市場資料、整理文件與會議追蹤；原文未明確說明最終當責為產品策略或專案交付。'
+        },
+        rationale: {
+          en: 'Classified as Unclear per PRD rule 6.7: the role is within the PM/PjM domain, but the brief JD lacks sufficient evidence to confirm primary management ownership.',
+          zh: '判定為 Unclear（依據 PRD 6.7 規範）：職缺屬於產品／專案相關領域，但原始 JD 描述過於簡略，無法確認最終當責屬性。'
+        },
+        jdOriginal: `【工作內容】
+1. 協助資深產品經理蒐集國內外市場與競品資訊，彙整分析簡報。
+2. 協助追蹤產品開發會議決議事項與部門間文件傳遞。
+3. 支援產品上市前之行銷素材核對與行政事務。
+
+【條件要求】
+- 大學以上學歷，歡迎應屆畢業生或對產品企劃有熱忱者。
+- 熟悉 Office 文書軟體（Excel、PowerPoint）。
+- 細心負責、具備良好團隊合作精神。`,
+        competencies: [
+          {
+            category: 'Skills',
+            name: { en: 'Market & Competitor Information Gathering', zh: '市場與競品資訊蒐集彙整' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '協助資深產品經理蒐集國內外市場與競品資訊，彙整分析簡報'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Office Documentation & Meeting Tracking', zh: '文書簡報與會議追蹤' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '熟悉 Office 文書軟體（Excel、PowerPoint）'
+          },
+          {
+            category: 'Attitudes',
+            name: { en: 'Detail Orientation & Teamwork', zh: '細心負責與團隊合作' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '細心負責、具備良好團隊合作精神'
+          }
+        ]
+      },
+      {
+        id: 'job-104-05',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: '敏捷流程協調師 Scrum Master & Agile Coach',
+        companyOriginal: '星河網路娛樂股份有限公司',
+        location: 'Taipei',
+        locationDisplay: { en: 'Taipei City (Neihu Dist.)', zh: '台北市內湖區' },
+        salaryDisplay: { en: 'NT$55,000 – 72,000 / month', zh: '月薪 55,000 ~ 72,000 元' },
+        salaryMin: 55000,
+        postingDate: '2026-11-18',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'Other',
+        relatedTags: ['PjM-related'],
+        managementObject: { en: 'Agile Team Process & Ceremony Facilitation', zh: '敏捷團隊運作流程與儀式引導' },
+        summary: {
+          en: 'Facilitates Scrum ceremonies, removes team impediments, and coaches agile practices without owning product backlog value (PM) or contract delivery sign-off (PjM).',
+          zh: '引導 Scrum 敏捷儀式、排除團隊開發障礙並推動敏捷文化，但不直接擁有產品待辦清單決策權或專案合約交付簽核權。'
+        },
+        rationale: {
+          en: 'Classified as Other with tag [PjM-related]: substantively an Agile Process Facilitator role rather than a PM or PjM.',
+          zh: '判定為 Other（附加標籤 PjM-related）：本質為敏捷流程引導師（Scrum Master），雖與專案協作高度相關，但職責定位不同於 PM 或 PjM。'
+        },
+        jdOriginal: `【工作內容】
+1. 引導多個研發團隊執行 Scrum 儀式（Daily Standup、Sprint Planning、Retrospective）。
+2. 協助 Product Owner 與開發團隊建立順暢溝通節奏，主動識別並排除團隊流程障礙。
+3. 導入敏捷度量指標（如 Velocity、Cycle Time），持續優化團隊自組織能力。
+
+【條件要求】
+- 具備 CSM / PSM 敏捷認證或 2 年以上 Scrum Master 實務經驗。
+- 具備優秀的引導（Facilitation）與教練（Coaching）技巧。`,
+        competencies: [
+          {
+            category: 'Knowledge',
+            name: { en: 'Scrum Framework & Agile Metrics', zh: 'Scrum 框架與敏捷度量指標' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '引導多個研發團隊執行 Scrum 儀式...導入敏捷度量指標（如 Velocity、Cycle Time）'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Team Facilitation & Impediment Removal', zh: '團隊引導與流程障礙排除' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '具備優秀的引導（Facilitation）與教練（Coaching）技巧'
+          }
+        ]
+      },
+      {
+        id: 'job-104-06',
+        source: '104 Job Bank',
+        sourceUrl: 'https://www.104.com.tw/',
+        titleOriginal: 'AI 應用產品經理 Associate AI Product Manager',
+        companyOriginal: '智匯數據智能股份有限公司',
+        location: 'Taichung',
+        locationDisplay: { en: 'Taichung City (Xitun Dist.)', zh: '台中市西屯區' },
+        salaryDisplay: { en: 'NT$52,000 – 68,000 / month', zh: '月薪 52,000 ~ 68,000 元' },
+        salaryMin: 52000,
+        postingDate: '2026-11-23',
+        lastChecked: '2026-11-23 06:00',
+        classification: 'PM',
+        relatedTags: [],
+        managementObject: { en: 'AI Knowledge Assistant Product & Model Quality Outcomes', zh: 'AI 知識助理產品與模型回應品質成效' },
+        summary: {
+          en: 'Defines AI assistant use cases, writes prompt/evaluation criteria, prioritizes MVP features, and validates user satisfaction with engineering.',
+          zh: '定義企業 AI 助理應用場景、設計評估標準與 MVP 功能優先級，並與工程團隊驗證用戶滿意度。'
+        },
+        rationale: {
+          en: 'Classified as PM because the role defines product use cases, user value validation, and feature prioritization for an AI software product.',
+          zh: '判定為 PM：主導 AI 產品使用場景定義、評估指標設計與 MVP 功能排序，對產品使用價值負責。'
+        },
+        jdOriginal: `【工作內容】
+1. 探索企業內部知識檢索痛點，定義生成式 AI 助理之核心應用場景與產品規格。
+2. 設計 AI 回應品質評估集（Evaluation Set），與 AI 工程師協作優化準確率與使用者體驗。
+3. 管理產品待辦清單（Product Backlog）與版本迭代節奏，追蹤用戶採用率。
+
+【條件要求】
+- 1年以上軟體產品企劃或 PM 經驗，歡迎對 LLM / AI 應用有實作專案經驗之應屆畢業生。
+- 具備良好的問題拆解能力與跨職能溝通技巧。`,
+        competencies: [
+          {
+            category: 'Skills',
+            name: { en: 'Use-Case Definition & Backlog Prioritization', zh: '應用場景定義與待辦清單排序' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '定義生成式 AI 助理之核心應用場景與產品規格...管理產品待辦清單（Product Backlog）'
+          },
+          {
+            category: 'Knowledge',
+            name: { en: 'LLM Evaluation & AI Product Literacy', zh: 'LLM 品質評估與 AI 產品素養' },
+            requirement: 'Preferred',
+            evidenceType: 'Explicit',
+            excerpt: '設計 AI 回應品質評估集（Evaluation Set）...對 LLM / AI 應用有實作專案經驗'
+          },
+          {
+            category: 'Skills',
+            name: { en: 'Structured Problem Decomposition', zh: '結構化問題拆解能力' },
+            requirement: 'Required',
+            evidenceType: 'Explicit',
+            excerpt: '具備良好的問題拆解能力與跨職能溝通技巧'
+          }
+        ]
+      }
+    ];
+
+    // ---------------------------------------------------------
+    // 4. PIPELINE STAGES & GROUP 1 TEAM DATA
+    // ---------------------------------------------------------
+    const pipelineStagesData = [
+      {
+        step: '01',
+        title: { en: '104 Job Bank API', zh: '104 人力銀行授權 API' },
+        tag: { en: 'Exclusive Source', zh: '唯一外部來源' },
+        detail: {
+          en: 'Stage 01 — Authorized 104 Job Bank API retrieval only. No unauthorized scraping or external occupational datasets (O*NET/ESCO excluded) so every finding traces back to real Taiwanese job descriptions.',
+          zh: '階段 01 — 僅透過授權 104 人力銀行 API 取得公開職缺與 JD 原文，不使用未授權爬蟲或外部職業資料庫（排除 O*NET/ESCO），確保所有分析皆可追溯至真實台灣職缺。'
+        }
+      },
+      {
+        step: '02',
+        title: { en: 'Cleaning & Normalization', zh: '資料清洗與標準化' },
+        tag: { en: 'Integrity Check', zh: '完整性驗證' },
+        detail: {
+          en: 'Stage 02 — Validates field types, deduplicates by 104 source job ID, preserves missing fields as null ("Not provided") without AI guessing, and keeps original text untouched.',
+          zh: '階段 02 — 驗證欄位型別、依據 104 原始職缺 ID 去重、將缺失欄位保留為空值（顯示「未提供」）絕不以 AI 臆測填補，並完整保留原始文本。'
+        }
+      },
+      {
+        step: '03',
+        title: { en: 'Backend & Persistence', zh: '後端整合與資料庫儲存' },
+        tag: { en: 'FastAPI + PostgreSQL', zh: 'FastAPI + PostgreSQL' },
+        detail: {
+          en: 'Stage 03 — Backend orchestrates credentials and rate-limited requests (never exposed in browser code) and stores original source records separately from AI-derived analysis.',
+          zh: '階段 03 — 由後端安全管理金鑰與速率限制（絕不暴露於前端程式碼），並將原始職缺資料與 AI 衍生分析結果分層儲存。'
+        }
+      },
+      {
+        step: '04',
+        title: { en: 'OpenAI Evidence Analysis', zh: 'OpenAI 實證分析引擎' },
+        tag: { en: 'KSA & 5-Taxonomy', zh: 'KSA 與五類分類' },
+        detail: {
+          en: 'Stage 04 — Classifies roles by management object & responsibility (PM, PjM, Hybrid, Unclear, Other), extracts KSA competencies, and distinguishes Explicit vs. AI-Inferred evidence.',
+          zh: '階段 04 — 依據管理對象與最終當責進行五類分類（PM、PjM、Hybrid、Unclear、Other），萃取 KSA 職能，並嚴格標註「明文要求 (Explicit)」與「AI 推論 (Inferred)」。'
+        }
+      },
+      {
+        step: '05',
+        title: { en: 'Bilingual UI Presentation', zh: '雙語響應式介面呈現' },
+        tag: { en: 'EN / 繁中 • Light/Dark', zh: '英／繁中 • 亮／暗色' },
+        detail: {
+          en: 'Stage 05 — Delivers responsive discovery, multi-job comparison, competency insights, temporary Career Fit reflection, and a context-aware AI assistant in English and Traditional Chinese.',
+          zh: '階段 05 — 提供跨裝置響應式職缺探索、多職缺比較、職能統計、暫存式適配度評估與情境感知 AI 助理，完整支援繁體中文與英文切換。'
+        }
+      }
+    ];
+
+    const teamMembersData = [
+      {
+        roleBadge: { en: 'Product & PRD Lead', zh: '產品規劃與 PRD 統籌' },
+        name: 'Shiva Pratiata (Group 1)',
+        tasks: {
+          en: 'Consolidated PRD v1.6 architecture, defined PM/PjM responsibility taxonomy, bilingual UX flows, and interactive web deployment.',
+          zh: '整合 PRD v1.6 產品架構、制定 PM/PjM 職責分類準則、設計雙語互動介面流程與網頁部署。'
+        }
+      },
+      {
+        roleBadge: { en: '104 Data & Pipeline Lead', zh: '104 資料與管線設計' },
+        name: 'Group 1 Member 2 (組員二)',
+        tasks: {
+          en: 'Designed 104 Job Bank API schema mapping, data cleaning/deduplication rules, and daily 06:00 sync provenance tracking.',
+          zh: '規劃 104 人力銀行 API 欄位映射、資料清洗與去重規則，以及每日 06:00 同步溯源機制。'
+        }
+      },
+      {
+        roleBadge: { en: 'AI Analysis & KSA Evaluation', zh: 'AI 分析與 KSA 評估' },
+        name: 'Group 1 Member 3 (組員三)',
+        tasks: {
+          en: 'Developed KSA competency extraction guardrails, Explicit vs. Inferred evidence labeling, and reference dataset evaluation.',
+          zh: '建立 KSA 職能萃取規範、明文與推論證據標註標準，以及人工標註基準集評估測試。'
+        }
+      },
+      {
+        roleBadge: { en: 'Frontend QA & Documentation', zh: '前端測試與專題文件' },
+        name: 'Group 1 Member 4 (組員四)',
+        tasks: {
+          en: 'Executed responsive viewport testing, light/dark accessibility checks, Career Fit test cases, and submission packaging.',
+          zh: '執行多螢幕響應式測試、亮／暗色主題無障礙檢查、適配度測試案例與專題繳交彙整。'
+        }
+      }
+    ];
+
+    // ---------------------------------------------------------
+    // 5. RENDERING FUNCTIONS
+    // ---------------------------------------------------------
+    function t(key) {
+      return (i18n[appState.lang] && i18n[appState.lang][key]) || i18n.en[key] || key;
+    }
+
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+      });
+
+      // Update search input placeholder
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.placeholder = appState.lang === 'en'
+          ? 'Search title, company, or JD keyword (e.g. roadmap, Agile, 產品規劃)...'
+          : '搜尋職稱、公司或 JD 關鍵字（例如：Roadmap、WBS、產品規劃）...';
+      }
+
+      const nlInput = document.getElementById('nlInput');
+      if (nlInput) {
+        nlInput.placeholder = appState.lang === 'en'
+          ? 'e.g., Find PM jobs in Taipei with salary above NT$50,000 and roadmap experience'
+          : '例如：尋找台北地區月薪 55,000 以上且具備 Roadmap 經驗的 PM 職缺';
+      }
+
+      const assistantInput = document.getElementById('assistantInput');
+      if (assistantInput) {
+        assistantInput.placeholder = appState.lang === 'en'
+          ? 'Ask about PM/PjM or current vacancy...'
+          : '詢問 PM/PjM 職涯差異或目前檢視的職缺...';
+      }
+
+      document.getElementById('langLabel').textContent = appState.lang === 'en' ? '繁體中文' : 'English';
+    }
+
+    function renderPipeline() {
+      const container = document.getElementById('pipelineStages');
+      container.innerHTML = pipelineStagesData.map((stage, idx) => {
+        const active = idx === appState.activePipelineStep;
+        return `
+          <button
+            type="button"
+            onclick="selectPipelineStage(${idx})"
+            class="text-left p-4 rounded-2xl border transition ${
+              active
+                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                : 'bg-slate-50 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 hover:border-blue-400'
+            }"
+          >
+            <div class="flex items-center justify-between text-xs font-bold opacity-80">
+              <span>STEP ${stage.step}</span>
+              <span>${stage.tag[appState.lang]}</span>
+            </div>
+            <div class="font-bold text-sm mt-1.5">${stage.title[appState.lang]}</div>
+          </button>
+        `;
+      }).join('');
+
+      const activeStage = pipelineStagesData[appState.activePipelineStep];
+      document.getElementById('pipelineDetailBox').textContent = activeStage.detail[appState.lang];
+    }
+
+    function selectPipelineStage(idx) {
+      appState.activePipelineStep = idx;
+      renderPipeline();
+    }
+
+    function renderCareerGuide() {
+      const pmItems = appState.lang === 'en'
+        ? [
+            'Product strategy, market & user problem discovery',
+            'PRD definition, user stories, and feature prioritization',
+            'Product roadmap & lifecycle outcome measurement (adoption, retention)'
+          ]
+        : [
+            '產品策略制定、市場與用戶核心痛點探索',
+            '撰寫產品需求文件（PRD）、User Story 與功能優先級排序',
+            '產品路線圖（Roadmap）規劃與產品價值指標追蹤（採用率、留存率）'
+          ];
+
+      const pjmItems = appState.lang === 'en'
+        ? [
+            'Project planning, WBS breakdown, and milestone scheduling',
+            'Cross-functional resource, vendor, and budget coordination',
+            'Scope change control, risk mitigation, and delivery sign-off'
+          ]
+        : [
+            '專案計畫書擬定、工作分解結構（WBS）與關鍵里程碑排程',
+            '跨部門研發、外部廠商與專案預算資源協調',
+            '範疇變更（Scope Change）控管、風險預警與如期驗收交付'
+          ];
+
+      document.getElementById('pmRespList').innerHTML = pmItems.map((item) => `<li>${item}</li>`).join('');
+      document.getElementById('pjmRespList').innerHTML = pjmItems.map((item) => `<li>${item}</li>`).join('');
+
+      const taxonomy = [
+        {
+          code: 'PM',
+          color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200',
+          desc: {
+            en: 'Primarily manages a product and is accountable for product direction, requirements, prioritization, and user/business value.',
+            zh: '主要管理對象為「產品」，對產品方向、需求排序與商業／用戶價值成效負責。'
+          }
+        },
+        {
+          code: 'PjM',
+          color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/70 dark:text-emerald-200',
+          desc: {
+            en: 'Primarily manages a project and is accountable for planning, coordination, risk, constraints, and on-time delivery.',
+            zh: '主要管理對象為「專案」，對時程規劃、跨團隊協調、風險控管與如期交付負責。'
+          }
+        },
+        {
+          code: 'Hybrid',
+          color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/70 dark:text-purple-200',
+          desc: {
+            en: 'Carries meaningful accountability for both product-value outcomes (PM) and formal project-delivery governance (PjM).',
+            zh: '同時承擔實質的產品價值決策（PM）與嚴謹的跨部門專案交付控管（PjM）雙重職責。'
+          }
+        },
+        {
+          code: 'Unclear',
+          color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/70 dark:text-amber-200',
+          desc: {
+            en: 'Within PM/PjM domain scope, but the source JD is too brief or ambiguous to verify primary accountability.',
+            zh: '屬於 PM/PjM 相關領域，但原始 JD 資訊過於簡略或模糊，證據不足以判定主要當責。'
+          }
+        },
+        {
+          code: 'Other',
+          color: 'bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200',
+          desc: {
+            en: 'Adjacent domain role (tagged PM-related or PjM-related, e.g., Scrum Master) rather than a core PM or PjM.',
+            zh: '相關領域職能（附加 PM-related 或 PjM-related 標籤，如敏捷教練），本質非核心 PM/PjM。'
+          }
+        }
+      ];
+
+      document.getElementById('taxonomyGrid').innerHTML = taxonomy.map((item) => `
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-lg text-xs font-extrabold ${item.color}">${item.code}</span>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${item.desc[appState.lang]}</p>
+        </div>
+      `).join('');
+    }
+
+    function getCategoryBadgeClass(cat) {
+      const map = {
+        PM: 'bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200 border-blue-200 dark:border-blue-800',
+        PjM: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/70 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800',
+        Hybrid: 'bg-purple-100 text-purple-800 dark:bg-purple-900/70 dark:text-purple-200 border-purple-200 dark:border-purple-800',
+        Unclear: 'bg-amber-100 text-amber-800 dark:bg-amber-900/70 dark:text-amber-200 border-amber-200 dark:border-amber-800',
+        Other: 'bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600'
+      };
+      return map[cat] || map.Other;
+    }
+
+    function renderClassificationPills() {
+      const categories = ['PM', 'PjM', 'Hybrid', 'Unclear', 'Other'];
+      const container = document.getElementById('classificationPills');
+      container.innerHTML = categories.map((cat) => {
+        const active = appState.selectedCategories.has(cat);
+        return `
+          <button
+            type="button"
+            onclick="toggleCategoryFilter('${cat}')"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
+              active
+                ? getCategoryBadgeClass(cat) + ' shadow-xs'
+                : 'bg-transparent text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800'
+            }"
+          >
+            ${active ? '✓ ' : ''}${cat}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function toggleCategoryFilter(cat) {
+      if (appState.selectedCategories.has(cat)) {
+        if (appState.selectedCategories.size > 1) {
+          appState.selectedCategories.delete(cat);
+        }
+      } else {
+        appState.selectedCategories.add(cat);
+      }
+      renderClassificationPills();
+      renderJobs();
+    }
+
+    function filterFromGuide(cat) {
+      appState.selectedCategories = new Set([cat]);
+      renderClassificationPills();
+      renderJobs();
+      document.getElementById('explorer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setSearchMode(mode) {
+      appState.searchMode = mode;
+      const kwBox = document.getElementById('keywordSearchBox');
+      const nlBox = document.getElementById('nlSearchBox');
+      const kwBtn = document.getElementById('modeKeywordBtn');
+      const nlBtn = document.getElementById('modeNlBtn');
+
+      if (mode === 'keyword') {
+        kwBox.classList.remove('hidden');
+        nlBox.classList.add('hidden');
+        kwBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 shadow-sm transition';
+        nlBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 transition';
+      } else {
+        kwBox.classList.add('hidden');
+        nlBox.classList.remove('hidden');
+        nlBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 shadow-sm transition';
+        kwBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 transition';
+      }
+    }
+
+    function applySampleNl(queryText) {
+      document.getElementById('nlInput').value = queryText;
+      parseNaturalLanguageQuery();
+    }
+
+    // Natural Language Query Parser with Transparent Structured vs JD vs Unknown distinction (FR-024..FR-027)
+    function parseNaturalLanguageQuery() {
+      const raw = document.getElementById('nlInput').value.trim();
+      if (!raw) return;
+      const lower = raw.toLowerCase();
+
+      // Detect classifications
+      const matchedCats = [];
+      if (/\bpm\b|product manager|產品經理/.test(lower)) matchedCats.push('PM');
+      if (/\bpjm\b|project manager|專案經理/.test(lower)) matchedCats.push('PjM');
+      if (/hybrid|混合/.test(lower)) matchedCats.push('Hybrid');
+      if (matchedCats.length > 0) {
+        appState.selectedCategories = new Set(matchedCats);
+        renderClassificationPills();
+      }
+
+      // Detect location
+      const locSelect = document.getElementById('locationFilter');
+      if (/taipei|台北/.test(lower) && !/new taipei|新北/.test(lower)) {
+        locSelect.value = 'Taipei';
+      } else if (/new taipei|新北/.test(lower)) {
+        locSelect.value = 'New Taipei';
+      } else if (/hsinchu|新竹/.test(lower)) {
+        locSelect.value = 'Hsinchu';
+      } else if (/taichung|台中/.test(lower)) {
+        locSelect.value = 'Taichung';
+      }
+
+      // Detect keyword signal
+      const searchInput = document.getElementById('searchInput');
+      if (/roadmap/.test(lower)) {
+        searchInput.value = 'Roadmap';
+      } else if (/delivery|交付/.test(lower)) {
+        searchInput.value = '交付';
+      } else {
+        searchInput.value = '';
+      }
+
+      const hasUnsupported = /direct reports|下屬|管理人數/.test(lower);
+      const box = document.getElementById('parsedConditionsBox');
+      box.classList.remove('hidden');
+      box.innerHTML = appState.lang === 'en'
+        ? `
+          <div class="font-bold text-slate-800 dark:text-slate-200">Parsed Search Conditions (Editable & Verified):</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 font-semibold">
+              [Structured Filter] Role: ${Array.from(appState.selectedCategories).join(', ')}
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 font-semibold">
+              [Structured Filter] Location: ${locSelect.value}
+            </span>
+            ${searchInput.value ? `<span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 font-semibold">[JD Text Evidence] Keyword: "${searchInput.value}"</span>` : ''}
+            ${hasUnsupported ? `<span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200 font-semibold">[Unsupported / Unknown Field] "No direct reports" is not explicitly stated in 104 fields—please verify in original JD.</span>` : ''}
+          </div>
+        `
+        : `
+          <div class="font-bold text-slate-800 dark:text-slate-200">已解析搜尋條件（可隨時調整，並區分欄位來源）：</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 font-semibold">
+              [結構化欄位] 職責分類：${Array.from(appState.selectedCategories).join(', ')}
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 font-semibold">
+              [結構化欄位] 地點：${locSelect.value}
+            </span>
+            ${searchInput.value ? `<span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 font-semibold">[JD 文本證據] 關鍵字：「${searchInput.value}」</span>` : ''}
+            ${hasUnsupported ? `<span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200 font-semibold">[無法驗證條件] 104 欄位未明文提供「是否管理下屬」，系統不會假設已驗證，請檢視原始 JD。</span>` : ''}
+          </div>
+        `;
+
+      renderJobs();
+    }
+
+    function handleSearchInput() {
+      renderJobs();
+    }
+
+    function resetFilters() {
+      appState.selectedCategories = new Set(['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']);
+      document.getElementById('searchInput').value = '';
+      document.getElementById('nlInput').value = '';
+      document.getElementById('locationFilter').value = 'ALL';
+      document.getElementById('sortSelect').value = 'newest';
+      document.getElementById('parsedConditionsBox').classList.add('hidden');
+      renderClassificationPills();
+      renderJobs();
+    }
+
+    function getFilteredJobs() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const locationVal = document.getElementById('locationFilter').value;
+      const sortVal = document.getElementById('sortSelect').value;
+
+      let list = jobsData.filter((job) => {
+        if (!appState.selectedCategories.has(job.classification)) return false;
+        if (locationVal !== 'ALL' && job.location !== locationVal) return false;
+        if (query) {
+          const haystack = [
+            job.titleOriginal,
+            job.companyOriginal,
+            job.jdOriginal,
+            job.summary.en,
+            job.summary.zh,
+            ...job.competencies.map((c) => `${c.name.en} ${c.name.zh}`)
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (sortVal === 'newest') {
+        list.sort((a, b) => b.postingDate.localeCompare(a.postingDate));
+      } else if (sortVal === 'salaryDesc') {
+        list.sort((a, b) => b.salaryMin - a.salaryMin);
+      }
+
+      return list;
+    }
+
+    function renderJobs() {
+      const grid = document.getElementById('jobsGrid');
+      const filtered = getFilteredJobs();
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="md:col-span-2 p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-2">
+            <div class="font-bold text-base">${appState.lang === 'en' ? 'No matching vacancies found in current filter slice.' : '目前篩選條件下無符合的範例職缺。'}</div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">${appState.lang === 'en' ? 'Try enabling more classification categories or resetting filters.' : '請嘗試勾選更多職責分類或點擊「重設所有條件」。'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map((job) => {
+        const isSelected = appState.selectedForCompare.has(job.id);
+        const viewBtnLabel = appState.lang === 'en' ? 'View Details & Evidence' : '檢視詳情與實證';
+        const compareBtnLabel = isSelected
+          ? (appState.lang === 'en' ? '✓ Selected for Compare' : '✓ 已加入比較')
+          : (appState.lang === 'en' ? '+ Compare' : '+ 加入比較');
+
+        return `
+          <article class="rounded-3xl bg-white dark:bg-slate-900 border ${isSelected ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'} p-5 sm:p-6 shadow-sm flex flex-col justify-between gap-4 transition">
+            <div class="space-y-3">
+              <!-- Top Badges Row -->
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">
+                    ${job.classification}
+                  </span>
+                  ${job.relatedTags.map((tag) => `<span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${tag}</span>`).join('')}
+                  <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200/70 dark:border-amber-800/60">
+                    104 Job Bank
+                  </span>
+                </div>
+                <span class="text-xs text-slate-400 font-mono">${job.postingDate}</span>
+              </div>
+
+              <!-- Original Title Preserved (FR-028) -->
+              <div>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
+                  ${job.titleOriginal}
+                </h3>
+                <p class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 mt-0.5">
+                  ${job.companyOriginal} • ${job.locationDisplay[appState.lang]}
+                </p>
+                <p class="text-xs font-semibold text-blue-700 dark:text-blue-300 mt-1">
+                  ${job.salaryDisplay[appState.lang]}
+                </p>
+              </div>
+
+              <!-- AI Plain-Language Summary -->
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
+                ${job.summary[appState.lang]}
+              </p>
+
+              <!-- Competency Evidence Preview Chips (Explicit vs Inferred) -->
+              <div class="flex flex-wrap gap-1.5">
+                ${job.competencies.slice(0, 3).map((comp) => `
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold ${
+                    comp.evidenceType === 'Explicit'
+                      ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800'
+                      : 'bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-200 border border-dashed border-amber-300 dark:border-amber-700'
+                  }">
+                    <span>${comp.name[appState.lang]}</span>
+                    <span class="opacity-75">(${comp.evidenceType})</span>
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onclick="openJobDetailModal('${job.id}')"
+                class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition"
+              >
+                ${viewBtnLabel}
+              </button>
+              <button
+                type="button"
+                onclick="toggleCompareJob('${job.id}')"
+                class="px-3.5 py-2 rounded-xl border text-xs font-bold transition ${
+                  isSelected
+                    ? 'bg-indigo-600 text-white border-indigo-600'
+                    : 'border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }"
+              >
+                ${compareBtnLabel}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      updateCompareToolbar();
+    }
+
+    // ---------------------------------------------------------
+    // 6. JOB DETAIL MODAL & EVIDENCE HIGHLIGHTING (FR-031..FR-034)
+    // ---------------------------------------------------------
+    function openJobDetailModal(jobId, highlightSnippet = '') {
+      const job = jobsData.find((j) => j.id === jobId);
+      if (!job) return;
+      appState.activeDetailJobId = jobId;
+      updateAssistantContextBadge();
+
+      document.getElementById('modalBadges').innerHTML = `
+        <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
+        ${job.relatedTags.map((tag) => `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 dark:bg-slate-800">${tag}</span>`).join('')}
+        <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+          104 Source Link ↗
+        </a>
+      `;
+      document.getElementById('modalJobTitle').textContent = job.titleOriginal;
+      document.getElementById('modalJobMeta').textContent = `${job.companyOriginal} • ${job.locationDisplay[appState.lang]} • ${job.salaryDisplay[appState.lang]} • Last Checked: ${job.lastChecked}`;
+
+      let formattedJd = escapeHtml(job.jdOriginal);
+      if (highlightSnippet) {
+        const escapedSnippet = escapeHtml(highlightSnippet);
+        formattedJd = formattedJd.replace(escapedSnippet, `<mark class="evidence-highlight">${escapedSnippet}</mark>`);
+      }
+
+      document.getElementById('modalBody').innerHTML = `
+        <!-- Classification Rationale Box -->
+        <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 space-y-1.5">
+          <div class="text-xs font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-300">
+            ${appState.lang === 'en' ? 'AI Responsibility Classification Rationale' : 'AI 職責分類依據說明'}
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200">${job.rationale[appState.lang]}</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            <strong>${appState.lang === 'en' ? 'Primary Management Object:' : '主要管理對象：'}</strong> ${job.managementObject[appState.lang]}
+          </p>
+        </div>
+
+        <!-- Two-Column Side-by-Side: Original JD vs KSA Competency Evidence -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Original JD Preserved Verbatim (FR-034) -->
+          <div class="lg:col-span-6 space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                ${appState.lang === 'en' ? 'Original 104 Job Description (Source Preserved)' : '104 原始職缺描述（原文完整保留）'}
+              </h4>
+            </div>
+            <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">${formattedJd}</pre>
+          </div>
+
+          <!-- Extracted KSA Competencies with Clickable Evidence -->
+          <div class="lg:col-span-6 space-y-2.5">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              ${appState.lang === 'en' ? 'Extracted KSA Competencies (Click to Highlight JD Passage)' : '萃取 KSA 職能（點擊可標亮對應 JD 原文）'}
+            </h4>
+            <div class="space-y-2.5">
+              ${job.competencies.map((comp) => `
+                <button
+                  type="button"
+                  onclick="openJobDetailModal('${job.id}', '${comp.excerpt.replace(/'/g, "\\'")}')"
+                  class="w-full text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-800/50 transition space-y-1.5"
+                >
+                  <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <span class="font-bold text-xs sm:text-sm">${comp.name[appState.lang]}</span>
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 dark:bg-slate-700">${comp.category}</span>
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                        comp.requirement === 'Required'
+                          ? 'bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-200'
+                          : 'bg-sky-100 text-sky-800 dark:bg-sky-900/60 dark:text-sky-200'
+                      }">${comp.requirement}</span>
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                        comp.evidenceType === 'Explicit'
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200'
+                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200'
+                      }">${comp.evidenceType}</span>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 italic">
+                    “${comp.excerpt}”
+                  </p>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('jobDetailModal').classList.remove('hidden');
+    }
+
+    function closeJobDetailModal() {
+      document.getElementById('jobDetailModal').classList.add('hidden');
+      appState.activeDetailJobId = null;
+      updateAssistantContextBadge();
+    }
+
+    // ---------------------------------------------------------
+    // 7. MULTI-JOB COMPARISON WORKFLOW (FR-035..FR-044)
+    // ---------------------------------------------------------
+    function toggleCompareJob(jobId) {
+      if (appState.selectedForCompare.has(jobId)) {
+        appState.selectedForCompare.delete(jobId);
+      } else {
+        appState.selectedForCompare.add(jobId);
+      }
+      renderJobs();
+    }
+
+    function clearCompareSelection() {
+      appState.selectedForCompare.clear();
+      renderJobs();
+    }
+
+    function updateCompareToolbar() {
+      const count = appState.selectedForCompare.size;
+      const badge = document.getElementById('compareCountBadge');
+      const btn = document.getElementById('openCompareBtn');
+      badge.textContent = appState.lang === 'en' ? `${count} Selected` : `已選 ${count} 筆`;
+      btn.disabled = count < 2;
+    }
+
+    function openComparisonModal() {
+      const selectedJobs = jobsData.filter((j) => appState.selectedForCompare.has(j.id));
+      if (selectedJobs.length < 2) return;
+
+      // Group vacancies by original AI classification (FR-039)
+      const groups = {};
+      selectedJobs.forEach((job) => {
+        if (!groups[job.classification]) groups[job.classification] = [];
+        groups[job.classification].push(job);
+      });
+
+      const groupKeys = Object.keys(groups);
+      const hasUnclearOrOther = groupKeys.some((k) => k === 'Unclear' || k === 'Other');
+
+      const synthesisHtml = appState.lang === 'en'
+        ? `
+          <div class="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-2">
+            <div class="font-extrabold text-indigo-800 dark:text-indigo-200 text-xs uppercase tracking-wider">Cross-Category Responsibility Synthesis</div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              You selected <strong>${selectedJobs.length} vacancies</strong> spanning <strong>${groupKeys.join(', ')}</strong>.
+              ${groupKeys.includes('PM') && groupKeys.includes('PjM')
+                ? 'While PM roles focus on product value, user discovery, and roadmap prioritization, PjM roles center on WBS milestones, scope change governance, and on-time delivery.'
+                : 'Within the selected set, compare the primary management objects and explicit vs. inferred competencies below.'}
+              ${hasUnclearOrOther ? ' Note: Unclear or Other roles are preserved in their own group rather than forced into PM/PjM.' : ''}
+            </p>
+          </div>
+        `
+        : `
+          <div class="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-2">
+            <div class="font-extrabold text-indigo-800 dark:text-indigo-200 text-xs uppercase tracking-wider">跨類別職責綜合比較分析</div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              你共選擇了 <strong>${selectedJobs.length} 筆職缺</strong>，涵蓋 <strong>${groupKeys.join('、')}</strong> 類別。
+              ${groupKeys.includes('PM') && groupKeys.includes('PjM')
+                ? 'PM 職缺聚焦於產品價值、用戶探索與 Roadmap 排序；PjM 職缺則專注於 WBS 里程碑、範疇變更控管與如期交付。'
+                : '請檢視下方依原始分類分組後之主要管理對象、薪資揭露與實證職能對照。'}
+              ${hasUnclearOrOther ? ' 註：Unclear 或 Other 職缺均保留原分類獨立呈現，不強行歸入 PM 或 PjM。' : ''}
+            </p>
+          </div>
+        `;
+
+      const groupsHtml = groupKeys.map((cat) => `
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-xl text-xs font-extrabold border ${getCategoryBadgeClass(cat)}">Group: ${cat} (${groups[cat].length})</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${groups[cat].map((job) => `
+              <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 space-y-2.5">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <div class="font-extrabold text-sm">${job.titleOriginal}</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">${job.companyOriginal} • ${job.locationDisplay[appState.lang]}</div>
+                  </div>
+                  <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 dark:text-blue-400 shrink-0">104 ↗</a>
+                </div>
+                <div class="text-xs">
+                  <strong>${appState.lang === 'en' ? 'Management Object:' : '管理對象：'}</strong> ${job.managementObject[appState.lang]}
+                </div>
+                <div class="text-xs">
+                  <strong>${appState.lang === 'en' ? 'Salary:' : '薪資揭露：'}</strong> ${job.salaryDisplay[appState.lang]}
+                </div>
+                <div class="text-xs">
+                  <strong>${appState.lang === 'en' ? 'Evidence-Backed Competencies:' : '實證職能清單：'}</strong>
+                  <ul class="list-disc list-inside mt-1 space-y-0.5 text-slate-600 dark:text-slate-300">
+                    ${job.competencies.map((c) => `<li>${c.name[appState.lang]} <span class="text-[11px] opacity-75">[${c.evidenceType}]</span></li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('comparisonModalBody').innerHTML = synthesisHtml + groupsHtml;
+      document.getElementById('comparisonModal').classList.remove('hidden');
+    }
+
+    function closeComparisonModal() {
+      document.getElementById('comparisonModal').classList.add('hidden');
+    }
+
+    // ---------------------------------------------------------
+    // 8. COMPETENCY INSIGHTS (KSA FREQUENCY AGGREGATION)
+    // ---------------------------------------------------------
+    function renderCompetencyInsights() {
+      const slice = document.getElementById('insightRoleFilter').value;
+      const subset = slice === 'ALL' ? jobsData : jobsData.filter((j) => j.classification === slice);
+      const n = subset.length;
+
+      document.getElementById('insightSampleNotice').textContent = appState.lang === 'en'
+        ? `Sample Scope: n = ${n} analyzed 104 vacancies (${slice}). Small-sample course dataset—do not interpret as universal Taiwan market statistics.`
+        : `統計樣本範圍：n = ${n} 筆已分析 104 職缺（篩選：${slice}）。此為課程小樣本展示資料集，不可推論為全台就業市場全貌。`;
+
+      const counts = {};
+      subset.forEach((job) => {
+        job.competencies.forEach((comp) => {
+          const key = comp.name.en;
+          if (!counts[key]) {
+            counts[key] = {
+              name: comp.name,
+              category: comp.category,
+              explicit: 0,
+              inferred: 0
+            };
+          }
+          if (comp.evidenceType === 'Explicit') counts[key].explicit += 1;
+          else counts[key].inferred += 1;
+        });
+      });
+
+      const sorted = Object.values(counts).sort((a, b) => (b.explicit + b.inferred) - (a.explicit + a.inferred));
+
+      document.getElementById('ksaBarsContainer').innerHTML = sorted.map((item) => {
+        const expPct = n > 0 ? Math.round((item.explicit / n) * 100) : 0;
+        const infPct = n > 0 ? Math.round((item.inferred / n) * 100) : 0;
+        return `
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 dark:bg-slate-800">${item.category}</span>
+                <span class="font-bold">${item.name[appState.lang]}</span>
+              </div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">
+                Explicit: ${item.explicit}/${n} (${expPct}%) • Inferred: ${item.inferred}/${n} (${infPct}%)
+              </span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden flex">
+              <div class="bg-blue-600 h-full transition-all duration-300" style="width: ${expPct}%"></div>
+              <div class="bg-amber-400/80 h-full transition-all duration-300" style="width: ${infPct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ---------------------------------------------------------
+    // 9. CAREER FIT ASSESSMENT (SESSION-SCOPED EXPLORATORY MATCHING)
+    // ---------------------------------------------------------
+    function populateFitTargetDropdown() {
+      const select = document.getElementById('fitTargetJobSelect');
+      select.innerHTML = jobsData.map((job) => `
+        <option value="${job.id}">[${job.classification}] ${job.titleOriginal}</option>
+      `).join('');
+    }
+
+    function fillSampleNarrative(type) {
+      const box = document.getElementById('fitNarrativeInput');
+      if (type === 'pmStudent') {
+        box.value = appState.lang === 'en'
+          ? 'During my university capstone project, I interviewed 25 students to identify campus food-waste pain points, wrote the product roadmap and PRD user stories, and used Google Analytics (GA4) to prioritize MVP features with our developers.'
+          : '在大學畢業專題中，我訪談了 25 位同學找出校園剩食痛點，負責撰寫產品 PRD、規劃功能優先級 Roadmap，並透過 GA4 數據追蹤 MVP 上線後的用戶留存與使用行為。';
+        document.getElementById('fitTargetJobSelect').value = 'job-104-01';
+      } else {
+        box.value = appState.lang === 'en'
+          ? 'I served as project coordinator for our annual university tech symposium with 300 attendees. I built the WBS schedule, tracked weekly milestones across 4 teams, managed vendor budgets, and resolved scope changes before event day.'
+          : '我曾擔任系上年度科技論壇（300 人規模）專案總召，負責制定 WBS 進度表、每週追蹤 4 個組別的里程碑、控管廠商預算與時程風險，並處理活動前的範疇變更協調。';
+        document.getElementById('fitTargetJobSelect').value = 'job-104-02';
+      }
+    }
+
+    function clearAssessmentSession() {
+      document.getElementById('fitNarrativeInput').value = '';
+      document.getElementById('fitResultContainer').classList.add('hidden');
+      document.getElementById('fitResultContainer').innerHTML = '';
+    }
+
+    function runCareerFitAssessment() {
+      const narrative = document.getElementById('fitNarrativeInput').value.trim();
+      const targetJobId = document.getElementById('fitTargetJobSelect').value;
+      const targetJob = jobsData.find((j) => j.id === targetJobId) || jobsData[0];
+      const container = document.getElementById('fitResultContainer');
+
+      if (!narrative) {
+        container.classList.remove('hidden');
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs sm:text-sm text-amber-800 dark:text-amber-200">
+            ${appState.lang === 'en'
+              ? 'Please enter your experience narrative or select one of the sample narratives above first.'
+              : '請先輸入你的經驗敘述，或點擊上方「代入範例」按鈕進行測試。'}
+          </div>
+        `;
+        return;
+      }
+
+      const lower = narrative.toLowerCase();
+
+      // Keyword signal mapping against target vacancy competencies (PRD Section 14.7.4)
+      const signalRules = [
+        { keywords: ['roadmap', 'strategy', '策略', '路線圖'], label: 'Product Strategy & Roadmapping' },
+        { keywords: ['interview', 'prd', 'user story', '訪談', '痛點', '規格'], label: 'User Research & PRD Writing' },
+        { keywords: ['ga4', 'sql', 'analytics', '數據', '指標'], label: 'Data Analytics (GA4 / SQL)' },
+        { keywords: ['wbs', 'schedule', 'milestone', '時程', '里程碑', '進度'], label: 'Project Lifecycle & WBS Planning' },
+        { keywords: ['risk', 'scope', 'budget', '風險', '預算', '範疇'], label: 'Risk & Scope Change Management' },
+        { keywords: ['scrum', 'agile', 'sprint', '敏捷'], label: 'Scrum Framework & Agile Metrics' },
+        { keywords: ['llm', 'ai', 'evaluation', '評估'], label: 'LLM Evaluation & AI Product Literacy' }
+      ];
+
+      const demonstrated = signalRules.filter((r) => r.keywords.some((kw) => lower.includes(kw)));
+
+      const comparisonRows = targetJob.competencies.map((comp) => {
+        const directMatch = demonstrated.some((d) => comp.name.en.includes(d.label.split(' ')[0]));
+        const hasTeamwork = /team|lead|coordinate|協調|團隊|溝通/.test(lower);
+
+        let status = 'Not Demonstrated';
+        let statusClass = 'bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200';
+        let explanation = appState.lang === 'en'
+          ? 'No explicit evidence found in your current narrative (does not prove lack of ability—consider adding concrete examples).'
+          : '目前敘述中未發現對應實證（不代表你不具備此能力，建議補充具體專案或修課案例）。';
+
+        if (directMatch) {
+          status = 'Matched';
+          statusClass = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200';
+          explanation = appState.lang === 'en'
+            ? 'Direct evidence signal identified in your experience description matching this 104 JD requirement.'
+            : '你的經驗敘述中已展現與此 104 職缺要求相符的具體實證訊號。';
+        } else if (hasTeamwork) {
+          status = 'Partially Matched';
+          statusClass = 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200';
+          explanation = appState.lang === 'en'
+            ? 'Related collaboration/coordination context found, though specific artifacts mentioned in the JD are not explicitly stated.'
+            : '敘述中包含相關跨團隊協作經驗，但尚未明確提及 JD 所列的特定產出物或工具。';
+        }
+
+        return { comp, status, statusClass, explanation };
+      });
+
+      container.classList.remove('hidden');
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Stage 3: User-Submitted Profile Summary -->
+          <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+              ${appState.lang === 'en' ? 'Extracted Session Profile (User Input)' : '本次階段萃取之個人經驗摘要（使用者提供）'}
+            </div>
+            <p class="text-xs italic text-slate-600 dark:text-slate-300 border-l-2 border-blue-500 pl-3">
+              “${escapeHtml(narrative)}”
+            </p>
+            <div class="text-xs">
+              <strong>${appState.lang === 'en' ? 'Detected Evidence Signals:' : '辨識出的經驗訊號：'}</strong>
+              <div class="flex flex-wrap gap-1.5 mt-1.5">
+                ${demonstrated.length > 0
+                  ? demonstrated.map((d) => `<span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200 font-semibold">${d.label}</span>`).join('')
+                  : `<span class="text-slate-500">${appState.lang === 'en' ? 'General narrative recorded (Insufficient specific KSA keywords)' : '已記錄一般敘述（特定 KSA 關鍵實證較少）'}</span>`
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 4: Exploratory Vacancy Comparison -->
+          <div class="lg:col-span-7 space-y-3">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                ${appState.lang === 'en' ? `Exploratory Comparison vs. [${targetJob.classification}] ${targetJob.titleOriginal}` : `探索性實證比對：針對 [${targetJob.classification}] ${targetJob.titleOriginal}`}
+              </div>
+              <button type="button" onclick="openJobDetailModal('${targetJob.id}')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                ${appState.lang === 'en' ? 'Inspect Target JD →' : '檢視目標職缺 JD →'}
+              </button>
+            </div>
+            <div class="space-y-2.5">
+              ${comparisonRows.map((row) => `
+                <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/40 space-y-1">
+                  <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <span class="font-bold text-xs sm:text-sm">${row.comp.name[appState.lang]} <span class="text-[11px] opacity-70">(${row.comp.evidenceType})</span></span>
+                    <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-extrabold ${row.statusClass}">${row.status}</span>
+                  </div>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">${row.explanation}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------
+    // 10. TEAM CARDS RENDERER
+    // ---------------------------------------------------------
+    function renderTeamCards() {
+      const grid = document.getElementById('teamCardsGrid');
+      grid.innerHTML = teamMembersData.map((member, index) => `
+        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200">
+              ${member.roleBadge[appState.lang]}
+            </span>
+            <span class="text-xs font-mono text-slate-400">#0${index + 1}</span>
+          </div>
+          <h3 class="font-extrabold text-sm sm:text-base">${member.name}</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            ${member.tasks[appState.lang]}
+          </p>
+        </div>
+      `).join('');
+    }
+
+    // ---------------------------------------------------------
+    // 11. FLOATING AI ASSISTANT (CONTEXTUAL VS GENERAL MODE)
+    // ---------------------------------------------------------
+    function toggleAssistant() {
+      appState.assistantOpen = !appState.assistantOpen;
+      const panel = document.getElementById('assistantPanel');
+      panel.classList.toggle('hidden', !appState.assistantOpen);
+      if (appState.assistantOpen && appState.chatHistory.length === 0) {
+        pushAssistantMessage('bot', appState.lang === 'en'
+          ? 'Hello! I am the PMCS AI Career Assistant. Ask me about the difference between PM and PjM, or open any 104 vacancy detail modal to ask questions grounded in that specific JD.'
+          : '你好！我是 PMCS AI 職涯助理。你可以詢問 PM 與 PjM 的職責差異，或開啟任一 104 職缺詳情視窗，我會自動切換為該職缺的實證問答模式。'
+        );
+      }
+      renderAssistantQuickChips();
+    }
+
+    function updateAssistantContextBadge() {
+      const badge = document.getElementById('assistantContextBadge');
+      const activeJob = jobsData.find((j) => j.id === appState.activeDetailJobId);
+      if (activeJob) {
+        badge.textContent = appState.lang === 'en'
+          ? `Context: [${activeJob.classification}] ${activeJob.titleOriginal}`
+          : `目前職缺情境：[${activeJob.classification}] ${activeJob.titleOriginal}`;
+      } else {
+        badge.textContent = appState.lang === 'en'
+          ? 'Mode: General PM/PjM Career Guidance'
+          : '模式：一般 PM/PjM 職涯知識指引';
+      }
+      renderAssistantQuickChips();
+    }
+
+    function askAssistantAboutCurrentJob() {
+      if (!appState.assistantOpen) toggleAssistant();
+      const activeJob = jobsData.find((j) => j.id === appState.activeDetailJobId);
+      if (activeJob) {
+        const prompt = appState.lang === 'en'
+          ? `Why was "${activeJob.titleOriginal}" classified as ${activeJob.classification}?`
+          : `為什麼「${activeJob.titleOriginal}」會被分類為 ${activeJob.classification}？`;
+        processUserAssistantPrompt(prompt);
+      }
+    }
+
+    function renderAssistantQuickChips() {
+      const container = document.getElementById('assistantQuickChips');
+      const activeJob = jobsData.find((j) => j.id === appState.activeDetailJobId);
+      const chips = activeJob
+        ? (appState.lang === 'en'
+            ? ['Why this classification?', 'Explicit vs Inferred skills?']
+            : ['為什麼是這個分類？', '明文與推論職能有哪些？'])
+        : (appState.lang === 'en'
+            ? ['PM vs PjM core difference?', 'What is a Hybrid role?']
+            : ['PM 和 PjM 最大差別？', '什麼是 Hybrid 職缺？']);
+
+      container.innerHTML = chips.map((label) => `
+        <button type="button" onclick="processUserAssistantPrompt('${label.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold hover:border-blue-500 transition">
+          ${label}
+        </button>
+      `).join('');
+    }
+
+    function handleAssistantSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('assistantInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      processUserAssistantPrompt(text);
+    }
+
+    function processUserAssistantPrompt(userText) {
+      pushAssistantMessage('user', userText);
+      const activeJob = jobsData.find((j) => j.id === appState.activeDetailJobId);
+
+      let reply = '';
+      if (activeJob) {
+        const prefix = appState.lang === 'en'
+          ? `[Source: Selected 104 Vacancy — ${activeJob.titleOriginal}]\n`
+          : `[依據：目前檢視之 104 職缺 — ${activeJob.titleOriginal}]\n`;
+        if (/skill|competenc|explicit|inferred|職能|明文|推論/i.test(userText)) {
+          const list = activeJob.competencies.map((c) => `• ${c.name[appState.lang]} (${c.evidenceType})`).join('\n');
+          reply = prefix + (appState.lang === 'en'
+            ? `Extracted KSA competencies from this JD:\n${list}`
+            : `從此份 JD 萃取出的 KSA 職能如下：\n${list}`);
+        } else {
+          reply = prefix + activeJob.rationale[appState.lang];
+        }
+      } else {
+        const prefix = appState.lang === 'en'
+          ? '[Source: General PM/PjM Career Knowledge]\n'
+          : '[依據：一般 PM/PjM 職涯知識庫]\n';
+        if (/hybrid|混合/i.test(userText)) {
+          reply = prefix + (appState.lang === 'en'
+            ? 'A Hybrid role carries meaningful accountability for both product value/roadmap outcomes (PM) and formal project schedule, budget, and delivery governance (PjM).'
+            : 'Hybrid 職缺代表該職務同時承擔實質的「產品價值與路線圖決策（PM）」以及「跨部門專案時程與交付控管（PjM）」雙重責任。');
+        } else {
+          reply = prefix + (appState.lang === 'en'
+            ? 'PM focuses on the Product ("What should we build and why?" — product strategy, user value, roadmap), whereas PjM focuses on the Project ("How do we deliver within scope, time, and budget constraints?").'
+            : 'PM 的核心管理對象是「產品」（決定要做什麼與為何而做，對產品價值負責）；PjM 的核心管理對象是「專案」（確保在既定範疇、時程與預算內如期如質交付）。');
+        }
+      }
+
+      pushAssistantMessage('bot', reply);
+    }
+
+    function pushAssistantMessage(sender, text) {
+      appState.chatHistory.push({ sender, text });
+      const feed = document.getElementById('assistantMessages');
+      feed.innerHTML = appState.chatHistory.map((msg) => `
+        <div class="flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
+          <div class="max-w-[85%] p-3 rounded-2xl whitespace-pre-line leading-relaxed ${
+            msg.sender === 'user'
+              ? 'bg-blue-600 text-white rounded-br-sm'
+              : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-bl-sm'
+          }">
+            ${escapeHtml(msg.text)}
+          </div>
+        </div>
+      `).join('');
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    // ---------------------------------------------------------
+    // 12. THEME, LANGUAGE & MOBILE NAVIGATION CONTROLS
+    // ---------------------------------------------------------
+    function toggleLanguage() {
+      appState.lang = appState.lang === 'en' ? 'zh' : 'en';
+      document.documentElement.lang = appState.lang === 'en' ? 'en' : 'zh-Hant';
+      applyTranslations();
+      renderPipeline();
+      renderCareerGuide();
+      renderClassificationPills();
+      renderJobs();
+      renderCompetencyInsights();
+      renderTeamCards();
+      updateAssistantContextBadge();
+
+      // Re-render open modal if active
+      if (appState.activeDetailJobId) {
+        openJobDetailModal(appState.activeDetailJobId);
+      }
+      if (!document.getElementById('comparisonModal').classList.contains('hidden')) {
+        openComparisonModal();
+      }
+      if (!document.getElementById('fitResultContainer').classList.contains('hidden')) {
+        runCareerFitAssessment();
+      }
+    }
+
+    function toggleTheme() {
+      appState.theme = appState.theme === 'light' ? 'dark' : 'light';
+      const htmlEl = document.documentElement;
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+
+      if (appState.theme === 'dark') {
+        htmlEl.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        htmlEl.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      const isHidden = drawer.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isHidden));
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileMenuDrawer').classList.add('hidden');
+      document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', 'false');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // ---------------------------------------------------------
+    // 13. INITIALIZATION ON WINDOW LOAD
+    // ---------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      applyTranslations();
+      renderPipeline();
+      renderCareerGuide();
+      renderClassificationPills();
+      renderJobs();
+      renderCompetencyInsights();
+      populateFitTargetDropdown();
+      renderTeamCards();
+      updateAssistantContextBadge();
+    });
+  </script>
+</body>
+</html>
