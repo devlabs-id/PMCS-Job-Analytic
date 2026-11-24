@@ -22,6 +22,9 @@ jobs:
       - name: Run AI KSA & Bilingual JD Analysis
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python scripts/enrich_existing_104.py
 
       - name: Commit enriched data/jobs_104.json
