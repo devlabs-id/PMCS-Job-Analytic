@@ -6,13 +6,48 @@ import requests
 
 DATA_PATH = Path("data/jobs_104.json")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = "gemini-2.5-flash"
+
+PREFERRED_MODELS = [
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b",
+]
 
 
-def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
+def resolve_gemini_model() -> str:
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY is missing in GitHub Secrets!")
 
+    try:
+        list_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
+        res = requests.get(list_url, timeout=30)
+        res.raise_for_status()
+        models_data = res.json().get("models", [])
+        available = []
+        for m in models_data:
+            name = str(m.get("name", "")).replace("models/", "")
+            methods = m.get("supportedGenerationMethods", [])
+            if name and "generateContent" in methods:
+                available.append(name)
+
+        for pref in PREFERRED_MODELS:
+            if pref in available:
+                print(f"[INFO] Selected Gemini model: {pref}")
+                return pref
+
+        if available:
+            print(f"[INFO] Using first available Gemini model: {available[0]}")
+            return available[0]
+    except Exception as exc:
+        print(f"[WARN] Could not list models ({exc}), defaulting to gemini-2.0-flash")
+
+    return "gemini-2.0-flash"
+
+
+def enrich_chunk(chunk: list[dict], model_name: str) -> dict[str, dict]:
     payload = [
         {
             "job_id": j["job_id"],
@@ -39,7 +74,7 @@ def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
         f"Input jobs:\n{json.dumps(payload, ensure_ascii=False)}"
     )
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
 
     for attempt in range(3):
         res = requests.post(
@@ -69,14 +104,15 @@ def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
 
 
 def main() -> None:
+    model_name = resolve_gemini_model()
     raw = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     jobs = raw.get("jobs", [])
     enriched_map: dict[str, dict] = {}
 
     for i in range(0, len(jobs), 5):
         chunk = jobs[i : i + 5]
-        print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs) with Gemini...")
-        enriched_map.update(enrich_chunk(chunk))
+        print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs) with {model_name}...")
+        enriched_map.update(enrich_chunk(chunk, model_name))
         time.sleep(6)
 
     for j in jobs:
@@ -105,7 +141,7 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
-    print(f"Done! Enriched {len(jobs)} jobs using {GEMINI_MODEL}.")
+    print(f"Done! Enriched {len(jobs)} jobs using {model_name}.")
 
 
 if __name__ == "__main__":
