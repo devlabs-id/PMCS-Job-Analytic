@@ -12,28 +12,6 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 
-GEMINI_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-]
-
-GROQ_MODELS = [
-    "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant",
-]
-
-OPENROUTER_MODELS = [
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "qwen/qwen-2.5-72b-instruct:free",
-    "mistralai/mistral-small-3.1-24b-instruct:free",
-]
-
-OPENAI_MODELS = [
-    "gpt-4o-mini",
-]
-
 
 def extract_json_payload(raw_text: str):
     cleaned = raw_text.strip()
@@ -48,33 +26,98 @@ def extract_json_payload(raw_text: str):
         raise
 
 
-def call_gemini(prompt: str):
+def discover_gemini_models() -> list[str]:
     if not GEMINI_API_KEY:
-        raise RuntimeError("GEMINI_API_KEY not configured")
-    last_err: Exception | None = None
-    for model_name in GEMINI_MODELS:
-        url = (
-            f"https://generativelanguage.googleapis.com/v1beta/models/"
-            f"{model_name}:generateContent?key={GEMINI_API_KEY}"
+        return []
+    try:
+        r = requests.get(
+            f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}",
+            timeout=20,
         )
+        if r.status_code != 200:
+            print(f"[Gemini discovery {r.status_code}] {r.text[:160]}")
+            return ["gemini-2.0-flash", "gemini-1.5-flash"]
+        models = []
+        for m in r.json().get("models", []):
+            name = m.get("name", "").replace("models/", "")
+            methods = m.get("supportedGenerationMethods", [])
+            if "generateContent" in methods and "gemini" in name and "embedding" not in name and "vision" not in name:
+                models.append(name)
+        # Prioritaskan flash
+        models.sort(key=lambda x: (0 if "flash" in x else 1, x))
+        return models[:5] if models else ["gemini-2.0-flash", "gemini-1.5-flash"]
+    except Exception as exc:
+        print(f"[Gemini discovery WARN] {exc}")
+        return ["gemini-2.0-flash", "gemini-1.5-flash"]
+
+
+def discover_groq_models() -> list[str]:
+    if not GROQ_API_KEY:
+        return []
+    try:
+        r = requests.get(
+            "https://api.groq.com/openai/v1/models",
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+            timeout=20,
+        )
+        if r.status_code != 200:
+            print(f"[Groq discovery {r.status_code}] {r.text[:160]}")
+            return []
+        models = [
+            m["id"]
+            for m in r.json().get("data", [])
+            if isinstance(m, dict)
+            and m.get("id")
+            and not any(bad in m["id"].lower() for bad in ("whisper", "guard", "tts", "embed"))
+        ]
+        models.sort(key=lambda x: (0 if "70b" in x else (1 if "llama" in x else 2), x))
+        return models[:4]
+    except Exception as exc:
+        print(f"[Groq discovery WARN] {exc}")
+        return []
+
+
+def discover_openrouter_free_models() -> list[str]:
+    if not OPENROUTER_API_KEY:
+        return []
+    try:
+        r = requests.get("https://openrouter.ai/api/v1/models", timeout=20)
+        if r.status_code != 200:
+            return []
+        free_models = []
+        for m in r.json().get("data", []):
+            mid = m.get("id", "")
+            pricing = m.get("pricing", {})
+            if mid.endswith(":free") or (str(pricing.get("prompt")) == "0" and str(pricing.get("completion")) == "0"):
+                if not any(bad in mid.lower() for bad in ("vision", "vl", "embed", "audio")):
+                    free_models.append(mid)
+        free_models.sort(key=lambda x: (0 if any(k in x.lower() for k in ("llama", "qwen", "gemini", "mistral")) else 1, x))
+        return free_models[:5]
+    except Exception as exc:
+        print(f"[OpenRouter discovery WARN] {exc}")
+        return []
+
+
+def call_gemini(prompt: str, models: list[str]):
+    if not GEMINI_API_KEY or not models:
+        raise RuntimeError("Gemini unavailable")
+    last_err: Exception | None = None
+    for model_name in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
         try:
             res = requests.post(
                 url,
                 headers={"Content-Type": "application/json"},
                 json={
                     "contents": [{"parts": [{"text": prompt}]}],
-                    "generationConfig": {
-                        "temperature": 0.25,
-                        "responseMimeType": "application/json",
-                    },
+                    "generationConfig": {"temperature": 0.25, "responseMimeType": "application/json"},
                 },
                 timeout=60,
             )
-            if res.status_code in (400, 403, 404, 429, 503):
-                print(f"[Gemini {res.status_code}] '{model_name}' unavailable, skipping...")
+            if res.status_code != 200:
+                print(f"[Gemini {res.status_code}] '{model_name}': {res.text[:140]}")
                 last_err = RuntimeError(f"HTTP {res.status_code}")
                 continue
-            res.raise_for_status()
             text_out = res.json()["candidates"][0]["content"]["parts"][0]["text"]
             return extract_json_payload(text_out), f"gemini:{model_name}"
         except Exception as exc:
@@ -91,13 +134,10 @@ def call_openai_compatible(
     prompt: str,
     extra_headers: dict[str, str] | None = None,
 ):
-    if not api_key:
-        raise RuntimeError(f"{provider_label} API key not configured")
+    if not api_key or not models:
+        raise RuntimeError(f"{provider_label} unavailable")
     last_err: Exception | None = None
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     if extra_headers:
         headers.update(extra_headers)
 
@@ -107,10 +147,7 @@ def call_openai_compatible(
                 "model": model_name,
                 "temperature": 0.25,
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": "Return ONLY valid JSON matching the requested schema without markdown fences.",
-                    },
+                    {"role": "system", "content": "Return ONLY valid JSON matching the requested schema without markdown fences."},
                     {"role": "user", "content": prompt},
                 ],
             }
@@ -118,11 +155,10 @@ def call_openai_compatible(
                 payload["response_format"] = {"type": "json_object"}
 
             res = requests.post(endpoint, headers=headers, json=payload, timeout=60)
-            if res.status_code in (400, 401, 402, 403, 404, 429, 503):
-                print(f"[{provider_label} {res.status_code}] '{model_name}' unavailable, skipping...")
+            if res.status_code != 200:
+                print(f"[{provider_label} {res.status_code}] '{model_name}': {res.text[:140]}")
                 last_err = RuntimeError(f"HTTP {res.status_code}")
                 continue
-            res.raise_for_status()
             text_out = res.json()["choices"][0]["message"]["content"]
             return extract_json_payload(text_out), f"{provider_label}:{model_name}"
         except Exception as exc:
@@ -131,162 +167,38 @@ def call_openai_compatible(
     raise RuntimeError(f"{provider_label} exhausted: {last_err}")
 
 
-def call_ai_with_multi_provider_fallback(prompt: str):
-    providers = [
-        ("Primary: Gemini", lambda: call_gemini(prompt)),
-        (
-            "Fallback 1: Groq",
-            lambda: call_openai_compatible(
-                "groq",
-                "https://api.groq.com/openai/v1/chat/completions",
-                GROQ_API_KEY,
-                GROQ_MODELS,
-                prompt,
-            ),
-        ),
-        (
-            "Fallback 2: OpenRouter",
-            lambda: call_openai_compatible(
-                "openrouter",
-                "https://openrouter.ai/api/v1/chat/completions",
-                OPENROUTER_API_KEY,
-                OPENROUTER_MODELS,
-                prompt,
-                extra_headers={
-                    "HTTP-Referer": "https://devlabs-id.github.io/PMCS-Job-Analytic/",
-                    "X-Title": "PMCS-Job-Analytic",
-                },
-            ),
-        ),
-        (
-            "Fallback 3: OpenAI",
-            lambda: call_openai_compatible(
-                "openai",
-                "https://api.openai.com/v1/chat/completions",
-                OPENAI_API_KEY,
-                OPENAI_MODELS,
-                prompt,
-            ),
-        ),
-    ]
-
-    errors: list[str] = []
-    for label, runner in providers:
-        try:
-            result, used = runner()
-            print(f"[OK] Succeeded via {label} ({used})")
-            return result, used
-        except Exception as exc:
-            errors.append(f"{label} -> {exc}")
-
-    raise RuntimeError("All AI providers failed: " + " | ".join(errors))
-
-
 def build_local_job_fallback(job: dict) -> dict:
     title = str(job.get("job_title_original") or "")
     desc = str(job.get("job_description_original") or "")
     lines = [ln.strip() for ln in desc.splitlines() if ln.strip()]
     snippet_1 = lines[0][:100] if len(lines) > 0 else desc[:100]
     snippet_2 = lines[1][:100] if len(lines) > 1 else snippet_1
-
-    combined = f"{title} {desc}".lower()
-    is_pm = any(k in combined for k in ("product", "prd", "roadmap", "產品", "需求分析", "企劃"))
+    is_pm = any(k in f"{title} {desc}".lower() for k in ("product", "prd", "roadmap", "產品", "需求分析", "企劃"))
     classification = "PM" if is_pm else "PjM"
-
-    if any(k in combined for k in ("ai", "data", "saas", "軟體", "系統", "平台", "app")):
-        domain_en, domain_zh = "Digital Product & Software Delivery", "數位產品與系統交付領域"
-        skill_en, skill_zh = "Requirements Definition & Sprint Alignment", "需求規格拆解與敏捷協作"
-    elif any(k in combined for k in ("硬體", "製造", "產線", "機構", "電子", "製程", "供應鏈", "採購")):
-        domain_en, domain_zh = "Hardware, Manufacturing & Supply Chain", "硬體開發、製造與供應鏈管理"
-        skill_en, skill_zh = "Milestone Tracking & Vendor Coordination", "專案里程碑控管與供應商協調"
-    else:
-        domain_en, domain_zh = "Cross-Functional Operations & Execution", "跨部門營運與專案執行管理"
-        skill_en, skill_zh = "Stakeholder Alignment & Risk Follow-Up", "利害關係人對齊與風險追蹤"
-
     return {
         "job_id": job["job_id"],
         "job_title_en": job.get("job_title_en") or title,
-        "summary_en": (
-            f"This {classification} role focuses on {domain_en.lower()} for {title}. "
-            f"Key execution involves aligning stakeholders, tracking deliverables, and meeting core operational goals."
-        ),
+        "summary_en": f"This {classification} role at {job.get('company_name_original', 'the company')} focuses on {title}.",
         "summary_zh": f"此職缺為「{title}」，主要工作內容涵蓋：{snippet_1}",
         "classification": classification,
-        "rationale_en": f"Classified as {classification} based on core responsibilities in {domain_en.lower()}.",
-        "rationale_zh": f"依據「{title}」之實際工作內容與執行重心判定為 {classification}。",
+        "rationale_en": f"Classified as {classification} based on responsibilities in {title}.",
+        "rationale_zh": f"依據「{title}」之實際工作內容判定為 {classification}。",
         "competencies": [
-            {
-                "category": "Knowledge",
-                "name_en": domain_en,
-                "name_zh": domain_zh,
-                "evidence_type": "Explicit",
-                "excerpt": snippet_1 or desc[:100],
-            },
-            {
-                "category": "Skills",
-                "name_en": skill_en,
-                "name_zh": skill_zh,
-                "evidence_type": "Explicit",
-                "excerpt": snippet_2 or desc[:100],
-            },
-            {
-                "category": "Attitudes",
-                "name_en": "Ownership & Accountability",
-                "name_zh": "主動負責與目標導向態度",
-                "evidence_type": "Inferred",
-                "excerpt": snippet_1 or desc[:100],
-            },
+            {"category": "Knowledge", "name_en": "Domain & Product/Project Knowledge", "name_zh": "領域與產品專案知識", "evidence_type": "Explicit", "excerpt": snippet_1 or desc[:100]},
+            {"category": "Skills", "name_en": "Cross-Functional Execution & Coordination", "name_zh": "跨部門協作與執行控管", "evidence_type": "Explicit", "excerpt": snippet_2 or desc[:100]},
+            {"category": "Attitudes", "name_en": "Ownership & Accountability", "name_zh": "主動負責與目標導向", "evidence_type": "Inferred", "excerpt": snippet_1 or desc[:100]},
         ],
     }
 
 
-def enrich_chunk(chunk: list[dict]) -> tuple[dict[str, dict], str]:
-    payload = [
-        {
-            "job_id": j["job_id"],
-            "title": j["job_title_original"],
-            "description": j["job_description_original"][:1100],
-        }
-        for j in chunk
-    ]
-
-    prompt = (
-        "You are a PM/PjM career analyst. Analyze each 104 Job Bank listing individually based on its own "
-        "title and description, and return ONLY valid JSON with key 'items' (list). Each item must have:\n"
-        "- 'job_id': exact input job_id\n"
-        "- 'job_title_en': natural English job title\n"
-        "- 'summary_en': 2-3 sentence pure English AI analysis specific to this job's JD\n"
-        "- 'summary_zh': 2-3 sentence pure Traditional Chinese AI analysis specific to this job's JD\n"
-        "- 'classification': one of ['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']\n"
-        "- 'rationale_en': 1-2 sentence English explanation for this job's classification\n"
-        "- 'rationale_zh': 1-2 sentence Traditional Chinese explanation for this job's classification\n"
-        "- 'competencies': list of 3 to 5 distinct KSA items tailored specifically to THIS job's actual description "
-        "(never reuse identical generic competencies across different jobs), covering Knowledge, Skills, and Attitudes. "
-        "Each object must have: 'category' ('Knowledge' | 'Skills' | 'Attitudes'), 'name_en', 'name_zh', "
-        "'evidence_type' ('Explicit' | 'Inferred'), and 'excerpt' (exact short quote from this job's description).\n\n"
-        f"Input jobs:\n{json.dumps(payload, ensure_ascii=False)}"
-    )
-
-    try:
-        parsed, used_model = call_ai_with_multi_provider_fallback(prompt)
-        if isinstance(parsed, list):
-            items = parsed
-        elif isinstance(parsed, dict):
-            items = parsed.get("items") or parsed.get("jobs") or parsed.get("results") or []
-        else:
-            items = []
-
-        mapped = {str(x["job_id"]): x for x in items if isinstance(x, dict) and x.get("job_id")}
-        if not mapped:
-            raise RuntimeError(f"Model '{used_model}' returned empty items")
-        return mapped, used_model
-    except Exception as exc:
-        print(f"[FALLBACK] Remote AI failed ({exc}); using per-job local extraction.")
-        mapped = {str(j["job_id"]): build_local_job_fallback(j) for j in chunk}
-        return mapped, "local-jd-extractor"
-
-
 def main() -> None:
+    gemini_models = discover_gemini_models()
+    groq_models = discover_groq_models()
+    openrouter_models = discover_openrouter_free_models()
+    openai_models = ["gpt-4o-mini"] if OPENAI_API_KEY else []
+
+    print(f"Discovered models -> Gemini: {gemini_models} | Groq: {groq_models} | OpenRouter: {openrouter_models}")
+
     raw = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     jobs = raw.get("jobs", [])
     enriched_map: dict[str, dict] = {}
@@ -295,10 +207,53 @@ def main() -> None:
     for i in range(0, len(jobs), 5):
         chunk = jobs[i : i + 5]
         print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs)...")
-        batch_map, engine = enrich_chunk(chunk)
-        enriched_map.update(batch_map)
-        used_engines.add(engine)
-        time.sleep(3)
+        payload = [
+            {"job_id": j["job_id"], "title": j["job_title_original"], "description": j["job_description_original"][:1100]}
+            for j in chunk
+        ]
+        prompt = (
+            "You are a PM/PjM career analyst. Analyze each 104 Job Bank listing individually based on its own "
+            "title and description, and return ONLY valid JSON with key 'items' (list). Each item must have:\n"
+            "- 'job_id': exact input job_id\n"
+            "- 'job_title_en': natural English job title\n"
+            "- 'summary_en': 2-3 sentence pure English AI analysis specific to this job's JD\n"
+            "- 'summary_zh': 2-3 sentence pure Traditional Chinese AI analysis specific to this job's JD\n"
+            "- 'classification': one of ['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']\n"
+            "- 'rationale_en': 1-2 sentence English explanation for this job's classification\n"
+            "- 'rationale_zh': 1-2 sentence Traditional Chinese explanation for this job's classification\n"
+            "- 'competencies': list of 3 to 5 distinct KSA items tailored specifically to THIS job's actual description "
+            "(never reuse identical generic competencies across different jobs), covering Knowledge, Skills, and Attitudes. "
+            "Each object must have: 'category' ('Knowledge' | 'Skills' | 'Attitudes'), 'name_en', 'name_zh', "
+            "'evidence_type' ('Explicit' | 'Inferred'), and 'excerpt' (exact short quote from this job's description).\n\n"
+            f"Input jobs:\n{json.dumps(payload, ensure_ascii=False)}"
+        )
+
+        batch_done = False
+        for label, runner in [
+            ("Gemini", lambda: call_gemini(prompt, gemini_models)),
+            ("Groq", lambda: call_openai_compatible("groq", "https://api.groq.com/openai/v1/chat/completions", GROQ_API_KEY, groq_models, prompt)),
+            ("OpenRouter", lambda: call_openai_compatible("openrouter", "https://openrouter.ai/api/v1/chat/completions", OPENROUTER_API_KEY, openrouter_models, prompt, {"HTTP-Referer": "https://devlabs-id.github.io/PMCS-Job-Analytic/", "X-Title": "PMCS-Job-Analytic"})),
+            ("OpenAI", lambda: call_openai_compatible("openai", "https://api.openai.com/v1/chat/completions", OPENAI_API_KEY, openai_models, prompt)),
+        ]:
+            try:
+                parsed, used = runner()
+                items = parsed if isinstance(parsed, list) else (parsed.get("items") or parsed.get("jobs") or [])
+                mapped = {str(x["job_id"]): x for x in items if isinstance(x, dict) and x.get("job_id")}
+                if mapped:
+                    enriched_map.update(mapped)
+                    used_engines.add(used)
+                    print(f"[OK] Batch {i // 5 + 1} enriched via {label} ({used})")
+                    batch_done = True
+                    break
+            except Exception as exc:
+                print(f"[{label} skip] {exc}")
+
+        if not batch_done:
+            for j in chunk:
+                enriched_map[str(j["job_id"])] = build_local_job_fallback(j)
+            used_engines.add("local-jd-extractor")
+
+        time.sleep(2)
 
     for j in jobs:
         ai = enriched_map.get(str(j["job_id"])) or build_local_job_fallback(j)
@@ -313,15 +268,7 @@ def main() -> None:
             j["competencies"] = comps
 
     DATA_PATH.write_text(
-        json.dumps(
-            {
-                "total": len(jobs),
-                "synced_at": raw.get("synced_at"),
-                "jobs": jobs,
-            },
-            ensure_ascii=False,
-            indent=2,
-        ),
+        json.dumps({"total": len(jobs), "synced_at": raw.get("synced_at"), "jobs": jobs}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     print(f"Done! Enriched {len(jobs)} jobs using engines: {sorted(used_engines)}")
