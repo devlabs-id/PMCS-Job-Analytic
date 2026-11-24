@@ -83,7 +83,7 @@ def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
                             "content": (
                                 "Analyze each 104 Job Bank listing for PM/PjM roles and return JSON: "
                                 "{'items': [ { 'job_id': str, 'job_title_en': str, "
-                                "'summary_en': '2-3 sentence English AI analysis of JD responsibilities and requirements', "
+                                "'summary_en': '2-3 sentence pure English AI analysis of JD responsibilities and requirements', "
                                 "'summary_zh': '2-3句繁體中文 AI 工作職責與需求重點解析', "
                                 "'classification': 'PM' | 'PjM' | 'Hybrid' | 'Unclear' | 'Other', "
                                 "'rationale_en': '1-2 sentence English classification rationale', "
@@ -94,7 +94,7 @@ def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
                                 "'evidence_type': 'Explicit' | 'Inferred', "
                                 "'excerpt': 'short exact quote from original description' } "
                                 "] } ]}. "
-                                "Strictly separate Knowledge, Skills, and Attitudes."
+                                "Strictly separate Knowledge, Skills, and Attitudes tailored specifically to each job's actual description."
                             ),
                         },
                         {"role": "user", "content": json.dumps({"items": payload}, ensure_ascii=False)},
@@ -103,7 +103,7 @@ def enrich_chunk(chunk: list[dict]) -> dict[str, dict]:
                 timeout=90,
             )
             if res.status_code == 429:
-                wait_sec = 10 * (attempt + 1)
+                wait_sec = 12 * (attempt + 1)
                 print(f"[429 Rate/Quota Limit] Waiting {wait_sec}s before retry {attempt + 1}/3...")
                 time.sleep(wait_sec)
                 continue
@@ -123,7 +123,7 @@ def main() -> None:
     jobs = raw.get("jobs", [])
     enriched_map: dict[str, dict] = {}
 
-   for i in range(0, len(jobs), 3):
+    for i in range(0, len(jobs), 3):
         chunk = jobs[i : i + 3]
         print(f"Analyzing batch {i // 3 + 1} ({len(chunk)} jobs)...")
         enriched_map.update(enrich_chunk(chunk))
