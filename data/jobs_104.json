@@ -1,39 +1,28 @@
-(async () => {
-  const keywords = ["Product Manager", "Project Manager", "產品經理", "專案經理"];
-  const seen = new Set();
-  const jobs = [];
-
-  for (const kw of keywords) {
-    try {
-      const url = `https://www.104.com.tw/jobs/search/api/jobs?keyword=${encodeURIComponent(kw)}&page=1&pagesize=20&order=15`;
-      const res = await fetch(url, { headers: { "Referer": "https://www.104.com.tw/jobs/search/" } });
-      const json = await res.json();
-      const list = json?.data?.list || json?.data || [];
-      for (const item of list) {
-        const id = String(item.jobNo || item.link?.job || jobs.length);
-        if (!id || seen.has(id)) continue;
-        seen.add(id);
-        const rawLink = item.link?.job || "";
-        const fullUrl = rawLink.startsWith("//") ? "https:" + rawLink : (rawLink || "https://www.104.com.tw/");
-        jobs.push({
-          job_id: id,
-          source: "104 Job Bank",
-          source_url: fullUrl,
-          job_title_original: item.jobName || "",
-          company_name_original: item.custName || "",
-          location: item.jobAddrNoDesc || "Taiwan",
-          salary_display: item.salaryDesc || "Not provided",
-          posting_date: item.appearDate || "2026-11-24",
-          job_description_original: item.description || item.jobName || ""
-        });
-      }
-    } catch (e) { console.log(kw, e); }
-  }
-
-  const blob = new Blob([JSON.stringify({ total: jobs.length, synced_at: new Date().toISOString(), jobs }, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "jobs_104.json";
-  a.click();
-  console.log("Downloaded jobs:", jobs.length);
-})();
+{
+  "total": 2,
+  "synced_at": "2026-11-24T15:34:00+08:00",
+  "jobs": [
+    {
+      "job_id": "104-pm-01",
+      "source": "104 Job Bank",
+      "source_url": "https://www.104.com.tw/jobs/search/",
+      "job_title_original": "產品經理 Product Manager",
+      "company_name_original": "104 科技範例",
+      "location": "台北市",
+      "salary_display": "月薪 55,000~80,000 元",
+      "posting_date": "2026-11-24",
+      "job_description_original": "負責產品規劃、需求訪談、跨部門協作與迭代追蹤。"
+    },
+    {
+      "job_id": "104-pjm-02",
+      "source": "104 Job Bank",
+      "source_url": "https://www.104.com.tw/jobs/search/",
+      "job_title_original": "專案經理 Project Manager",
+      "company_name_original": "104 企業範例",
+      "location": "新竹市",
+      "salary_display": "月薪 50,000~75,000 元",
+      "posting_date": "2026-11-24",
+      "job_description_original": "負責專案時程控管、風險追蹤、跨團隊交付與利害關係人溝通。"
+    }
+  ]
+}
