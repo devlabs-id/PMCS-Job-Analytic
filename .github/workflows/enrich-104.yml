@@ -21,7 +21,7 @@ jobs:
 
       - name: Run AI KSA & Bilingual JD Analysis
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/enrich_existing_104.py
 
       - name: Commit enriched data/jobs_104.json
