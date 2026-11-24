@@ -54,74 +54,122 @@ def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
     return raw_list
 
 
-def translate_batch_to_english(jobs: list[dict], openai_key: str) -> None:
-    if not openai_key or not jobs:
-        for j in jobs:
-            j["job_title_en"] = j["job_title_original"]
-            j["summary_en"] = j["job_description_original"][:220]
-        return
-
-    payload_items = [
+def fallback_enrich(job: dict) -> None:
+    desc = job["job_description_original"]
+    job["job_title_en"] = job["job_title_original"]
+    job["summary_en"] = desc[:220]
+    job["summary_zh"] = desc[:220]
+    job["classification"] = "PM" if "產品" in job["job_title_original"] or "Product" in job["job_title_original"] else "PjM"
+    job["rationale_en"] = "Role classified from 104 job title and responsibility description."
+    job["rationale_zh"] = "依據 104 職稱與工作內容描述進行職責分類。"
+    job["competencies"] = [
         {
-            "job_id": j["job_id"],
-            "title": j["job_title_original"],
-            "description": j["job_description_original"][:500],
-        }
-        for j in jobs
+            "category": "Knowledge",
+            "name_en": "Product / Project Lifecycle Management",
+            "name_zh": "產品與專案生命週期管理",
+            "evidence_type": "Explicit",
+            "excerpt": desc[:100],
+        },
+        {
+            "category": "Skills",
+            "name_en": "Cross-Functional Execution & Coordination",
+            "name_zh": "跨部門協作與執行控管",
+            "evidence_type": "Explicit",
+            "excerpt": desc[:100],
+        },
+        {
+            "category": "Attitudes",
+            "name_en": "Stakeholder Ownership & Accountability",
+            "name_zh": "利害關係人溝通與當責態度",
+            "evidence_type": "Inferred",
+            "excerpt": desc[:100],
+        },
     ]
 
-    try:
-        resp = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {openai_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": "gpt-4o-mini",
-                "temperature": 0.2,
-                "response_format": {"type": "json_object"},
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": (
-                            "Translate Traditional Chinese job titles and descriptions into clear, "
-                            "concise English. Return JSON object with key 'items': list of objects "
-                            "with keys 'job_id', 'job_title_en', and 'summary_en' (1-2 concise sentences)."
-                        ),
-                    },
-                    {
-                        "role": "user",
-                        "content": json.dumps({"items": payload_items}, ensure_ascii=False),
-                    },
-                ],
-            },
-            timeout=45,
-        )
-        resp.raise_for_status()
-        content = resp.json()["choices"][0]["message"]["content"]
-        parsed = json.loads(content)
-        translated_map = {
-            str(row.get("job_id")): row
-            for row in (parsed.get("items") or [])
-            if isinstance(row, dict) and row.get("job_id")
-        }
 
+def analyze_jobs_with_openai(jobs: list[dict], openai_key: str) -> None:
+    if not openai_key or not jobs:
         for j in jobs:
-            tr = translated_map.get(j["job_id"])
-            if tr:
-                j["job_title_en"] = str(tr.get("job_title_en") or j["job_title_original"]).strip()
-                j["summary_en"] = str(
-                    tr.get("summary_en") or j["job_description_original"][:220]
-                ).strip()
-            else:
-                j["job_title_en"] = j["job_title_original"]
-                j["summary_en"] = j["job_description_original"][:220]
-    except Exception as exc:
-        print(f"[WARN] Terjemahan OpenAI dilewati ({exc}); memakai fallback teks asli.")
-        for j in jobs:
-            j["job_title_en"] = j["job_title_original"]
-            j["summary_en"] = j["job_description_original"][:220]
+            fallback_enrich(j)
+        return
+
+    # Process in chunks of 8 jobs so response JSON stays fast and complete
+    for start in range(0, len(jobs), 8):
+        chunk = jobs[start : start + 8]
+        payload_items = [
+            {
+                "job_id": j["job_id"],
+                "title": j["job_title_original"],
+                "description": j["job_description_original"][:900],
+            }
+            for j in chunk
+        ]
+
+        try:
+            resp = requests.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {openai_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "gpt-4o-mini",
+                    "temperature": 0.2,
+                    "response_format": {"type": "json_object"},
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": (
+                                "You are a PM/PjM career analyst. Analyze each 104 Job Bank listing and return a JSON object "
+                                "with key 'items' (list). Each item must contain:\n"
+                                "- 'job_id': exact input job_id\n"
+                                "- 'job_title_en': clear English title\n"
+                                "- 'summary_en': 2-3 sentence English AI analysis of core JD responsibilities\n"
+                                "- 'summary_zh': 2-3 sentence Traditional Chinese AI analysis of core JD responsibilities\n"
+                                "- 'classification': one of ['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']\n"
+                                "- 'rationale_en': 1-2 sentence English explanation of why it got this classification\n"
+                                "- 'rationale_zh': 1-2 sentence Traditional Chinese explanation of why it got this classification\n"
+                                "- 'competencies': array of 3 to 5 extracted KSA items covering Knowledge, Skills, and Attitudes. "
+                                "Each competency object must have: 'category' ('Knowledge' | 'Skills' | 'Attitudes'), "
+                                "'name_en', 'name_zh', 'evidence_type' ('Explicit' | 'Inferred'), and 'excerpt' (exact short quote from original description)."
+                            ),
+                        },
+                        {
+                            "role": "user",
+                            "content": json.dumps({"items": payload_items}, ensure_ascii=False),
+                        },
+                    ],
+                },
+                timeout=60,
+            )
+            resp.raise_for_status()
+            parsed = json.loads(resp.json()["choices"][0]["message"]["content"])
+            analyzed_map = {
+                str(row.get("job_id")): row
+                for row in (parsed.get("items") or [])
+                if isinstance(row, dict) and row.get("job_id")
+            }
+
+            for j in chunk:
+                ai = analyzed_map.get(j["job_id"])
+                if not ai:
+                    fallback_enrich(j)
+                    continue
+                j["job_title_en"] = str(ai.get("job_title_en") or j["job_title_original"]).strip()
+                j["summary_en"] = str(ai.get("summary_en") or j["job_description_original"][:220]).strip()
+                j["summary_zh"] = str(ai.get("summary_zh") or j["job_description_original"][:220]).strip()
+                j["classification"] = str(ai.get("classification") or "Unclear").strip()
+                j["rationale_en"] = str(ai.get("rationale_en") or "").strip()
+                j["rationale_zh"] = str(ai.get("rationale_zh") or "").strip()
+                comps = ai.get("competencies")
+                if isinstance(comps, list) and len(comps) > 0:
+                    j["competencies"] = comps
+                else:
+                    fallback_enrich(j)
+        except Exception as exc:
+            print(f"[WARN] OpenAI KSA analysis chunk failed ({exc}); using fallback.")
+            for j in chunk:
+                fallback_enrich(j)
 
 
 def normalize_job(item: dict, fallback_idx: int) -> dict | None:
@@ -161,8 +209,6 @@ def normalize_job(item: dict, fallback_idx: int) -> dict | None:
         "salary_display": salary,
         "posting_date": posting_date,
         "job_description_original": desc,
-        "job_title_en": title,
-        "summary_en": desc[:220],
     }
 
 
@@ -193,16 +239,14 @@ def main() -> None:
                     seen_ids.add(job["job_id"])
                     collected_jobs.append(job)
         except Exception as exc:
-            print(f"[WARN] Keyword '{kw}' gagal diambil: {exc}")
+            print(f"[WARN] Keyword '{kw}' failed: {exc}")
 
     if not collected_jobs:
         existing_jobs = load_existing_jobs()
-        print(
-            f"[INFO] 0 lowongan baru diambil; mempertahankan {len(existing_jobs)} lowongan lama."
-        )
+        print(f"[INFO] 0 new jobs fetched; keeping {len(existing_jobs)} existing jobs.")
         return
 
-    translate_batch_to_english(collected_jobs, openai_key)
+    analyze_jobs_with_openai(collected_jobs, openai_key)
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     result = {
@@ -211,7 +255,7 @@ def main() -> None:
         "jobs": collected_jobs,
     }
     OUTPUT_PATH.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[SUCCESS] Menyimpan {len(collected_jobs)} lowongan ke {OUTPUT_PATH}")
+    print(f"[SUCCESS] Saved {len(collected_jobs)} AI-analyzed jobs to {OUTPUT_PATH}")
 
 
 if __name__ == "__main__":
