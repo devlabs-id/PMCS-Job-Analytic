@@ -1693,17 +1693,18 @@
       document.getElementById('fitResultContainer').innerHTML = '';
     }
 
-    function runCareerFitAssessment() {
+    async function runCareerFitAssessment() {
       const narrative = document.getElementById('fitNarrativeInput').value.trim();
       const targetJobId = document.getElementById('fitTargetJobSelect').value;
       const targetJob = jobsData.find((j) => j.id === targetJobId) || jobsData[0];
       const container = document.getElementById('fitResultContainer');
+      const isEn = appState.lang === 'en';
 
       if (!narrative) {
         container.classList.remove('hidden');
         container.innerHTML = `
           <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs sm:text-sm text-amber-800 dark:text-amber-200">
-            ${appState.lang === 'en'
+            ${isEn
               ? 'Please enter your experience narrative or click a sample button first.'
               : '請先輸入你的經驗敘述，或點擊上方「代入範例」按鈕。'}
           </div>
@@ -1711,15 +1712,95 @@
         return;
       }
 
+      const jobTitle = getDisplayJobTitle(targetJob);
+      const summaryText = isEn
+        ? (targetJob.summary_en || targetJob.summary || targetJob.job_description_original || '')
+        : (targetJob.summary_zh || targetJob.summary || targetJob.job_description_original || '');
+
+      const ksaList = Array.isArray(targetJob.ksa)
+        ? targetJob.ksa.map((k) => `${k.category || k.type || 'KSA'}: ${k.item || k.name || k.skill || ''}`).join('; ')
+        : '';
+
+      const targetContext = [
+        `Classification: ${targetJob.classification || 'PM/PjM'}`,
+        summaryText ? `Summary: ${summaryText}` : '',
+        ksaList ? `Extracted 104 KSA Requirements: ${ksaList}` : ''
+      ].filter(Boolean).join('\n');
+
       container.classList.remove('hidden');
       container.innerHTML = `
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm space-y-2">
-          <div class="font-bold">${appState.lang === 'en' ? 'Local Fallback Fit Check' : '本機備援適配度檢視'} — ${escapeHtml(getDisplayJobTitle(targetJob))}</div>
-          <p class="text-slate-600 dark:text-slate-300">${escapeHtml(narrative)}</p>
+        <div class="p-5 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs sm:text-sm flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping shrink-0"></span>
+          <span class="font-medium text-blue-800 dark:text-blue-200">
+            ${isEn
+              ? `Analyzing your experience & KSA alignment against "${escapeHtml(jobTitle)}" via Gemini AI...`
+              : `正在透過 Gemini AI 比對你的經驗與「${escapeHtml(jobTitle)}」的 KSA 職能要求...`}
+          </span>
         </div>
       `;
-    }
 
+      try {
+        const res = await fetch('https://pmcs-job-analytic.onrender.com/api/career-fit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            narrative,
+            target_job_title: jobTitle,
+            target_jd_summary: targetContext.slice(0, 2500),
+            language: isEn ? 'en' : 'zh-TW'
+          })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const formattedAssessment = escapeHtml(data.assessment || '').replace(/\n/g, '<br>');
+
+        container.innerHTML = `
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-2.5">
+              <div class="font-bold text-slate-900 dark:text-white">
+                ${isEn ? 'AI Career Fit Comparison' : 'AI 職涯適配度分析'} — ${escapeHtml(jobTitle)}
+              </div>
+              <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">
+                Gemini (${escapeHtml(data.model || 'AI')})
+              </span>
+            </div>
+            <div class="text-slate-700 dark:text-slate-200 leading-relaxed">${formattedAssessment}</div>
+            <p class="pt-2 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400">
+              ${isEn
+                ? 'Note: Exploratory comparison based on your self-reported narrative and 104 JD evidence—not a hiring prediction or verified score.'
+                : '說明：此結果為依據自述經驗與 104 職缺證據之探索性比對，非錄取預測或能力認證分數。'}
+            </p>
+          </div>
+        `;
+      } catch (err) {
+        const lower = narrative.toLowerCase();
+        const hasProduct = /product|roadmap|user|prd|metric|kpi|feature|pain point|產品|需求|路線圖|指標/.test(lower);
+        const hasProject = /schedule|timeline|wbs|vendor|delivery|event|stakeholder|team|專案|時程|廠商|協調|進度/.test(lower);
+
+        const fallbackSummary = isEn
+          ? [
+              `• Matched / Partially Matched Signals: ${hasProduct || hasProject ? [hasProduct ? 'Product discovery, user needs, or roadmapping' : '', hasProject ? 'Project coordination, timeline tracking, or cross-team delivery' : ''].filter(Boolean).join('; ') : 'General leadership/execution experience noted; add concrete PM/PjM tools, metrics, or deliverables.'}`,
+              `• Not Demonstrated / Insufficient Evidence: Compare your narrative directly against the extracted Knowledge, Skills, and Attitudes (KSA) of "${jobTitle}" and specify measurable outcomes.`
+            ].join('<br>')
+          : [
+              `• 已符合／部分符合訊號（Matched / Partially Matched）：${hasProduct || hasProject ? [hasProduct ? '產品需求探索、規劃或指標追蹤經驗' : '', hasProject ? '專案排程、跨團隊協調或交付控管經驗' : ''].filter(Boolean).join('；') : '已提供基礎專案執行經驗，建議補充具體 PM/PjM 工具、交付物與量化成果。'}`,
+              `• 尚未充分呈現／需補充證據（Not Demonstrated / Insufficient Evidence）：建議對照「${jobTitle}」萃取出的 Knowledge、Skills 與 Attitudes 要求補充具體案例。`
+            ].join('<br>');
+
+        container.innerHTML = `
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="font-bold">${isEn ? 'Exploratory Fit Check (Offline Backup)' : '探索性適配度檢視（離線備援）'} — ${escapeHtml(jobTitle)}</div>
+              <span class="px-2 py-0.5 rounded text-[11px] bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200">
+                ${isEn ? 'Backend waking up — retry in a few seconds for full Gemini AI' : '後端啟動中，稍後重試可取得完整 Gemini AI 分析'}
+              </span>
+            </div>
+            <div class="text-slate-600 dark:text-slate-300 leading-relaxed">${fallbackSummary}</div>
+          </div>
+        `;
+      }
+    }
     function renderTeamCards() {
       const grid = document.getElementById('teamCardsGrid');
       grid.innerHTML = teamMembersData.map((member, index) => `
