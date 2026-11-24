@@ -1459,68 +1459,98 @@
     }
 
     function openJobDetailModal(jobId, highlightSnippet = '') {
-      const job = jobsData.find((j) => j.id === jobId);
-      if (!job) return;
-      appState.activeDetailJobId = jobId;
-      updateAssistantContextBadge();
+  const job = jobsData.find((j) => j.id === jobId);
+  if (!job) return;
+  appState.activeDetailJobId = jobId;
+  updateAssistantContextBadge();
 
-      document.getElementById('modalBadges').innerHTML = `
-        <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
-        <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-          104 Source Link ↗
-        </a>
-      `;
-      // Modal always preserves original 104 title & JD text as primary evidence
-      document.getElementById('modalJobTitle').textContent = job.titleOriginal;
-      document.getElementById('modalJobMeta').textContent = `${job.companyOriginal} • ${job.locationDisplay[appState.lang]} • ${job.salaryDisplay[appState.lang]}`;
+  document.getElementById('modalBadges').innerHTML = `
+    <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
+    <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+      104 Source Link ↗
+    </a>
+  `;
+  document.getElementById('modalJobTitle').textContent = getDisplayJobTitle(job);
+  document.getElementById('modalJobMeta').textContent = `${job.companyOriginal} • ${job.locationDisplay[appState.lang]} • ${job.salaryDisplay[appState.lang]}`;
 
-      let formattedJd = escapeHtml(job.jdOriginal);
-      if (highlightSnippet) {
-        const escapedSnippet = escapeHtml(highlightSnippet);
-        formattedJd = formattedJd.replace(escapedSnippet, `<mark class="evidence-highlight">${escapedSnippet}</mark>`);
-      }
+  const aiJdSummary = appState.lang === 'zh'
+    ? ((job.summary && job.summary.zh) || job.jdOriginal)
+    : ((job.summary && job.summary.en) || job.jdOriginal);
 
-      document.getElementById('modalBody').innerHTML = `
-        <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 space-y-1.5">
-          <div class="text-xs font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-300">
-            ${appState.lang === 'en' ? 'AI Responsibility Classification Rationale' : 'AI 職責分類依據說明'}
-          </div>
-          <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200">${escapeHtml(job.rationale[appState.lang])}</p>
-        </div>
+  let formattedJd = escapeHtml(job.jdOriginal);
+  if (highlightSnippet) {
+    const escapedSnippet = escapeHtml(highlightSnippet);
+    formattedJd = formattedJd.replace(escapedSnippet, `<mark class="evidence-highlight">${escapedSnippet}</mark>`);
+  }
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <div class="lg:col-span-6 space-y-2">
-            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              ${appState.lang === 'en' ? 'Original 104 Job Description (Source Preserved)' : '104 原始職缺描述（原文完整保留）'}
-            </h4>
-            <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">${formattedJd}</pre>
-          </div>
+  const groupedKsa = { Knowledge: [], Skills: [], Attitudes: [] };
+  (job.competencies || []).forEach((comp) => {
+    const cat = groupedKsa[comp.category] ? comp.category : 'Skills';
+    groupedKsa[cat].push(comp);
+  });
 
-          <div class="lg:col-span-6 space-y-2.5">
-            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              ${appState.lang === 'en' ? 'Extracted KSA Competencies (Click to Highlight JD Passage)' : '萃取 KSA 職能（點擊可標亮對應 JD 原文）'}
-            </h4>
-            <div class="space-y-2.5">
-              ${job.competencies.map((comp) => `
-                <button
-                  type="button"
-                  onclick="openJobDetailModal('${job.id}', '${comp.excerpt.replace(/'/g, "\\'")}')"
-                  class="w-full text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-800/50 transition space-y-1.5"
-                >
-                  <div class="flex items-center justify-between gap-2 flex-wrap">
-                    <span class="font-bold text-xs sm:text-sm">${escapeHtml(comp.name[appState.lang])}</span>
-                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">${comp.evidenceType}</span>
-                  </div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 italic">“${escapeHtml(comp.excerpt)}”</p>
-                </button>
-              `).join('')}
-            </div>
-          </div>
+  const renderKsaGroup = (catKey, labelEn, labelZh) => {
+    const items = groupedKsa[catKey] || [];
+    const title = appState.lang === 'zh' ? labelZh : labelEn;
+    if (items.length === 0) {
+      return `
+        <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-400">
+          <strong>${title}:</strong> ${appState.lang === 'zh' ? '此職缺未明確列出獨立項目' : 'No distinct item extracted for this group'}
         </div>
       `;
-
-      document.getElementById('jobDetailModal').classList.remove('hidden');
     }
+    return `
+      <div class="space-y-2">
+        <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">${title}</div>
+        ${items.map((comp) => `
+          <button
+            type="button"
+            onclick="openJobDetailModal('${job.id}', '${String(comp.excerpt || '').replace(/'/g, "\\'")}')"
+            class="w-full text-left p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-800/50 transition space-y-1"
+          >
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <span class="font-bold text-xs sm:text-sm">${escapeHtml(comp.name[appState.lang])}</span>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">${comp.evidenceType}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">“${escapeHtml(comp.excerpt || '')}”</p>
+          </button>
+        `).join('')}
+      </div>
+    `;
+  };
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="p-4 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-1.5">
+      <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">
+        ${appState.lang === 'zh' ? 'AI 職缺描述解析（繁體中文）' : 'AI Job Description Analysis (English)'}
+      </div>
+      <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">${escapeHtml(aiJdSummary)}</p>
+      <p class="text-xs text-slate-600 dark:text-slate-400 pt-1">
+        <strong>${appState.lang === 'zh' ? '分類依據：' : 'Classification Rationale:'}</strong> ${escapeHtml(job.rationale[appState.lang])}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="lg:col-span-6 space-y-2">
+        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          ${appState.lang === 'zh' ? '104 原始職缺描述（原文完整保留）' : 'Original 104 Job Description (Source Preserved)'}
+        </h4>
+        <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">${formattedJd}</pre>
+      </div>
+
+      <div class="lg:col-span-6 space-y-4">
+        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          ${appState.lang === 'zh' ? 'AI 萃取 KSA 能力（點擊可標亮 104 原文）' : 'AI-Extracted KSA (Click to Highlight 104 JD)'}
+        </h4>
+        ${renderKsaGroup('Knowledge', 'Knowledge (K)', '知識 (Knowledge)')}
+        ${renderKsaGroup('Skills', 'Skills (S)', '技能 (Skills)')}
+        ${renderKsaGroup('Attitudes', 'Attitudes (A)', '態度 (Attitudes)')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('jobDetailModal').classList.remove('hidden');
+}
 
     function closeJobDetailModal() {
       document.getElementById('jobDetailModal').classList.add('hidden');
