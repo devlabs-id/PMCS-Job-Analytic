@@ -2470,6 +2470,47 @@
     return "Taipei";
   }
 
+  function syncDatasetStatsUI(rawData, mappedJobs) {
+    const totalCount = mappedJobs.length;
+    const pmCount = mappedJobs.filter((j) => j.classification === "PM").length;
+    const pjmCount = mappedJobs.filter((j) => j.classification === "PjM").length;
+    const hybridCount = mappedJobs.filter((j) => j.classification === "Hybrid").length;
+    const unclearCount = mappedJobs.filter((j) => j.classification === "Unclear").length;
+    const otherCount = mappedJobs.filter((j) => j.classification === "Other").length;
+    const syncTime =
+      (rawData && rawData.synced_at) ||
+      new Date().toISOString().replace("T", " ").slice(0, 19) + " CST";
+
+    const replacements = [
+      ["Curated 104 Sample", "Synced 104 Dataset"],
+      ["6 Vacancies", `${totalCount} Vacancies`],
+      ["100% preserved original JDs", "Live sync from 104 Job Bank"],
+      ["2 PM • 1 PjM • 1 Hybrid", `${pmCount} PM • ${pjmCount} PjM • ${hybridCount} Hybrid`],
+      ["+ 1 Unclear, 1 Other", `+ ${unclearCount} Unclear, ${otherCount} Other`],
+      ["All Analyzed Vacancies (n = 6)", `All Analyzed Vacancies (n = ${totalCount})`],
+      ["PM Only (n = 2)", `PM Only (n = ${pmCount})`],
+      ["PjM Only (n = 1)", `PjM Only (n = ${pjmCount})`],
+      ["Hybrid Only (n = 1)", `Hybrid Only (n = ${hybridCount})`],
+      ["6 Valid • 0 Corrupted", `${totalCount} Valid • 0 Corrupted`],
+      ["6/6 Analyzed (v1.6)", `${totalCount}/${totalCount} Synced (v1.6)`],
+      ["2026-11-23 06:00 CST", syncTime],
+      ["2026-11-23 06:02:14", syncTime]
+    ];
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      let val = node.nodeValue;
+      if (!val) continue;
+      for (const [oldStr, newStr] of replacements) {
+        if (val.includes(oldStr)) {
+          val = val.split(oldStr).join(newStr);
+        }
+      }
+      node.nodeValue = val;
+    }
+  }
+
   async function loadLive104Jobs() {
     try {
       const resp = await fetch("./data/jobs_104.json?t=" + Date.now());
@@ -2530,6 +2571,7 @@
       renderJobs();
       renderCompetencyInsights();
       populateFitTargetDropdown();
+      syncDatasetStatsUI(data, mappedJobs);
     } catch (_) {}
   }
 
