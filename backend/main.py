@@ -1,10 +1,10 @@
 import os
+import time
 from typing import Any, Literal, Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import httpx
-from openai import OpenAI
 
 app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.6.0")
 
@@ -25,14 +25,19 @@ app.add_middleware(
 )
 
 # Baca kredensial dari environment variables di server backend (JANGAN di-hardcode)
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 JOB104_API_KEY = os.getenv("JOB104_API_KEY")
-JOB104_API_URL = os.getenv("JOB104_API_URL")  # Isi sesuai dokumentasi resmi 104 bila sudah tersedia
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+JOB104_API_URL = os.getenv("JOB104_API_URL")
 
-openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+GEMINI_CANDIDATE_MODELS = [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-1.5-flash",
+]
 
-# Data sampel fallback (dipakai bila JOB104_API_URL belum dikonfigurasi)
+# Data sampel fallback (dipakai bila 104 live fetch terblokir atau belum tersedia)
 FALLBACK_JOBS: list[dict[str, Any]] = [
     {
         "job_id": "104-sample-001",
@@ -69,6 +74,58 @@ class AssistantRequest(BaseModel):
     selected_job: Optional[dict[str, Any]] = None
 
 
+def call_gemini_with_fallback(
+    system_prompt: str,
+    user_prompt: str,
+    json_mode: bool = False,
+) -> tuple[str, str]:
+    if not GEMINI_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="GEMINI_API_KEY is not configured in backend environment variables.",
+        )
+
+    combined_prompt = f"{system_prompt}\n\n{user_prompt}".strip()
+    last_error: str = "Unknown Gemini API error"
+
+    with httpx.Client(timeout=60.0) as client:
+        for model_name in GEMINI_CANDIDATE_MODELS:
+            url = (
+                f"https://generativelanguage.googleapis.com/v1beta/models/"
+                f"{model_name}:generateContent?key={GEMINI_API_KEY}"
+            )
+            gen_config: dict[str, Any] = {"temperature": 0.25}
+            if json_mode:
+                gen_config["responseMimeType"] = "application/json"
+
+            for attempt in range(2):
+                try:
+                    resp = client.post(
+                        url,
+                        headers={"Content-Type": "application/json"},
+                        json={
+                            "contents": [{"parts": [{"text": combined_prompt}]}],
+                            "generationConfig": gen_config,
+                        },
+                    )
+                    if resp.status_code == 404:
+                        last_error = f"Model {model_name} returned 404 Not Found"
+                        break
+                    if resp.status_code == 429:
+                        last_error = f"Model {model_name} rate limited (429)"
+                        time.sleep(5 * (attempt + 1))
+                        continue
+                    resp.raise_for_status()
+                    payload = resp.json()
+                    text_out = payload["candidates"][0]["content"]["parts"][0]["text"]
+                    return text_out, model_name
+                except Exception as exc:
+                    last_error = f"{model_name}: {exc}"
+                    time.sleep(2)
+
+    raise HTTPException(status_code=502, detail=f"Gemini API failed: {last_error}")
+
+
 async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -> dict[str, Any]:
     """Mengambil data lowongan langsung dari endpoint pencarian publik www.104.com.tw."""
     search_keyword = keyword.strip() or "Product Manager"
@@ -85,7 +142,7 @@ async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -
         "keyword": search_keyword,
         "page": page,
         "pagesize": 10,
-        "order": 15,  # Urutkan berdasarkan kesesuaian / terbaru
+        "order": 15,
     }
 
     try:
@@ -98,18 +155,24 @@ async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -
         jobs = []
         for item in raw_list:
             job_link = item.get("link", {}).get("job", "")
-            full_url = f"https:{job_link}" if job_link.startswith("//") else (job_link or "https://www.104.com.tw/")
-            jobs.append({
-                "job_id": str(item.get("jobNo", "")),
-                "source": "104",
-                "source_url": full_url,
-                "job_title_original": item.get("jobName", ""),
-                "company_name_original": item.get("custName", ""),
-                "location": item.get("jobAddrNoDesc", ""),
-                "salary_display": item.get("salaryDesc", "Not provided"),
-                "posting_date": item.get("appearDate", ""),
-                "job_description_original": item.get("description", ""),
-            })
+            full_url = (
+                f"https:{job_link}"
+                if job_link.startswith("//")
+                else (job_link or "https://www.104.com.tw/")
+            )
+            jobs.append(
+                {
+                    "job_id": str(item.get("jobNo", "")),
+                    "source": "104",
+                    "source_url": full_url,
+                    "job_title_original": item.get("jobName", ""),
+                    "company_name_original": item.get("custName", ""),
+                    "location": item.get("jobAddrNoDesc", ""),
+                    "salary_display": item.get("salaryDesc", "Not provided"),
+                    "posting_date": item.get("appearDate", ""),
+                    "job_description_original": item.get("description", ""),
+                }
+            )
 
         return {
             "source_mode": "104_live_web",
@@ -125,20 +188,11 @@ async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -
         }
 
 
-def require_openai() -> OpenAI:
-    if not openai_client:
-        raise HTTPException(
-            status_code=503,
-            detail="OPENAI_API_KEY is not configured in backend environment variables.",
-        )
-    return openai_client
-
-
 @app.get("/health")
 def health_check() -> dict[str, Any]:
     return {
         "status": "ok",
-        "openai_configured": bool(OPENAI_API_KEY),
+        "gemini_configured": bool(GEMINI_API_KEY),
         "job104_configured": bool(JOB104_API_URL and JOB104_API_KEY),
     }
 
@@ -153,7 +207,6 @@ async def get_104_jobs(keyword: str = "", page: int = 1) -> dict[str, Any]:
 
 @app.post("/api/analyze-job")
 def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
-    client = require_openai()
     system_prompt = (
         "You are a career intelligence analyst for PM/PjM roles. "
         "Classify roles by primary management object and ultimate responsibility into: "
@@ -168,24 +221,20 @@ def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
         f"Original Title: {req.job_title_original}\n"
         f"Original JD:\n{req.job_description_original}"
     )
-    completion = client.chat.completions.create(
-        model=OPENAI_MODEL,
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
+    raw_json, used_model = call_gemini_with_fallback(
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        json_mode=True,
     )
     return {
         "job_id": req.job_id,
-        "model": OPENAI_MODEL,
-        "analysis_raw_json": completion.choices[0].message.content,
+        "model": used_model,
+        "analysis_raw_json": raw_json,
     }
 
 
 @app.post("/api/career-fit")
 def career_fit(req: CareerFitRequest) -> dict[str, Any]:
-    client = require_openai()
     system_prompt = (
         "Compare the user's self-reported experience narrative against target vacancy requirements. "
         "Categorize points as Matched, Partially Matched, Not Demonstrated, or Insufficient Evidence. "
@@ -197,19 +246,16 @@ def career_fit(req: CareerFitRequest) -> dict[str, Any]:
         f"Vacancy Summary: {req.target_jd_summary}\n"
         f"User Narrative: {req.narrative}"
     )
-    completion = client.chat.completions.create(
-        model=OPENAI_MODEL,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
+    assessment, used_model = call_gemini_with_fallback(
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        json_mode=False,
     )
-    return {"model": OPENAI_MODEL, "assessment": completion.choices[0].message.content}
+    return {"model": used_model, "assessment": assessment}
 
 
 @app.post("/api/assistant")
 def assistant_chat(req: AssistantRequest) -> dict[str, Any]:
-    client = require_openai()
     context_block = (
         f"Selected Vacancy Context: {req.selected_job}"
         if req.selected_job
@@ -219,14 +265,17 @@ def assistant_chat(req: AssistantRequest) -> dict[str, Any]:
         "You are the PMCS AI Career Assistant. Clearly state whether your answer uses the selected vacancy "
         "or general PM/PjM career guidance. Never fabricate details absent from the source JD."
     )
-    completion = client.chat.completions.create(
-        model=OPENAI_MODEL,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Language: {req.language}\n{context_block}\nQuestion: {req.question}"},
-        ],
+    user_prompt = (
+        f"Language: {req.language}\n"
+        f"{context_block}\n"
+        f"Question: {req.question}"
+    )
+    reply, _ = call_gemini_with_fallback(
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        json_mode=False,
     )
     return {
         "context_mode": "selected_vacancy" if req.selected_job else "general_career",
-        "reply": completion.choices[0].message.content,
+        "reply": reply,
     }
