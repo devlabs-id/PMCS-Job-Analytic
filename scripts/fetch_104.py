@@ -113,4 +113,31 @@ def main() -> None:
 
     for kw in KEYWORDS:
         try:
-            items = fetch_keyword_jobs
+            items = fetch_keyword_jobs(kw, api_key)
+            for item in items:
+                job = normalize_job(item, len(collected_jobs) + 1)
+                if job and job["job_id"] not in seen_ids:
+                    seen_ids.add(job["job_id"])
+                    collected_jobs.append(job)
+        except Exception as exc:
+            print(f"[WARN] Keyword '{kw}' gagal diambil: {exc}")
+
+    if not collected_jobs:
+        existing_jobs = load_existing_jobs()
+        print(
+            f"[INFO] 0 lowongan baru diambil; mempertahankan {len(existing_jobs)} lowongan lama."
+        )
+        return
+
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    result = {
+        "total": len(collected_jobs),
+        "synced_at": datetime.now(CST).strftime("%Y-%m-%d %H:%M:%S CST"),
+        "jobs": collected_jobs,
+    }
+    OUTPUT_PATH.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[SUCCESS] Menyimpan {len(collected_jobs)} lowongan ke {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()
