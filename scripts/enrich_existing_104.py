@@ -8,13 +8,34 @@ DATA_PATH = Path("data/jobs_104.json")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
 CANDIDATE_MODELS = [
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
     "gemini-1.5-flash",
     "gemini-1.5-flash-8b",
 ]
+
+BLOCKED_MODEL_KEYWORDS = (
+    "image",
+    "nano-banana",
+    "imagen",
+    "veo",
+    "tts",
+    "audio",
+    "embedding",
+    "gemma",
+    "aqa",
+    "robotics",
+    "computer-use",
+)
+
+
+def is_text_gemini_model(model_name: str) -> bool:
+    lower = model_name.lower()
+    if not lower.startswith("gemini-"):
+        return False
+    return not any(bad in lower for bad in BLOCKED_MODEL_KEYWORDS)
 
 
 def discover_models() -> list[str]:
@@ -26,35 +47,38 @@ def discover_models() -> list[str]:
         list_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
         res = requests.get(list_url, timeout=30)
         res.raise_for_status()
-        available = []
+        available: list[str] = []
         for m in res.json().get("models", []):
             name = str(m.get("name", "")).replace("models/", "")
             methods = m.get("supportedGenerationMethods", [])
-            if name and "generateContent" in methods:
+            if name and "generateContent" in methods and is_text_gemini_model(name):
                 available.append(name)
 
         for c in CANDIDATE_MODELS:
             if c in available and c not in ordered:
                 ordered.append(c)
         for name in available:
-            if name not in ordered:
+            if name not in ordered and ("flash" in name.lower() or "pro" in name.lower()):
                 ordered.append(name)
     except Exception as exc:
-        print(f"[WARN] ListModels failed ({exc}); using default candidates.")
+        print(f"[WARN] ListModels failed ({exc}); using default text candidates.")
 
     for c in CANDIDATE_MODELS:
         if c not in ordered:
             ordered.append(c)
 
-    return ordered
+    return ordered[:8]
 
 
 def call_gemini_with_model_fallback(prompt: str, models: list[str]) -> tuple[dict, str]:
     last_error: Exception | None = None
 
     for model_name in models:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
-        for attempt in range(3):
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{model_name}:generateContent?key={GEMINI_API_KEY}"
+        )
+        for attempt in range(2):
             try:
                 res = requests.post(
                     url,
@@ -62,18 +86,18 @@ def call_gemini_with_model_fallback(prompt: str, models: list[str]) -> tuple[dic
                     json={
                         "contents": [{"parts": [{"text": prompt}]}],
                         "generationConfig": {
-                            "temperature": 0.2,
+                            "temperature": 0.25,
                             "responseMimeType": "application/json",
                         },
                     },
                     timeout=90,
                 )
                 if res.status_code == 404:
-                    print(f"[404] Model '{model_name}' not available for generateContent; trying next model...")
+                    print(f"[404] Model '{model_name}' not found; switching model...")
                     break
                 if res.status_code == 429:
-                    wait_sec = 15 * (attempt + 1)
-                    print(f"[429 Rate Limit] Model '{model_name}' waiting {wait_sec}s (retry {attempt + 1}/3)...")
+                    wait_sec = 5 * (attempt + 1)
+                    print(f"[429 Rate Limit] Model '{model_name}' waiting {wait_sec}s (retry {attempt + 1}/2)...")
                     time.sleep(wait_sec)
                     continue
                 res.raise_for_status()
@@ -81,10 +105,10 @@ def call_gemini_with_model_fallback(prompt: str, models: list[str]) -> tuple[dic
                 return json.loads(text_out), model_name
             except Exception as exc:
                 last_error = exc
-                print(f"[WARN] Error on '{model_name}' attempt {attempt + 1}: {exc}")
-                time.sleep(4)
+                print(f"[WARN] Error on '{model_name}' attempt {attempt + 1}/2: {exc}")
+                time.sleep(3)
 
-    raise RuntimeError(f"All Gemini models failed. Last error: {last_error}")
+    raise RuntimeError(f"All Gemini text models failed. Last error: {last_error}")
 
 
 def enrich_chunk(chunk: list[dict], models: list[str]) -> tuple[dict[str, dict], str]:
@@ -98,19 +122,19 @@ def enrich_chunk(chunk: list[dict], models: list[str]) -> tuple[dict[str, dict],
     ]
 
     prompt = (
-        "You are a PM/PjM career analyst. Analyze each 104 Job Bank listing and return ONLY valid JSON "
-        "with key 'items' (list). Each item must have:\n"
+        "You are a PM/PjM career analyst. Analyze each 104 Job Bank listing individually based on its own "
+        "title and description, and return ONLY valid JSON with key 'items' (list). Each item must have:\n"
         "- 'job_id': exact input job_id\n"
         "- 'job_title_en': natural English job title\n"
-        "- 'summary_en': 2-3 sentence pure English AI analysis of core JD responsibilities & requirements\n"
-        "- 'summary_zh': 2-3 sentence pure Traditional Chinese AI analysis of core JD responsibilities & requirements\n"
+        "- 'summary_en': 2-3 sentence pure English AI analysis specific to this job's JD\n"
+        "- 'summary_zh': 2-3 sentence pure Traditional Chinese AI analysis specific to this job's JD\n"
         "- 'classification': one of ['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']\n"
-        "- 'rationale_en': 1-2 sentence English explanation for the classification\n"
-        "- 'rationale_zh': 1-2 sentence Traditional Chinese explanation for the classification\n"
-        "- 'competencies': list of 3 to 5 distinct KSA items tailored specifically to this job's actual description, "
-        "covering Knowledge, Skills, and Attitudes. Each object must have: "
-        "'category' ('Knowledge' | 'Skills' | 'Attitudes'), 'name_en', 'name_zh', "
-        "'evidence_type' ('Explicit' | 'Inferred'), and 'excerpt' (exact short quote from original description).\n\n"
+        "- 'rationale_en': 1-2 sentence English explanation for this job's classification\n"
+        "- 'rationale_zh': 1-2 sentence Traditional Chinese explanation for this job's classification\n"
+        "- 'competencies': list of 3 to 5 distinct KSA items tailored specifically to THIS job's actual description "
+        "(do not reuse generic competencies across different jobs), covering Knowledge, Skills, and Attitudes. "
+        "Each object must have: 'category' ('Knowledge' | 'Skills' | 'Attitudes'), 'name_en', 'name_zh', "
+        "'evidence_type' ('Explicit' | 'Inferred'), and 'excerpt' (exact short quote from this job's description).\n\n"
         f"Input jobs:\n{json.dumps(payload, ensure_ascii=False)}"
     )
 
@@ -122,7 +146,7 @@ def enrich_chunk(chunk: list[dict], models: list[str]) -> tuple[dict[str, dict],
 
 def main() -> None:
     models = discover_models()
-    print(f"[INFO] Candidate models order: {models}")
+    print(f"[INFO] Filtered text candidate models: {models}")
 
     raw = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     jobs = raw.get("jobs", [])
@@ -134,7 +158,7 @@ def main() -> None:
         print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs)...")
         batch_map, active_model = enrich_chunk(chunk, models)
         enriched_map.update(batch_map)
-        time.sleep(6)
+        time.sleep(5)
 
     for j in jobs:
         ai = enriched_map.get(str(j["job_id"]))
