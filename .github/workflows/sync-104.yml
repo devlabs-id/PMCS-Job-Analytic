@@ -26,6 +26,7 @@ jobs:
       - name: Fetch latest 104 jobs
         env:
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python scripts/fetch_104.py
 
       - name: Commit and push if data/jobs_104.json changed
