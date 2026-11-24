@@ -27,7 +27,7 @@ GROQ_MODELS = [
 OPENROUTER_MODELS = [
     "meta-llama/llama-3.3-70b-instruct:free",
     "qwen/qwen-2.5-72b-instruct:free",
-    "google/gemma-3-27b-it:free",
+    "mistralai/mistral-small-3.1-24b-instruct:free",
 ]
 
 OPENAI_MODELS = [
@@ -35,14 +35,20 @@ OPENAI_MODELS = [
 ]
 
 
-def extract_json_object(raw_text: str) -> dict:
+def extract_json_payload(raw_text: str):
     cleaned = raw_text.strip()
     cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
+    cleaned = re.sub(r"\s*```$", "", cleaned).strip()
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        match = re.search(r"(\{[\s\S]*\}|\[[\s\S]*\])", cleaned)
+        if match:
+            return json.loads(match.group(1))
+        raise
 
 
-def call_gemini(prompt: str) -> tuple[dict, str]:
+def call_gemini(prompt: str):
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY not configured")
     last_err: Exception | None = None
@@ -64,12 +70,13 @@ def call_gemini(prompt: str) -> tuple[dict, str]:
                 },
                 timeout=60,
             )
-            if res.status_code in (404, 429, 503):
+            if res.status_code in (400, 403, 404, 429, 503):
                 print(f"[Gemini {res.status_code}] '{model_name}' unavailable, skipping...")
+                last_err = RuntimeError(f"HTTP {res.status_code}")
                 continue
             res.raise_for_status()
             text_out = res.json()["candidates"][0]["content"]["parts"][0]["text"]
-            return extract_json_object(text_out), f"gemini:{model_name}"
+            return extract_json_payload(text_out), f"gemini:{model_name}"
         except Exception as exc:
             last_err = exc
             print(f"[Gemini WARN] '{model_name}': {exc}")
@@ -83,7 +90,7 @@ def call_openai_compatible(
     models: list[str],
     prompt: str,
     extra_headers: dict[str, str] | None = None,
-) -> tuple[dict, str]:
+):
     if not api_key:
         raise RuntimeError(f"{provider_label} API key not configured")
     last_err: Exception | None = None
@@ -111,19 +118,20 @@ def call_openai_compatible(
                 payload["response_format"] = {"type": "json_object"}
 
             res = requests.post(endpoint, headers=headers, json=payload, timeout=60)
-            if res.status_code in (401, 402, 404, 429, 503):
+            if res.status_code in (400, 401, 402, 403, 404, 429, 503):
                 print(f"[{provider_label} {res.status_code}] '{model_name}' unavailable, skipping...")
+                last_err = RuntimeError(f"HTTP {res.status_code}")
                 continue
             res.raise_for_status()
             text_out = res.json()["choices"][0]["message"]["content"]
-            return extract_json_object(text_out), f"{provider_label}:{model_name}"
+            return extract_json_payload(text_out), f"{provider_label}:{model_name}"
         except Exception as exc:
             last_err = exc
             print(f"[{provider_label} WARN] '{model_name}': {exc}")
     raise RuntimeError(f"{provider_label} exhausted: {last_err}")
 
 
-def call_ai_with_multi_provider_fallback(prompt: str) -> tuple[dict, str]:
+def call_ai_with_multi_provider_fallback(prompt: str):
     providers = [
         ("Primary: Gemini", lambda: call_gemini(prompt)),
         (
@@ -178,34 +186,48 @@ def build_local_job_fallback(job: dict) -> dict:
     title = str(job.get("job_title_original") or "")
     desc = str(job.get("job_description_original") or "")
     lines = [ln.strip() for ln in desc.splitlines() if ln.strip()]
-    snippet_1 = lines[0][:120] if len(lines) > 0 else desc[:120]
-    snippet_2 = lines[1][:120] if len(lines) > 1 else desc[120:240]
+    snippet_1 = lines[0][:100] if len(lines) > 0 else desc[:100]
+    snippet_2 = lines[1][:100] if len(lines) > 1 else snippet_1
 
-    is_pm = any(k in (title + desc).lower() for k in ("product", "prd", "roadmap", "產品", "需求分析"))
+    combined = f"{title} {desc}".lower()
+    is_pm = any(k in combined for k in ("product", "prd", "roadmap", "產品", "需求分析", "企劃"))
     classification = "PM" if is_pm else "PjM"
+
+    if any(k in combined for k in ("ai", "data", "saas", "軟體", "系統", "平台", "app")):
+        domain_en, domain_zh = "Digital Product & Software Delivery", "數位產品與系統交付領域"
+        skill_en, skill_zh = "Requirements Definition & Sprint Alignment", "需求規格拆解與敏捷協作"
+    elif any(k in combined for k in ("硬體", "製造", "產線", "機構", "電子", "製程", "供應鏈", "採購")):
+        domain_en, domain_zh = "Hardware, Manufacturing & Supply Chain", "硬體開發、製造與供應鏈管理"
+        skill_en, skill_zh = "Milestone Tracking & Vendor Coordination", "專案里程碑控管與供應商協調"
+    else:
+        domain_en, domain_zh = "Cross-Functional Operations & Execution", "跨部門營運與專案執行管理"
+        skill_en, skill_zh = "Stakeholder Alignment & Risk Follow-Up", "利害關係人對齊與風險追蹤"
 
     return {
         "job_id": job["job_id"],
         "job_title_en": job.get("job_title_en") or title,
-        "summary_en": f"Role focused on {title}. Key responsibilities include: {snippet_1}",
+        "summary_en": (
+            f"This {classification} role focuses on {domain_en.lower()} for {title}. "
+            f"Key execution involves aligning stakeholders, tracking deliverables, and meeting core operational goals."
+        ),
         "summary_zh": f"此職缺為「{title}」，主要工作內容涵蓋：{snippet_1}",
         "classification": classification,
-        "rationale_en": f"Classified as {classification} based on core responsibilities described in {title}.",
+        "rationale_en": f"Classified as {classification} based on core responsibilities in {domain_en.lower()}.",
         "rationale_zh": f"依據「{title}」之實際工作內容與執行重心判定為 {classification}。",
         "competencies": [
             {
                 "category": "Knowledge",
-                "name_en": f"Domain Knowledge for {title[:40]}",
-                "name_zh": f"{title[:20]} 相關領域知識",
+                "name_en": domain_en,
+                "name_zh": domain_zh,
                 "evidence_type": "Explicit",
                 "excerpt": snippet_1 or desc[:100],
             },
             {
                 "category": "Skills",
-                "name_en": "Execution & Cross-Functional Coordination",
-                "name_zh": "專案執行與跨部門溝通協調",
+                "name_en": skill_en,
+                "name_zh": skill_zh,
                 "evidence_type": "Explicit",
-                "excerpt": snippet_2 or snippet_1 or desc[:100],
+                "excerpt": snippet_2 or desc[:100],
             },
             {
                 "category": "Attitudes",
@@ -247,11 +269,19 @@ def enrich_chunk(chunk: list[dict]) -> tuple[dict[str, dict], str]:
 
     try:
         parsed, used_model = call_ai_with_multi_provider_fallback(prompt)
-        items = parsed.get("items", []) if isinstance(parsed, dict) else []
+        if isinstance(parsed, list):
+            items = parsed
+        elif isinstance(parsed, dict):
+            items = parsed.get("items") or parsed.get("jobs") or parsed.get("results") or []
+        else:
+            items = []
+
         mapped = {str(x["job_id"]): x for x in items if isinstance(x, dict) and x.get("job_id")}
+        if not mapped:
+            raise RuntimeError(f"Model '{used_model}' returned empty items")
         return mapped, used_model
     except Exception as exc:
-        print(f"[FALLBACK] All remote AI providers unavailable ({exc}); using per-job local extraction.")
+        print(f"[FALLBACK] Remote AI failed ({exc}); using per-job local extraction.")
         mapped = {str(j["job_id"]): build_local_job_fallback(j) for j in chunk}
         return mapped, "local-jd-extractor"
 
@@ -273,8 +303,8 @@ def main() -> None:
     for j in jobs:
         ai = enriched_map.get(str(j["job_id"])) or build_local_job_fallback(j)
         j["job_title_en"] = ai.get("job_title_en") or j["job_title_original"]
-        j["summary_en"] = ai.get("summary_en") or j["job_description_original"][:240]
-        j["summary_zh"] = ai.get("summary_zh") or j["job_description_original"][:240]
+        j["summary_en"] = ai.get("summary_en") or ""
+        j["summary_zh"] = ai.get("summary_zh") or ""
         j["classification"] = ai.get("classification") or "PjM"
         j["rationale_en"] = ai.get("rationale_en") or ""
         j["rationale_zh"] = ai.get("rationale_zh") or ""
