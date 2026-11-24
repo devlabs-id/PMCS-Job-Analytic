@@ -2470,7 +2470,7 @@
     return "Taipei";
   }
 
-  function syncDatasetStatsUI(rawData, mappedJobs) {
+ function syncDatasetStatsUI(rawData, mappedJobs) {
     const totalCount = mappedJobs.length;
     const pmCount = mappedJobs.filter((j) => j.classification === "PM").length;
     const pjmCount = mappedJobs.filter((j) => j.classification === "PjM").length;
@@ -2502,6 +2502,17 @@
     while ((node = walker.nextNode())) {
       let val = node.nodeValue;
       if (!val) continue;
+
+      if (val.trim() === "6") {
+        const parentText = (node.parentElement && node.parentElement.parentElement
+          ? node.parentElement.parentElement.textContent
+          : "");
+        if (parentText.includes("Vacancies") || parentText.includes("Synced 104 Dataset")) {
+          node.nodeValue = val.replace("6", String(totalCount));
+          continue;
+        }
+      }
+
       for (const [oldStr, newStr] of replacements) {
         if (val.includes(oldStr)) {
           val = val.split(oldStr).join(newStr);
@@ -2510,7 +2521,6 @@
       node.nodeValue = val;
     }
   }
-
   async function loadLive104Jobs() {
     try {
       const resp = await fetch("./data/jobs_104.json?t=" + Date.now());
