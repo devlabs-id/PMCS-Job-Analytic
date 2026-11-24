@@ -2470,10 +2470,11 @@
     return "Taipei";
   }
 
-  // 1. Ambil data lowongan asli dari 104 via Render backend dan tampilkan ke Job Explorer
-  async function loadLive104Jobs(keyword = "Product Manager") {
+  async function loadLive104Jobs() {
     try {
-      const data = await callBackend(`/api/jobs/104?keyword=${encodeURIComponent(keyword)}`, null, "GET");
+      const resp = await fetch("./data/jobs_104.json?t=" + Date.now());
+      if (!resp.ok) return;
+      const data = await resp.json();
       if (!data || !Array.isArray(data.jobs) || data.jobs.length === 0) return;
 
       const mappedJobs = data.jobs.map((item, idx) => {
@@ -2484,7 +2485,7 @@
 
         return {
           id: `live-104-${item.job_id || idx}`,
-          source: "104 Job Bank (Live)",
+          source: "104 Job Bank",
           sourceUrl: item.source_url || "https://www.104.com.tw/",
           titleOriginal: title,
           companyOriginal: item.company_name_original || "104 Employer",
@@ -2496,7 +2497,7 @@
           },
           salaryMin: 50000,
           postingDate: item.posting_date || "2026-11-24",
-          lastChecked: "Live 104 API Sync",
+          lastChecked: "Daily 104 Sync",
           classification: cat,
           relatedTags: [],
           managementObject: {
@@ -2508,14 +2509,14 @@
             zh: jd.slice(0, 220) + (jd.length > 220 ? "..." : "")
           },
           rationale: {
-            en: `Live vacancy fetched from 104 Job Bank (${locRaw}). Click "Analyze with OpenAI" in detail view for full KSA breakdown.`,
-            zh: `即時從 104 人力銀行擷取之真實職缺（${locRaw}）。點擊詳情可進行 OpenAI 深度職能拆解。`
+            en: `Real 104 Job Bank listing (${locRaw}). Select this role in Career Fit Assessment to run live OpenAI analysis.`,
+            zh: `104 人力銀行真實職缺（${locRaw}）。可於下方 Career Fit Assessment 選擇此職缺進行 OpenAI 即時適配度分析。`
           },
           jdOriginal: jd,
           competencies: [
             {
               category: "Skills",
-              name: { en: "104 Live JD Requirement (Click Detail for OpenAI Analysis)", zh: "104 即時職缺條件（開啟詳情執行 OpenAI 分析）" },
+              name: { en: "104 JD Responsibility Signal", zh: "104 職缺職責訊號" },
               requirement: "Required",
               evidenceType: "Explicit",
               excerpt: jd.slice(0, 120)
@@ -2529,12 +2530,9 @@
       renderJobs();
       renderCompetencyInsights();
       populateFitTargetDropdown();
-    } catch (_) {
-      // Tetap gunakan data bawaan jika backend belum siap
-    }
+    } catch (_) {}
   }
 
-  // 2. Sambungkan Career Fit Assessment ke OpenAI via Render
   const _origRunCareerFitAssessment = window.runCareerFitAssessment;
   window.runCareerFitAssessment = async function () {
     const narrative = document.getElementById("fitNarrativeInput").value.trim();
@@ -2581,9 +2579,8 @@
     }
   };
 
-  // 3. Jalankan sinkronisasi 104 live saat halaman dibuka
   window.addEventListener("DOMContentLoaded", () => {
-    loadLive104Jobs("Product Manager");
+    loadLive104Jobs();
   });
 </script>
 </body>
