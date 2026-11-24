@@ -54,6 +54,76 @@ def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
     return raw_list
 
 
+def translate_batch_to_english(jobs: list[dict], openai_key: str) -> None:
+    if not openai_key or not jobs:
+        for j in jobs:
+            j["job_title_en"] = j["job_title_original"]
+            j["summary_en"] = j["job_description_original"][:220]
+        return
+
+    payload_items = [
+        {
+            "job_id": j["job_id"],
+            "title": j["job_title_original"],
+            "description": j["job_description_original"][:500],
+        }
+        for j in jobs
+    ]
+
+    try:
+        resp = requests.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {openai_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": "gpt-4o-mini",
+                "temperature": 0.2,
+                "response_format": {"type": "json_object"},
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": (
+                            "Translate Traditional Chinese job titles and descriptions into clear, "
+                            "concise English. Return JSON object with key 'items': list of objects "
+                            "with keys 'job_id', 'job_title_en', and 'summary_en' (1-2 concise sentences)."
+                        ),
+                    },
+                    {
+                        "role": "user",
+                        "content": json.dumps({"items": payload_items}, ensure_ascii=False),
+                    },
+                ],
+            },
+            timeout=45,
+        )
+        resp.raise_for_status()
+        content = resp.json()["choices"][0]["message"]["content"]
+        parsed = json.loads(content)
+        translated_map = {
+            str(row.get("job_id")): row
+            for row in (parsed.get("items") or [])
+            if isinstance(row, dict) and row.get("job_id")
+        }
+
+        for j in jobs:
+            tr = translated_map.get(j["job_id"])
+            if tr:
+                j["job_title_en"] = str(tr.get("job_title_en") or j["job_title_original"]).strip()
+                j["summary_en"] = str(
+                    tr.get("summary_en") or j["job_description_original"][:220]
+                ).strip()
+            else:
+                j["job_title_en"] = j["job_title_original"]
+                j["summary_en"] = j["job_description_original"][:220]
+    except Exception as exc:
+        print(f"[WARN] Terjemahan OpenAI dilewati ({exc}); memakai fallback teks asli.")
+        for j in jobs:
+            j["job_title_en"] = j["job_title_original"]
+            j["summary_en"] = j["job_description_original"][:220]
+
+
 def normalize_job(item: dict, fallback_idx: int) -> dict | None:
     if not isinstance(item, dict):
         return None
@@ -91,6 +161,8 @@ def normalize_job(item: dict, fallback_idx: int) -> dict | None:
         "salary_display": salary,
         "posting_date": posting_date,
         "job_description_original": desc,
+        "job_title_en": title,
+        "summary_en": desc[:220],
     }
 
 
@@ -107,13 +179,14 @@ def load_existing_jobs() -> list[dict]:
 
 
 def main() -> None:
-    api_key = os.getenv("SCRAPER_API_KEY", "").strip()
+    scraper_key = os.getenv("SCRAPER_API_KEY", "").strip()
+    openai_key = os.getenv("OPENAI_API_KEY", "").strip()
     seen_ids: set[str] = set()
     collected_jobs: list[dict] = []
 
     for kw in KEYWORDS:
         try:
-            items = fetch_keyword_jobs(kw, api_key)
+            items = fetch_keyword_jobs(kw, scraper_key)
             for item in items:
                 job = normalize_job(item, len(collected_jobs) + 1)
                 if job and job["job_id"] not in seen_ids:
@@ -128,6 +201,8 @@ def main() -> None:
             f"[INFO] 0 lowongan baru diambil; mempertahankan {len(existing_jobs)} lowongan lama."
         )
         return
+
+    translate_batch_to_english(collected_jobs, openai_key)
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     result = {
