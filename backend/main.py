@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import httpx
 
-app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.7.0")
+app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.0")
 
 ALLOWED_ORIGINS = [
     "https://devlabs-id.github.io",
@@ -33,43 +33,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 JOB104_API_KEY = os.getenv("JOB104_API_KEY")
 JOB104_API_URL = os.getenv("JOB104_API_URL")
 
-GEMINI_CANDIDATE_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-1.5-flash",
-]
-
-GROQ_CANDIDATE_MODELS = [
-    "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant",
-]
-
-OPENROUTER_CANDIDATE_MODELS = [
-    "meta-llama/llama-3.3-70b-instruct:free",
-    "qwen/qwen-2.5-72b-instruct:free",
-    "google/gemma-3-27b-it:free",
-]
-
-OPENAI_CANDIDATE_MODELS = [
-    "gpt-4o-mini",
-]
-
-FALLBACK_JOBS: list[dict[str, Any]] = [
-    {
-        "job_id": "104-sample-001",
-        "source": "104",
-        "source_url": "https://www.104.com.tw/",
-        "job_title_original": "資深產品經理 Senior Product Manager (SaaS 平台)",
-        "company_name_original": "雲脈數位科技股份有限公司",
-        "job_description_original": (
-            "1. 負責 B2B 雲端協作產品之長期產品策略與季度 Roadmap 規劃。\n"
-            "2. 進行企業客戶深度訪談與市場競品分析，將商業痛點轉化為具體 PRD 與 User Story。\n"
-            "3. 依據數據指標動態調整功能開發優先順序。"
-        ),
-    }
-]
+_MODEL_CACHE: dict[str, tuple[float, list[str]]] = {}
 
 
 class AnalyzeJobRequest(BaseModel):
@@ -86,6 +50,12 @@ class CareerFitRequest(BaseModel):
     language: Literal["en", "zh-TW"] = "en"
 
 
+class CareerMatchTopRequest(BaseModel):
+    narrative: str = Field(..., min_length=1)
+    jobs: list[dict[str, Any]] = Field(..., min_length=1)
+    language: Literal["en", "zh-TW"] = "en"
+
+
 class AssistantRequest(BaseModel):
     question: str = Field(..., min_length=1)
     language: Literal["en", "zh-TW"] = "en"
@@ -95,107 +65,55 @@ class AssistantRequest(BaseModel):
 def _clean_json_text(raw_text: str) -> str:
     cleaned = raw_text.strip()
     cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return cleaned.strip()
+    cleaned = re.sub(r"\s*```$", "", cleaned).strip()
+    return cleaned
 
 
-def _call_gemini_provider(
-    client: httpx.Client,
-    combined_prompt: str,
-    json_mode: bool,
-) -> tuple[str, str]:
-    if not GEMINI_API_KEY:
-        raise RuntimeError("GEMINI_API_KEY not configured")
+def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
+    now = time.time()
+    cached = _MODEL_CACHE.get(provider)
+    if cached and (now - cached[0]) < 1800 and cached[1]:
+        return cached[1]
 
-    last_error = "Unknown Gemini error"
-    for model_name in GEMINI_CANDIDATE_MODELS:
-        url = (
-            f"https://generativelanguage.googleapis.com/v1beta/models/"
-            f"{model_name}:generateContent?key={GEMINI_API_KEY}"
-        )
-        gen_config: dict[str, Any] = {"temperature": 0.25}
-        if json_mode:
-            gen_config["responseMimeType"] = "application/json"
+    models: list[str] = []
+    try:
+        if provider == "gemini" and GEMINI_API_KEY:
+            r = client.get(f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}")
+            if r.status_code == 200:
+                for m in r.json().get("models", []):
+                    name = m.get("name", "").replace("models/", "")
+                    if "generateContent" in m.get("supportedGenerationMethods", []) and "gemini" in name:
+                        models.append(name)
+                models.sort(key=lambda x: (0 if "flash" in x else 1, x))
+        elif provider == "groq" and GROQ_API_KEY:
+            r = client.get(
+                "https://api.groq.com/openai/v1/models",
+                headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+            )
+            if r.status_code == 200:
+                models = [
+                    m["id"]
+                    for m in r.json().get("data", [])
+                    if m.get("id") and not any(b in m["id"].lower() for b in ("whisper", "guard", "tts", "embed"))
+                ]
+                models.sort(key=lambda x: (0 if "70b" in x else (1 if "llama" in x else 2), x))
+        elif provider == "openrouter" and OPENROUTER_API_KEY:
+            r = client.get("https://openrouter.ai/api/v1/models")
+            if r.status_code == 200:
+                for m in r.json().get("data", []):
+                    mid = m.get("id", "")
+                    if mid.endswith(":free") and not any(b in mid.lower() for b in ("vision", "vl", "embed", "audio")):
+                        models.append(mid)
+                models.sort(key=lambda x: (0 if any(k in x.lower() for k in ("llama", "qwen", "gemini", "mistral")) else 1, x))
+        elif provider == "openai" and OPENAI_API_KEY:
+            models = ["gpt-4o-mini"]
+    except Exception:
+        pass
 
-        for attempt in range(2):
-            try:
-                resp = client.post(
-                    url,
-                    headers={"Content-Type": "application/json"},
-                    json={
-                        "contents": [{"parts": [{"text": combined_prompt}]}],
-                        "generationConfig": gen_config,
-                    },
-                )
-                if resp.status_code in (404, 429, 503):
-                    last_error = f"{model_name} HTTP {resp.status_code}"
-                    if resp.status_code == 429 and attempt == 0:
-                        time.sleep(2)
-                        continue
-                    break
-                resp.raise_for_status()
-                payload = resp.json()
-                text_out = payload["candidates"][0]["content"]["parts"][0]["text"]
-                if json_mode:
-                    text_out = _clean_json_text(text_out)
-                    json.loads(text_out)
-                return text_out, f"gemini:{model_name}"
-            except Exception as exc:
-                last_error = f"{model_name}: {exc}"
-                time.sleep(1)
-
-    raise RuntimeError(last_error)
-
-
-def _call_openai_compatible_provider(
-    client: httpx.Client,
-    provider_name: str,
-    endpoint: str,
-    api_key: str,
-    models: list[str],
-    system_prompt: str,
-    user_prompt: str,
-    json_mode: bool,
-    extra_headers: Optional[dict[str, str]] = None,
-) -> tuple[str, str]:
-    if not api_key:
-        raise RuntimeError(f"{provider_name} API key not configured")
-
-    headers: dict[str, str] = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
-    if extra_headers:
-        headers.update(extra_headers)
-
-    last_error = f"Unknown {provider_name} error"
-    for model_name in models:
-        try:
-            body: dict[str, Any] = {
-                "model": model_name,
-                "temperature": 0.25,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-            }
-            if json_mode and provider_name in ("groq", "openai"):
-                body["response_format"] = {"type": "json_object"}
-
-            resp = client.post(endpoint, headers=headers, json=body)
-            if resp.status_code in (401, 402, 404, 429, 503):
-                last_error = f"{model_name} HTTP {resp.status_code}"
-                continue
-            resp.raise_for_status()
-            text_out = resp.json()["choices"][0]["message"]["content"]
-            if json_mode:
-                text_out = _clean_json_text(text_out)
-                json.loads(text_out)
-            return text_out, f"{provider_name}:{model_name}"
-        except Exception as exc:
-            last_error = f"{model_name}: {exc}"
-
-    raise RuntimeError(last_error)
+    result = models[:5]
+    if result:
+        _MODEL_CACHE[provider] = (now, result)
+    return result
 
 
 def call_gemini_with_fallback(
@@ -204,133 +122,75 @@ def call_gemini_with_fallback(
     json_mode: bool = False,
 ) -> tuple[str, str]:
     if not any([GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, OPENAI_API_KEY]):
-        raise HTTPException(
-            status_code=503,
-            detail="No AI provider API key is configured in backend environment variables.",
-        )
+        raise HTTPException(status_code=503, detail="No AI provider API key configured.")
 
     combined_prompt = f"{system_prompt}\n\n{user_prompt}".strip()
     errors: list[str] = []
 
     with httpx.Client(timeout=45.0) as client:
-        chain = [
-            ("Gemini", lambda: _call_gemini_provider(client, combined_prompt, json_mode)),
-            (
-                "Groq",
-                lambda: _call_openai_compatible_provider(
-                    client,
-                    "groq",
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    GROQ_API_KEY,
-                    GROQ_CANDIDATE_MODELS,
-                    system_prompt,
-                    user_prompt,
-                    json_mode,
-                ),
-            ),
-            (
-                "OpenRouter",
-                lambda: _call_openai_compatible_provider(
-                    client,
-                    "openrouter",
-                    "https://openrouter.ai/api/v1/chat/completions",
-                    OPENROUTER_API_KEY,
-                    OPENROUTER_CANDIDATE_MODELS,
-                    system_prompt,
-                    user_prompt,
-                    json_mode,
-                    extra_headers={
-                        "HTTP-Referer": "https://devlabs-id.github.io/PMCS-Job-Analytic/",
-                        "X-Title": "PMCS-Job-Analytic",
-                    },
-                ),
-            ),
-            (
-                "OpenAI",
-                lambda: _call_openai_compatible_provider(
-                    client,
-                    "openai",
-                    "https://api.openai.com/v1/chat/completions",
-                    OPENAI_API_KEY,
-                    OPENAI_CANDIDATE_MODELS,
-                    system_prompt,
-                    user_prompt,
-                    json_mode,
-                ),
-            ),
-        ]
-
-        for label, fn in chain:
+        # 1. Gemini
+        for model_name in _get_cached_models(client, "gemini"):
             try:
-                return fn()
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
+                gen_config: dict[str, Any] = {"temperature": 0.25}
+                if json_mode:
+                    gen_config["responseMimeType"] = "application/json"
+                resp = client.post(
+                    url,
+                    headers={"Content-Type": "application/json"},
+                    json={"contents": [{"parts": [{"text": combined_prompt}]}], "generationConfig": gen_config},
+                )
+                if resp.status_code != 200:
+                    errors.append(f"gemini:{model_name} HTTP {resp.status_code}")
+                    continue
+                text_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                if json_mode:
+                    text_out = _clean_json_text(text_out)
+                    json.loads(text_out)
+                return text_out, f"gemini:{model_name}"
             except Exception as exc:
-                errors.append(f"{label} -> {exc}")
+                errors.append(f"gemini:{model_name} {exc}")
 
-    raise HTTPException(
-        status_code=502,
-        detail="All configured AI providers failed: " + " | ".join(errors),
-    )
+        # 2. Groq -> OpenRouter -> OpenAI
+        openai_providers = [
+            ("groq", "https://api.groq.com/openai/v1/chat/completions", GROQ_API_KEY, {}),
+            (
+                "openrouter",
+                "https://openrouter.ai/api/v1/chat/completions",
+                OPENROUTER_API_KEY,
+                {"HTTP-Referer": "https://devlabs-id.github.io/PMCS-Job-Analytic/", "X-Title": "PMCS-Job-Analytic"},
+            ),
+            ("openai", "https://api.openai.com/v1/chat/completions", OPENAI_API_KEY, {}),
+        ]
+        for pname, endpoint, key, extra in openai_providers:
+            if not key:
+                continue
+            headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json", **extra}
+            for model_name in _get_cached_models(client, pname):
+                try:
+                    body: dict[str, Any] = {
+                        "model": model_name,
+                        "temperature": 0.25,
+                        "messages": [
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_prompt},
+                        ],
+                    }
+                    if json_mode and pname in ("groq", "openai"):
+                        body["response_format"] = {"type": "json_object"}
+                    resp = client.post(endpoint, headers=headers, json=body)
+                    if resp.status_code != 200:
+                        errors.append(f"{pname}:{model_name} HTTP {resp.status_code}")
+                        continue
+                    text_out = resp.json()["choices"][0]["message"]["content"]
+                    if json_mode:
+                        text_out = _clean_json_text(text_out)
+                        json.loads(text_out)
+                    return text_out, f"{pname}:{model_name}"
+                except Exception as exc:
+                    errors.append(f"{pname}:{model_name} {exc}")
 
-
-async def fetch_104_vacancies(keyword: str = "Product Manager", page: int = 1) -> dict[str, Any]:
-    search_keyword = keyword.strip() or "Product Manager"
-    url = "https://www.104.com.tw/jobs/search/api/jobs"
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-        ),
-        "Referer": "https://www.104.com.tw/jobs/search/",
-        "Accept": "application/json, text/plain, */*",
-    }
-    params = {
-        "keyword": search_keyword,
-        "page": page,
-        "pagesize": 10,
-        "order": 15,
-    }
-
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.get(url, headers=headers, params=params)
-            resp.raise_for_status()
-            payload = resp.json()
-
-        raw_list = payload.get("data", []) if isinstance(payload, dict) else []
-        jobs = []
-        for item in raw_list:
-            job_link = item.get("link", {}).get("job", "")
-            full_url = (
-                f"https:{job_link}"
-                if job_link.startswith("//")
-                else (job_link or "https://www.104.com.tw/")
-            )
-            jobs.append(
-                {
-                    "job_id": str(item.get("jobNo", "")),
-                    "source": "104",
-                    "source_url": full_url,
-                    "job_title_original": item.get("jobName", ""),
-                    "company_name_original": item.get("custName", ""),
-                    "location": item.get("jobAddrNoDesc", ""),
-                    "salary_display": item.get("salaryDesc", "Not provided"),
-                    "posting_date": item.get("appearDate", ""),
-                    "job_description_original": item.get("description", ""),
-                }
-            )
-
-        return {
-            "source_mode": "104_live_web",
-            "keyword": search_keyword,
-            "total_fetched": len(jobs),
-            "jobs": jobs if jobs else FALLBACK_JOBS,
-        }
-    except Exception as exc:
-        return {
-            "source_mode": "fallback_sample",
-            "note": f"104 live fetch fallback triggered: {exc}",
-            "jobs": FALLBACK_JOBS,
-        }
+    raise HTTPException(status_code=502, detail="All AI providers failed: " + " | ".join(errors[:8]))
 
 
 @app.get("/health")
@@ -345,21 +205,11 @@ def health_check() -> dict[str, Any]:
     }
 
 
-@app.get("/api/jobs/104")
-async def get_104_jobs(keyword: str = "", page: int = 1) -> dict[str, Any]:
-    try:
-        return await fetch_104_vacancies(keyword=keyword, page=page)
-    except httpx.HTTPError as exc:
-        raise HTTPException(status_code=502, detail=f"104 API request failed: {exc}") from exc
-
-
 @app.post("/api/analyze-job")
 def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
     system_prompt = (
         "You are a career intelligence analyst for PM/PjM roles. "
-        "Classify roles by primary management object and ultimate responsibility into: "
-        "PM, PjM, Hybrid, Unclear, or Other (never by job title alone). "
-        "Never invent facts missing from the JD. Respond strictly in JSON with keys: "
+        "Classify roles into PM, PjM, Hybrid, Unclear, or Other. Respond strictly in JSON with keys: "
         "classification, classification_reason, summary, responsibilities_evidence, "
         "explicit_competencies, inferred_competencies."
     )
@@ -369,16 +219,8 @@ def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
         f"Original Title: {req.job_title_original}\n"
         f"Original JD:\n{req.job_description_original}"
     )
-    raw_json, used_model = call_gemini_with_fallback(
-        system_prompt=system_prompt,
-        user_prompt=user_prompt,
-        json_mode=True,
-    )
-    return {
-        "job_id": req.job_id,
-        "model": used_model,
-        "analysis_raw_json": raw_json,
-    }
+    raw_json, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=True)
+    return {"job_id": req.job_id, "model": used_model, "analysis_raw_json": raw_json}
 
 
 @app.post("/api/career-fit")
@@ -394,12 +236,35 @@ def career_fit(req: CareerFitRequest) -> dict[str, Any]:
         f"Vacancy Summary: {req.target_jd_summary}\n"
         f"User Narrative: {req.narrative}"
     )
-    assessment, used_model = call_gemini_with_fallback(
-        system_prompt=system_prompt,
-        user_prompt=user_prompt,
-        json_mode=False,
-    )
+    assessment, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
     return {"model": used_model, "assessment": assessment}
+
+
+@app.post("/api/career-match-top")
+def career_match_top(req: CareerMatchTopRequest) -> dict[str, Any]:
+    compact_jobs = [
+        {
+            "job_id": j.get("job_id"),
+            "title": j.get("job_title_original"),
+            "company": j.get("company_name_original"),
+            "classification": j.get("classification"),
+            "summary": j.get("summary_en") or j.get("summary_zh") or str(j.get("job_description_original", ""))[:300],
+        }
+        for j in req.jobs[:25]
+    ]
+    system_prompt = (
+        "You are a career matching advisor. Rank the top 3 most suitable 104 Job Bank vacancies for the user's "
+        "narrative (experience, knowledge, skills). Return ONLY valid JSON with key 'matches' (list of 3 objects), "
+        "each having: 'job_id', 'fit_level' ('High Match' | 'Moderate Match' | 'Exploratory Match'), "
+        "'matched_signals' (list of strings), and 'reason' (2-sentence explanation in the requested language)."
+    )
+    user_prompt = (
+        f"Language: {req.language}\n"
+        f"User Narrative: {req.narrative}\n"
+        f"Available 104 Jobs: {json.dumps(compact_jobs, ensure_ascii=False)}"
+    )
+    raw_json, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=True)
+    return {"model": used_model, "matches_json": raw_json}
 
 
 @app.post("/api/assistant")
@@ -413,16 +278,8 @@ def assistant_chat(req: AssistantRequest) -> dict[str, Any]:
         "You are the PMCS AI Career Assistant. Clearly state whether your answer uses the selected vacancy "
         "or general PM/PjM career guidance. Never fabricate details absent from the source JD."
     )
-    user_prompt = (
-        f"Language: {req.language}\n"
-        f"{context_block}\n"
-        f"Question: {req.question}"
-    )
-    reply, used_model = call_gemini_with_fallback(
-        system_prompt=system_prompt,
-        user_prompt=user_prompt,
-        json_mode=False,
-    )
+    user_prompt = f"Language: {req.language}\n{context_block}\nQuestion: {req.question}"
+    reply, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
     return {
         "context_mode": "selected_vacancy" if req.selected_job else "general_career",
         "model": used_model,
