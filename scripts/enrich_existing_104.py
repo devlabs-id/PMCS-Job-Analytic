@@ -7,47 +7,87 @@ import requests
 DATA_PATH = Path("data/jobs_104.json")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
-PREFERRED_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
+CANDIDATE_MODELS = [
     "gemini-2.0-flash",
     "gemini-2.0-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
     "gemini-1.5-flash",
     "gemini-1.5-flash-8b",
 ]
 
 
-def resolve_gemini_model() -> str:
+def discover_models() -> list[str]:
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY is missing in GitHub Secrets!")
 
+    ordered: list[str] = []
     try:
         list_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
         res = requests.get(list_url, timeout=30)
         res.raise_for_status()
-        models_data = res.json().get("models", [])
         available = []
-        for m in models_data:
+        for m in res.json().get("models", []):
             name = str(m.get("name", "")).replace("models/", "")
             methods = m.get("supportedGenerationMethods", [])
             if name and "generateContent" in methods:
                 available.append(name)
 
-        for pref in PREFERRED_MODELS:
-            if pref in available:
-                print(f"[INFO] Selected Gemini model: {pref}")
-                return pref
-
-        if available:
-            print(f"[INFO] Using first available Gemini model: {available[0]}")
-            return available[0]
+        for c in CANDIDATE_MODELS:
+            if c in available and c not in ordered:
+                ordered.append(c)
+        for name in available:
+            if name not in ordered:
+                ordered.append(name)
     except Exception as exc:
-        print(f"[WARN] Could not list models ({exc}), defaulting to gemini-2.0-flash")
+        print(f"[WARN] ListModels failed ({exc}); using default candidates.")
 
-    return "gemini-2.0-flash"
+    for c in CANDIDATE_MODELS:
+        if c not in ordered:
+            ordered.append(c)
+
+    return ordered
 
 
-def enrich_chunk(chunk: list[dict], model_name: str) -> dict[str, dict]:
+def call_gemini_with_model_fallback(prompt: str, models: list[str]) -> tuple[dict, str]:
+    last_error: Exception | None = None
+
+    for model_name in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
+        for attempt in range(3):
+            try:
+                res = requests.post(
+                    url,
+                    headers={"Content-Type": "application/json"},
+                    json={
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "temperature": 0.2,
+                            "responseMimeType": "application/json",
+                        },
+                    },
+                    timeout=90,
+                )
+                if res.status_code == 404:
+                    print(f"[404] Model '{model_name}' not available for generateContent; trying next model...")
+                    break
+                if res.status_code == 429:
+                    wait_sec = 15 * (attempt + 1)
+                    print(f"[429 Rate Limit] Model '{model_name}' waiting {wait_sec}s (retry {attempt + 1}/3)...")
+                    time.sleep(wait_sec)
+                    continue
+                res.raise_for_status()
+                text_out = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+                return json.loads(text_out), model_name
+            except Exception as exc:
+                last_error = exc
+                print(f"[WARN] Error on '{model_name}' attempt {attempt + 1}: {exc}")
+                time.sleep(4)
+
+    raise RuntimeError(f"All Gemini models failed. Last error: {last_error}")
+
+
+def enrich_chunk(chunk: list[dict], models: list[str]) -> tuple[dict[str, dict], str]:
     payload = [
         {
             "job_id": j["job_id"],
@@ -74,45 +114,26 @@ def enrich_chunk(chunk: list[dict], model_name: str) -> dict[str, dict]:
         f"Input jobs:\n{json.dumps(payload, ensure_ascii=False)}"
     )
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
-
-    for attempt in range(3):
-        res = requests.post(
-            url,
-            headers={"Content-Type": "application/json"},
-            json={
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "temperature": 0.2,
-                    "responseMimeType": "application/json",
-                },
-            },
-            timeout=90,
-        )
-        if res.status_code == 429:
-            wait_sec = 15 * (attempt + 1)
-            print(f"[429 Rate Limit] Waiting {wait_sec}s before retry {attempt + 1}/3...")
-            time.sleep(wait_sec)
-            continue
-        res.raise_for_status()
-        text_out = res.json()["candidates"][0]["content"]["parts"][0]["text"]
-        parsed = json.loads(text_out)
-        items = parsed.get("items", []) if isinstance(parsed, dict) else []
-        return {str(x["job_id"]): x for x in items if isinstance(x, dict) and x.get("job_id")}
-
-    raise RuntimeError("Gemini API rate limited after 3 retries.")
+    parsed, used_model = call_gemini_with_model_fallback(prompt, models)
+    items = parsed.get("items", []) if isinstance(parsed, dict) else []
+    mapped = {str(x["job_id"]): x for x in items if isinstance(x, dict) and x.get("job_id")}
+    return mapped, used_model
 
 
 def main() -> None:
-    model_name = resolve_gemini_model()
+    models = discover_models()
+    print(f"[INFO] Candidate models order: {models}")
+
     raw = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     jobs = raw.get("jobs", [])
     enriched_map: dict[str, dict] = {}
+    active_model = models[0]
 
     for i in range(0, len(jobs), 5):
         chunk = jobs[i : i + 5]
-        print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs) with {model_name}...")
-        enriched_map.update(enrich_chunk(chunk, model_name))
+        print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs)...")
+        batch_map, active_model = enrich_chunk(chunk, models)
+        enriched_map.update(batch_map)
         time.sleep(6)
 
     for j in jobs:
@@ -141,7 +162,7 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
-    print(f"Done! Enriched {len(jobs)} jobs using {model_name}.")
+    print(f"Done! Enriched {len(jobs)} jobs using {active_model}.")
 
 
 if __name__ == "__main__":
