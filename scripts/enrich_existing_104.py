@@ -123,11 +123,11 @@ def main() -> None:
     jobs = raw.get("jobs", [])
     enriched_map: dict[str, dict] = {}
 
-    for i in range(0, len(jobs), 5):
-        chunk = jobs[i : i + 5]
-        print(f"Analyzing batch {i // 5 + 1} ({len(chunk)} jobs)...")
+   for i in range(0, len(jobs), 3):
+        chunk = jobs[i : i + 3]
+        print(f"Analyzing batch {i // 3 + 1} ({len(chunk)} jobs)...")
         enriched_map.update(enrich_chunk(chunk))
-        time.sleep(3)
+        time.sleep(8)
 
     for j in jobs:
         fb = fallback_item(j)
