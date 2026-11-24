@@ -1980,10 +1980,31 @@
           const titleZh = item.job_title_original || `104 Vacancy #${idx + 1}`;
           const titleEn = item.job_title_en || titleZh;
           const jdZh = item.job_description_original || "No detailed JD text returned.";
-          const summaryEn = item.summary_en || (jdZh.slice(0, 220) + (jdZh.length > 220 ? "..." : ""));
-          const summaryZh = jdZh.slice(0, 220) + (jdZh.length > 220 ? "..." : "");
-          const cat = inferRoleCategory(`${titleZh} ${titleEn}`, `${jdZh} ${summaryEn}`);
+          const summaryEn = item.summary_en || jdZh.slice(0, 220);
+          const summaryZh = item.summary_zh || jdZh.slice(0, 220);
+          const cat = item.classification || inferRoleCategory(`${titleZh} ${titleEn}`, `${jdZh} ${summaryEn}`);
           const locRaw = item.location || "Taiwan";
+
+          const aiComps = Array.isArray(item.competencies) && item.competencies.length > 0
+            ? item.competencies.map((c) => ({
+                category: c.category || "Skills",
+                name: {
+                  en: c.name_en || c.name || "Extracted Competency",
+                  zh: c.name_zh || c.name_en || "萃取職能"
+                },
+                requirement: "Required",
+                evidenceType: c.evidence_type === "Inferred" ? "Inferred" : "Explicit",
+                excerpt: c.excerpt || jdZh.slice(0, 120)
+              }))
+            : [
+                {
+                  category: "Skills",
+                  name: { en: "104 JD Responsibility Signal", zh: "104 職缺職責訊號" },
+                  requirement: "Required",
+                  evidenceType: "Explicit",
+                  excerpt: jdZh.slice(0, 120)
+                }
+              ];
 
           return {
             id: `live-104-${item.job_id || idx}`,
@@ -2000,34 +2021,22 @@
             },
             salaryMin: 50000,
             postingDate: item.posting_date || "2026-11-24",
-            lastChecked: "Daily 104 Sync",
+            lastChecked: data.synced_at || "Daily 104 Sync",
             classification: cat,
             relatedTags: [],
             managementObject: {
               en: cat === "PjM" ? "Project Delivery & Coordination" : "Product & Cross-Functional Execution",
               zh: cat === "PjM" ? "專案交付與跨團隊協調" : "產品規劃與跨職能執行"
             },
-            summary: {
-              en: summaryEn,
-              zh: summaryZh
-            },
+            summary: { en: summaryEn, zh: summaryZh },
             rationale: {
-              en: `Real 104 Job Bank listing (${locRaw}). Select this role in Career Fit Assessment to run live OpenAI analysis.`,
-              zh: `104 人力銀行真實職缺（${locRaw}）。可於下方 Career Fit Assessment 選擇此職缺進行 OpenAI 即時適配度分析。`
+              en: item.rationale_en || `AI analyzed 104 listing (${locRaw}) classified as ${cat}.`,
+              zh: item.rationale_zh || `AI 分析 104 職缺（${locRaw}），判定為 ${cat}。`
             },
             jdOriginal: jdZh,
-            competencies: [
-              {
-                category: "Skills",
-                name: { en: "104 JD Responsibility Signal", zh: "104 職缺職責訊號" },
-                requirement: "Required",
-                evidenceType: "Explicit",
-                excerpt: jdZh.slice(0, 120)
-              }
-            ]
+            competencies: aiComps
           };
         });
-
         jobsData.splice(0, jobsData.length, ...mappedJobs);
         appState.selectedForCompare = new Set(mappedJobs.slice(0, 2).map((j) => j.id));
         renderJobs();
