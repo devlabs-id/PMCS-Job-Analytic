@@ -826,6 +826,7 @@
         'guide.pjmObjectTag': 'Object: The Project',
         'guide.pjmQuestion': '“How do we deliver the agreed work within scope, time, and resource constraints?”',
         'guide.pjmUltimate': 'Project objectives and on-time, within-budget, quality delivery across stakeholders.',
+        'guide.respLabel': 'Core Responsibilities:',
         'guide.explorePjmBtn': 'Filter PjM Vacancies in Explorer →',
         'guide.taxonomyTitle': '5-Category Responsibility Classification Taxonomy',
         'guide.taxonomyRule': 'Rule: Unrelated vacancies are excluded during scope screening before labeling.',
@@ -1049,6 +1050,43 @@
         ]
       }
     ];
+
+    function parseSalaryMinFrom104(rawSalary) {
+      if (!rawSalary) return 0;
+      const text = String(rawSalary).trim();
+      if (/面議|negotiable|未提供|not provided/i.test(text)) return 0;
+
+      const matches = text.match(/\d[\d,]*(?:\.\d+)?/g);
+      if (!matches || matches.length === 0) return 0;
+
+      const numbers = matches
+        .map((n) => parseFloat(n.replace(/,/g, '')))
+        .filter((n) => !Number.isNaN(n) && n > 0);
+
+      if (numbers.length === 0) return 0;
+      let minVal = Math.min(...numbers);
+
+      if (/萬/.test(text) && minVal < 1000) {
+        minVal = minVal * 10000;
+      }
+
+      if (/年薪|per year|\/yr|annual/i.test(text)) {
+        minVal = Math.round(minVal / 12);
+      }
+
+      return Math.round(minVal);
+    }
+
+    function format104SalaryDisplay(rawSalary, lang) {
+      const cleaned = rawSalary && String(rawSalary).trim();
+      if (!cleaned) {
+        return lang === 'zh' ? '待遇面議（104 未標示）' : 'Negotiable / Not specified on 104';
+      }
+      if (/面議/.test(cleaned) && lang === 'en') {
+        return `${cleaned} (Negotiable)`;
+      }
+      return cleaned;
+    }
 
     function translateLocationToEnglish(rawLoc = '') {
       const text = String(rawLoc || '').trim();
@@ -1421,8 +1459,8 @@
       if (!raw) return;
       const lower = raw.toLowerCase();
       const matchedCats = [];
-      if (/\bpm\b|product manager|產品經理/.test(lower)) matchedCats.push('PM');
-      if (/\bpjm\b|project manager|專案經理/.test(lower)) matchedCats.push('PjM');
+      if (/pm|product manager|產品經理/.test(lower)) matchedCats.push('PM');
+      if (/pjm|project manager|專案經理/.test(lower)) matchedCats.push('PjM');
       if (/hybrid|混合/.test(lower)) matchedCats.push('Hybrid');
       if (matchedCats.length > 0) {
         appState.selectedCategories = new Set(matchedCats);
@@ -1484,7 +1522,7 @@
       });
 
       if (sortVal === 'newest') list.sort((a, b) => b.postingDate.localeCompare(a.postingDate));
-      else if (sortVal === 'salaryDesc') list.sort((a, b) => b.salaryMin - a.salaryMin);
+      else if (sortVal === 'salaryDesc') list.sort((a, b) => (b.salaryMin || 0) - (a.salaryMin || 0));
       return list;
     }
 
@@ -1732,7 +1770,7 @@
               return `
                 <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 space-y-2">
                   <div class="font-extrabold text-sm">#${jobNo} • ${escapeHtml(getDisplayJobTitle(job))}</div>
-                  <div class="text-xs font-semibold text-slate-600 dark:text-slate-300">🏢 ${escapeHtml(job.companyOriginal)} • 📍 ${escapeHtml(getDisplayJobLocation(job))}</div>
+                  <div class="text-xs font-semibold text-slate-600 dark:text-slate-300">🏢 ${escapeHtml(job.companyOriginal)} • 📍 ${escapeHtml(getDisplayJobLocation(job))} • 💰 ${escapeHtml(job.salaryDisplay[appState.lang])}</div>
                   <p class="text-xs text-slate-600 dark:text-slate-300">${escapeHtml(getDisplayJobSummary(job))}</p>
                 </div>
               `;
@@ -1918,8 +1956,8 @@
       if (activeJob) {
         const jobNo = getJobNumber(activeJob);
         processUserAssistantPrompt(appState.lang === 'en'
-          ? `Tell me the location, classification reason, and key details for #${jobNo} "${getDisplayJobTitle(activeJob)}" at ${activeJob.companyOriginal}.`
-          : `請說明 #${jobNo}「${getDisplayJobTitle(activeJob)}」（${activeJob.companyOriginal}）的工作地點、分類原因與重點內容。`);
+          ? `Tell me the location, salary, classification reason, and key details for #${jobNo} "${getDisplayJobTitle(activeJob)}" at ${activeJob.companyOriginal}.`
+          : `請說明 #${jobNo}「${getDisplayJobTitle(activeJob)}」（${activeJob.companyOriginal}）的工作地點、薪資、分類原因與重點內容。`);
       }
     }
 
@@ -1989,6 +2027,7 @@
           title: getDisplayJobTitle(activeJob),
           company: activeJob.companyOriginal,
           location: getDisplayJobLocation(activeJob),
+          salary: activeJob.salaryDisplay[appState.lang],
           classification: activeJob.classification,
           summary: getDisplayJobSummary(activeJob)
         } : null,
@@ -1997,6 +2036,7 @@
           title: getDisplayJobTitle(j),
           company: j.companyOriginal,
           location: getDisplayJobLocation(j),
+          salary: j.salaryDisplay[appState.lang],
           classification: j.classification,
           summary: getDisplayJobSummary(j).slice(0, 160)
         }))
@@ -2075,7 +2115,7 @@
         const aiResult = await callBackend('/api/career-fit', {
           narrative,
           target_job_title: jobTitle,
-          target_jd_summary: `Vacancy: ${jobTitle}\nLocation: ${getDisplayJobLocation(targetJob)}\nSummary: ${getDisplayJobSummary(targetJob)}\nJD: ${(targetJob.jdOriginal || '').slice(0, 1200)}`,
+          target_jd_summary: `Vacancy: ${jobTitle}\nLocation: ${getDisplayJobLocation(targetJob)}\nSalary: ${targetJob.salaryDisplay[appState.lang]}\nSummary: ${getDisplayJobSummary(targetJob)}\nJD: ${(targetJob.jdOriginal || '').slice(0, 1200)}`,
           language: isEn ? 'en' : 'zh-TW'
         }, 'POST');
 
@@ -2145,6 +2185,13 @@
           const cat = item.classification || 'PM';
           const locRaw = item.location || 'Taiwan';
 
+          const rawSalary104 =
+            item.salary_display ||
+            item.salary ||
+            item.salary_text ||
+            '';
+          const parsedMinSalary = parseSalaryMinFrom104(rawSalary104);
+
           let locFilterKey = 'Taipei';
           if (/新北|new taipei/i.test(locRaw)) locFilterKey = 'New Taipei';
           else if (/新竹|hsinchu/i.test(locRaw)) locFilterKey = 'Hsinchu';
@@ -2163,8 +2210,11 @@
               en: translateLocationToEnglish(locRaw),
               zh: locRaw
             },
-            salaryDisplay: { en: item.salary_display || 'Not provided', zh: item.salary_display || '待遇面議' },
-            salaryMin: 50000,
+            salaryDisplay: {
+              en: format104SalaryDisplay(rawSalary104, 'en'),
+              zh: format104SalaryDisplay(rawSalary104, 'zh')
+            },
+            salaryMin: parsedMinSalary,
             postingDate: item.posting_date || '2026-11-24',
             lastChecked: data.synced_at || 'Daily 104 Sync',
             classification: cat,
