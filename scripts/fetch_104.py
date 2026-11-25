@@ -1,5 +1,7 @@
 import json
 import os
+import re
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.parse import quote
@@ -9,6 +11,16 @@ KEYWORDS = ["Product Manager", "Project Manager", "產品經理", "專案經理"
 OUTPUT_PATH = Path("data/jobs_104.json")
 CST = timezone(timedelta(hours=8))
 
+DEFAULT_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/128.0.0.0 Safari/537.36"
+    ),
+    "Referer": "https://www.104.com.tw/jobs/search/",
+    "Accept": "application/json, text/plain, */*",
+}
+
 
 def build_target_url(keyword: str, page: int = 1, pagesize: int = 15) -> str:
     return (
@@ -17,9 +29,7 @@ def build_target_url(keyword: str, page: int = 1, pagesize: int = 15) -> str:
     )
 
 
-def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
-    target_url = build_target_url(keyword, page=1, pagesize=15)
-
+def fetch_json_via_proxy_or_direct(target_url: str, api_key: str, referer: str = "https://www.104.com.tw/") -> dict:
     if api_key:
         proxy_url = (
             f"http://api.scraperapi.com?api_key={quote(api_key)}"
@@ -27,19 +37,16 @@ def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
         )
         resp = requests.get(proxy_url, timeout=35)
     else:
-        headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/128.0.0.0 Safari/537.36"
-            ),
-            "Referer": "https://www.104.com.tw/jobs/search/",
-            "Accept": "application/json, text/plain, */*",
-        }
+        headers = {**DEFAULT_HEADERS, "Referer": referer}
         resp = requests.get(target_url, headers=headers, timeout=25)
 
     resp.raise_for_status()
-    payload = resp.json()
+    return resp.json()
+
+
+def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
+    target_url = build_target_url(keyword, page=1, pagesize=15)
+    payload = fetch_json_via_proxy_or_direct(target_url, api_key, "https://www.104.com.tw/jobs/search/")
 
     raw_list = []
     if isinstance(payload, dict):
@@ -51,48 +58,71 @@ def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
         elif isinstance(payload.get("list"), list):
             raw_list = payload["list"]
 
-    if raw_list and isinstance(raw_list[0], dict):
-        print(f"[DEBUG] Keyword '{keyword}' sample keys: {list(raw_list[0].keys())}")
-
     return raw_list
 
 
-def extract_104_salary(item: dict) -> str:
-    # 1. Cek field teks gaji langsung dari respon 104
-    for key in (
-        "salaryDesc",
-        "salary_desc",
-        "salaryStr",
-        "salaryText",
-        "salaryRangeDesc",
-        "salary",
-    ):
+def extract_salary_from_text(text: str) -> str:
+    if not text:
+        return ""
+    patterns = [
+        r"((?:月薪|年薪|時薪|日薪)\s*[\d,]+(?:\s*[~\-－至到]\s*[\d,]+)?\s*元?(?:以上)?)",
+        r"(待遇面議|面議)",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
+def fetch_job_detail_salary(job_id: str, source_url: str, api_key: str) -> str:
+    # Ambil slug pendek dari source_url (misal https://www.104.com.tw/job/8xfqu -> 8xfqu), fallback ke job_id
+    slug = source_url.rstrip("/").split("/")[-1] if "/job/" in source_url else job_id
+    detail_api_url = f"https://www.104.com.tw/job/ajax/content/{slug}"
+
+    try:
+        payload = fetch_json_via_proxy_or_direct(
+            detail_api_url,
+            api_key,
+            referer=f"https://www.104.com.tw/job/{slug}",
+        )
+        data = payload.get("data") if isinstance(payload, dict) else {}
+        if isinstance(data, dict):
+            job_detail = data.get("jobDetail") if isinstance(data.get("jobDetail"), dict) else {}
+            salary_text = str(job_detail.get("salary") or "").strip()
+            if salary_text and salary_text.lower() not in ("none", "null", "nan"):
+                return salary_text
+
+            low_num = job_detail.get("salaryMin") or 0
+            high_num = job_detail.get("salaryMax") or 0
+            if low_num and high_num and low_num != high_num:
+                return f"NT${int(low_num):,} ~ {int(high_num):,}"
+            if low_num:
+                return f"NT${int(low_num):,}+"
+    except Exception as exc:
+        print(f"[WARN] Detail salary fetch failed for {slug}: {exc}")
+
+    return ""
+
+
+def extract_104_salary(item: dict, job_id: str, source_url: str, desc: str, api_key: str) -> str:
+    # 1. Cek jika sudah ada di payload list pencarian
+    for key in ("salaryDesc", "salary_desc", "salaryStr", "salaryText", "salaryRangeDesc", "salary"):
         val = item.get(key)
         if isinstance(val, (str, int, float)):
             text = str(val).strip()
             if text and text.lower() not in ("none", "null", "nan", "0"):
                 return text
 
-    # 2. Jika gaji dikirim terpisah sebagai angka low / high
-    low_raw = item.get("salaryLow") or item.get("salary_low") or 0
-    high_raw = item.get("salaryHigh") or item.get("salary_high") or 0
+    # 2. Ambil dari endpoint detail 104 (/job/ajax/content/{slug})
+    detail_salary = fetch_job_detail_salary(job_id, source_url, api_key)
+    if detail_salary:
+        return detail_salary
 
-    try:
-        low_num = int(float(str(low_raw).replace(",", "").strip()))
-    except (ValueError, TypeError):
-        low_num = 0
-
-    try:
-        high_num = int(float(str(high_raw).replace(",", "").strip()))
-    except (ValueError, TypeError):
-        high_num = 0
-
-    if low_num > 0 and high_num > 0 and high_num != low_num:
-        return f"{low_num:,} ~ {high_num:,}"
-    if low_num > 0:
-        return f"{low_num:,}+"
-    if high_num > 0:
-        return f"Up to {high_num:,}"
+    # 3. Fallback: ekstrak jika tertulis di dalam deskripsi pekerjaan
+    jd_salary = extract_salary_from_text(desc)
+    if jd_salary:
+        return jd_salary
 
     return "Not provided"
 
@@ -218,7 +248,7 @@ def analyze_jobs_with_openai(jobs: list[dict], openai_key: str) -> None:
                 fallback_enrich(j)
 
 
-def normalize_job(item: dict, fallback_idx: int) -> dict | None:
+def normalize_job(item: dict, fallback_idx: int, api_key: str) -> dict | None:
     if not isinstance(item, dict):
         return None
 
@@ -238,12 +268,14 @@ def normalize_job(item: dict, fallback_idx: int) -> dict | None:
     title = str(item.get("jobName") or "").strip()
     company = str(item.get("custName") or "").strip()
     location = str(item.get("jobAddrNoDesc") or "Taiwan").strip()
-    salary = extract_104_salary(item)
     posting_date = str(item.get("appearDate") or datetime.now(CST).strftime("%Y-%m-%d")).strip()
     desc = str(item.get("description") or title).strip()
 
     if not title:
         return None
+
+    salary = extract_104_salary(item, job_id, source_url, desc, api_key)
+    time.sleep(0.25)
 
     return {
         "job_id": job_id,
@@ -280,7 +312,10 @@ def main() -> None:
         try:
             items = fetch_keyword_jobs(kw, scraper_key)
             for item in items:
-                job = normalize_job(item, len(collected_jobs) + 1)
+                raw_id = str(item.get("jobNo") or "").strip()
+                if raw_id and raw_id in seen_ids:
+                    continue
+                job = normalize_job(item, len(collected_jobs) + 1, scraper_key)
                 if job and job["job_id"] not in seen_ids:
                     seen_ids.add(job["job_id"])
                     collected_jobs.append(job)
