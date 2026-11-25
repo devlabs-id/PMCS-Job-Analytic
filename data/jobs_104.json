@@ -12,40 +12,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": " Product Manual (商品手冊)，進行版本管理。\n\n五、文件與資料管理\n1. 商品圖片分類、整理與歸檔。\n2. 標籤與商品資料文件建檔，確保系統化管理。\n\n六、其他主管交辦事項\n依專案需求，協助跨部門資料彙整與作業支援。\n\n",
-      "job_title_en": "National Geographic Apparel Procurement Officer (Near Zhongshan Junior High MRT Station, Contract)",
-      "summary_en": "The role centers on managing product manuals, version control, and systematic documentation of product images and labels. It also supports cross‑departmental data aggregation when project needs arise, indicating a focus on procurement and data management rather than product or project leadership.",
-      "summary_zh": "此職位主要負責商品手冊的版本管理、商品圖片與標籤的分類歸檔，並在專案需求時協助跨部門資料彙整，屬於採購與文件管理工作，並非產品或專案領導。",
+      "job_title_en": "Apparel Procurement Specialist (Contract)",
+      "summary_en": "This role focuses on the administrative and operational aspects of apparel procurement, specifically managing product manuals and version control. It involves systematic data filing of product images and labels to support cross-departmental needs.",
+      "summary_zh": "此職位專注於服裝採購的行政與營運層面，特別是商品手冊的管理與版本控制。工作內容涉及商品圖片與標籤的系統化檔案管理，以支援跨部門需求。",
       "classification": "Other",
-      "rationale_en": "The duties are limited to procurement documentation and support tasks, lacking core product or project management responsibilities.",
-      "rationale_zh": "工作內容僅涉及採購文件與支援，未包含核心的產品或專案管理職責。",
+      "rationale_en": "The job description emphasizes clerical procurement tasks and document filing rather than product strategy or project lifecycle management.",
+      "rationale_zh": "職位描述強調文書採購任務與檔案歸檔，而非產品策略或專案生命週期管理。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Procurement and Vendor Management",
-          "name_zh": "採購與供應商管理",
-          "evidence_type": "Explicit",
-          "excerpt": "商品手冊，進行版本管理。"
-        },
-        {
           "category": "Skills",
-          "name_en": "Document Version Control",
-          "name_zh": "文件版本控制",
+          "name_en": "Version Control Management",
+          "name_zh": "版本管理能力",
           "evidence_type": "Explicit",
           "excerpt": "Product Manual (商品手冊)，進行版本管理。"
         },
         {
-          "category": "Skills",
-          "name_en": "Data Classification and Archiving",
-          "name_zh": "資料分類與歸檔",
+          "category": "Knowledge",
+          "name_en": "Systematic Data Archiving",
+          "name_zh": "系統化資料歸檔知識",
           "evidence_type": "Explicit",
           "excerpt": "商品圖片分類、整理與歸檔。"
         },
         {
           "category": "Attitudes",
-          "name_en": "Attention to Detail",
-          "name_zh": "注重細節",
+          "name_en": "Supportive Collaboration",
+          "name_zh": "支援性協作態度",
           "evidence_type": "Inferred",
-          "excerpt": "標籤與商品資料文件建檔，確保系統化管理。"
+          "excerpt": "協助跨部門資料彙整與作業支援。"
         }
       ]
     },
@@ -59,43 +52,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "關單位執行。\n\n1.  新產品開發專案追蹤與協調：追蹤健身器材新產品從設計、規格確認、樣品驗證、開模、測試至試量產各階段進度，協調台灣辦公室與廈門工廠，確保專案順利推進。\n\n2.  產品規格與文件管理：彙整及維護產品規格表（Product",
-      "job_title_en": "Product Management – Project Manager (Fitness Equipment Development & After‑sales Service)",
-      "summary_en": "Responsible for tracking and coordinating new fitness equipment development across design, prototyping, tooling, testing, and pilot production, linking the Taiwan office with the Xiamen factory. Also maintains product specification documents, blending product management with project coordination.",
-      "summary_zh": "負責追蹤健身器材新產品從設計、樣品驗證、開模、測試到試量產的各階段，協調台灣辦公室與廈門工廠，同時維護產品規格文件，兼具產品管理與專案協調職能。",
-      "classification": "Hybrid",
-      "rationale_en": "The role combines product specification maintenance with end‑to‑end project tracking and cross‑functional coordination, fitting both PM and PjM scopes.",
-      "rationale_zh": "工作同時涉及產品規格管理與全流程專案追蹤及跨部門協調，屬於產品與專案管理的混合。",
+      "job_title_en": "Project Manager (Fitness Equipment Development)",
+      "summary_en": "This position is responsible for tracking the full development cycle of fitness equipment from design to mass production. It requires high coordination between the Taiwan headquarters and the manufacturing plant in Xiamen to ensure project milestones are met.",
+      "summary_zh": "此職位負責追蹤健身器材從設計到量產的完整開發週期。需要高度協調台灣總部與廈門工廠，以確保專案里程碑如期達成。",
+      "classification": "PjM",
+      "rationale_en": "The core responsibilities revolve around tracking progress, coordinating schedules, and managing documentation across different development stages.",
+      "rationale_zh": "核心職責圍繞在追蹤進度、協調時程以及管理不同開發階段的文件。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Fitness Equipment Development Lifecycle",
-          "name_zh": "健身器材開發生命周期",
+          "category": "Skills",
+          "name_en": "NPD Milestone Tracking",
+          "name_zh": "新產品開發里程碑追蹤",
           "evidence_type": "Explicit",
           "excerpt": "追蹤健身器材新產品從設計、規格確認、樣品驗證、開模、測試至試量產各階段進度"
         },
-        "",
+        {
+          "category": "Knowledge",
+          "name_en": "Cross-Border Factory Coordination",
+          "name_zh": "跨境工廠協調知識",
+          "evidence_type": "Explicit",
+          "excerpt": "協調台灣辦公室與廈門工廠，確保專案順利推進。"
+        },
         {
           "category": "Skills",
-          "name_en": "Cross‑Regional Project Coordination",
-          "name_zh": "跨區域專案協調",
+          "name_en": "Technical Document Maintenance",
+          "name_zh": "技術文件維護",
           "evidence_type": "Explicit",
-          "excerpt": "協調台灣辦公室與廈門工廠，確保專案順利推進"
-        },
-        "",
-        {
-          "category": "Skills",
-          "name_en": "Product Specification Documentation",
-          "name_zh": "產品規格文件管理",
-          "evidence_type": "Explicit",
-          "excerpt": "彙整及維護產品規格表（Product"
-        },
-        "",
-        {
-          "category": "Attitudes",
-          "name_en": "Proactive Collaboration",
-          "name_zh": "積極合作態度",
-          "evidence_type": "Inferred",
-          "excerpt": "依專案需求，協助跨部門資料彙整與作業支援"
+          "excerpt": "彙整及維護產品規格表"
         }
       ]
     },
@@ -109,40 +92,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261118",
       "job_description_original": "熟悉液晶顯示器產品 和 電容式觸控產品，具有整合觸控螢幕 經驗為佳 \n\n1. 執行新產品開發專案之規劃，從RFQ，Proposal 討論，樣品製作到量產 \n2. 制定新產品NPI – New Product Introduction，協調R&D團",
-      "job_title_en": "Product Manager (LCD & Capacitive Touch Displays)",
-      "summary_en": "The candidate must be versed in LCD and capacitive touch technologies and lead NPI initiatives from RFQ through proposal, sampling, and mass production. Coordination with R&D teams is emphasized, highlighting product‑focused responsibilities rather than formal project governance.",
-      "summary_zh": "需熟悉液晶顯示與電容式觸控技術，負責從RFQ、提案、樣品製作到量產的新產品導入（NPI），並協調研發團隊，重點在產品管理而非專案管理。",
-      "classification": "PM",
-      "rationale_en": "The description centers on product technology expertise and NPI execution, typical of a product manager role.",
-      "rationale_zh": "工作內容聚焦於產品技術與新產品導入，屬於產品經理的典型職責。",
+      "job_title_en": "Product Manager (LCD & Touch Solutions)",
+      "summary_en": "This role involves managing the end-to-end introduction of LCD and touch products, starting from the RFQ and proposal stage. It requires technical integration knowledge to bridge the gap between customer requirements and R&D execution.",
+      "summary_zh": "此職位涉及管理液晶顯示器與觸控產品的端到端導入，從 RFQ 和提案階段開始。需要技術整合知識來銜接客戶需求與研發執行。",
+      "classification": "Hybrid",
+      "rationale_en": "The role combines strategic product planning (RFQ/Proposal) with the execution-heavy New Product Introduction (NPI) process.",
+      "rationale_zh": "此職位結合了策略性產品規劃（RFQ/提案）與執行導向的新產品導入（NPI）流程。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "LCD and Capacitive Touch Technology",
-          "name_zh": "液晶顯示與電容式觸控技術",
+          "name_en": "NPI Process Management",
+          "name_zh": "新產品導入流程管理",
           "evidence_type": "Explicit",
-          "excerpt": "熟悉液晶顯示器產品 和 電容式觸控產品，具有整合觸控螢幕 經驗為佳"
+          "excerpt": "制定新產品NPI – New Product Introduction"
         },
         {
           "category": "Skills",
-          "name_en": "NPI Planning and Execution",
-          "name_zh": "新產品導入規劃與執行",
+          "name_en": "Technical Integration",
+          "name_zh": "技術整合能力",
           "evidence_type": "Explicit",
-          "excerpt": "執行新產品開發專案之規劃，從RFQ，Proposal 討論，樣品製作到量產"
-        },
-        {
-          "category": "Skills",
-          "name_en": "R&D Coordination",
-          "name_zh": "研發團隊協調",
-          "evidence_type": "Explicit",
-          "excerpt": "制定新產品NPI – New Product Introduction，協調R&D團"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Innovation Mindset",
-          "name_zh": "創新思維",
-          "evidence_type": "Inferred",
           "excerpt": "具有整合觸控螢幕 經驗為佳"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Proposal Development",
+          "name_zh": "提案開發能力",
+          "evidence_type": "Explicit",
+          "excerpt": "從RFQ，Proposal 討論，樣品製作到量產"
         }
       ]
     },
@@ -156,40 +132,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "1. 產品或專案管理 \r\n2. 專案現場支援 \r\n3. 與客戶溝通解決問題 \r\n4. 跨部門處理問題 \r\n5. 市場與前端資訊收集分析\r\n6. 銷售策略規劃，產品上市宣告，產品定價與促銷規劃，產品生命終止規劃\r\n7. 市場與前端資訊收集分析\r\n8. 撰寫 Functional Spec / Technical Paper \r\n9. 各區業務產品相關支援事項 (國際展會支援)",
-      "job_title_en": "Product Manager (Integrated Product & Project Responsibilities)",
-      "summary_en": "Handles both product and project tasks: on‑site support, customer issue resolution, market analysis, sales strategy, product launch, pricing, lifecycle planning, and functional specification writing. The breadth of duties indicates a hybrid role bridging product management and project execution.",
-      "summary_zh": "負責產品與專案工作，包括現場支援、客戶問題解決、市場分析、銷售策略、產品上市、定價、生命週期規劃與功能規格撰寫，顯示兼具產品與專案管理職能。",
-      "classification": "Hybrid",
-      "rationale_en": "The mix of market‑driven product planning and hands‑on project support places this role between pure PM and PjM.",
-      "rationale_zh": "同時涉及市場導向的產品規劃與實務專案支援，屬於產品與專案管理的混合。",
+      "job_title_en": "Product Manager",
+      "summary_en": "A comprehensive PM role covering market analysis, pricing strategy, and the entire product lifecycle including EOL planning. It also demands technical writing skills for functional specifications and international market support.",
+      "summary_zh": "一個全面的產品經理職位，涵蓋市場分析、定價策略以及包括產品退市規劃在內的整個生命週期。同時需要撰寫功能規格書的技術寫作能力及國際市場支援。",
+      "classification": "PM",
+      "rationale_en": "The focus is heavily on market strategy, pricing, and product definition, which are core pillars of Product Management.",
+      "rationale_zh": "重點在於市場策略、定價與產品定義，這些是產品管理的核心支柱。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Product Lifecycle & Market Analysis",
-          "name_zh": "產品生命週期與市場分析",
+          "name_en": "Product Lifecycle Management",
+          "name_zh": "產品生命週期管理",
           "evidence_type": "Explicit",
-          "excerpt": "市場與前端資訊收集分析"
+          "excerpt": "銷售策略規劃，產品上市宣告，產品定價與促銷規劃，產品生命終止規劃"
         },
         {
           "category": "Skills",
-          "name_en": "Cross‑Department Issue Resolution",
-          "name_zh": "跨部門問題解決",
-          "evidence_type": "Explicit",
-          "excerpt": "跨部門處理問題"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Functional Specification Writing",
-          "name_zh": "功能規格撰寫",
+          "name_en": "Technical Specification Writing",
+          "name_zh": "技術規格撰寫",
           "evidence_type": "Explicit",
           "excerpt": "撰寫 Functional Spec / Technical Paper"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Customer‑Centric Problem Solving",
-          "name_zh": "以客戶為中心的問題解決",
-          "evidence_type": "Inferred",
-          "excerpt": "與客戶溝通解決問題"
+          "category": "Knowledge",
+          "name_en": "Market Intelligence Analysis",
+          "name_zh": "市場情報分析",
+          "evidence_type": "Explicit",
+          "excerpt": "市場與前端資訊收集分析"
         }
       ]
     },
@@ -203,33 +172,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "（Launch）、定價與促銷（Pricing/Promotion），以及產品終止（EOL）規劃\n2. 產品規格與技術文件 (Product Definition & Documentation)\n•\t規格定義與撰寫： 撰寫功能規格書（",
-      "job_title_en": "Product Manager (PM) – Launch, Pricing & End‑of‑Life Planning",
-      "summary_en": "This PM role at 好友電智慧科技股份有限公司 focuses on PM (Product Manager).",
-      "summary_zh": "此職缺為「PM (Product Manager)」，主要工作內容涵蓋：（Launch）、定價與促銷（Pricing/Promotion），以及產品終止（EOL）規劃",
+      "job_title_en": "Product Manager",
+      "summary_en": "This position focuses on defining product specifications and managing the commercial aspects of the product launch. Key responsibilities include pricing, promotion, and the creation of detailed functional documentation.",
+      "summary_zh": "此職位專注於定義產品規格並管理產品上市的商業層面。關鍵職責包括定價、促銷以及詳細功能文件的建立。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in PM (Product Manager).",
-      "rationale_zh": "依據「PM (Product Manager)」之實際工作內容判定為 PM。",
+      "rationale_en": "The job description highlights product definition, documentation, and commercial planning as the primary functions.",
+      "rationale_zh": "職位描述強調產品定義、文件編製與商業規劃為其主要職能。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Product Definition",
+          "name_zh": "產品定義能力",
           "evidence_type": "Explicit",
-          "excerpt": "（Launch）、定價與促銷（Pricing/Promotion），以及產品終止（EOL）規劃"
+          "excerpt": "產品規格與技術文件 (Product Definition & Documentation)"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Commercial Strategy",
+          "name_zh": "商業策略知識",
+          "evidence_type": "Explicit",
+          "excerpt": "（Launch）、定價與促銷（Pricing/Promotion）"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Functional Spec Authoring",
+          "name_zh": "功能規格編寫",
           "evidence_type": "Explicit",
-          "excerpt": "2. 產品規格與技術文件 (Product Definition & Documentation)"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "（Launch）、定價與促銷（Pricing/Promotion），以及產品終止（EOL）規劃"
+          "excerpt": "規格定義與撰寫： 撰寫功能規格書"
         }
       ]
     },
@@ -244,25 +213,32 @@
       "posting_date": "20261117",
       "job_description_original": "1.掌握市場趨勢與客戶需求，制定產品定位、Roadmap 及市場策略。\n2.規劃產品開發、上市時程與通路布局，推動產品商業化。\n3.依客戶需求提出整體解決方案，負責專案提案、成本分析、報價及獲利評估。\n4.整合研發、業務及供應鏈資源，推動跨部門專案落地。\n5.跨部門溝通及相關問題解決。",
       "job_title_en": "Product Manager",
-      "summary_en": "The role drives market‑driven product strategy while also overseeing the end‑to‑end commercialization process. It requires defining positioning, roadmaps, pricing and profit analysis, and coordinating R&D, sales and supply‑chain teams to launch products.",
-      "summary_zh": "此職位負責制定以市場與客戶需求為導向的產品策略，同時掌握產品商業化全流程。需制定定位、Roadmap、成本與獲利分析，並整合研發、業務與供應鏈資源完成上市。",
+      "summary_en": "This role focuses on the end-to-end product lifecycle, from market trend analysis and roadmap strategy to commercialization and project execution. It requires a blend of business analysis for pricing and profit evaluation alongside cross-functional leadership to ensure project delivery.",
+      "summary_zh": "此職位負責從市場趨勢分析、產品藍圖制定到商業化落地的完整生命週期。需要結合成本分析與獲利評估的商業能力，以及推動跨部門專案執行的領導力。",
       "classification": "Hybrid",
-      "rationale_en": "The description mixes strategic product management (positioning, roadmap) with project‑style execution (cross‑departmental implementation).",
-      "rationale_zh": "描述同時包含產品策略規劃與跨部門專案落地，屬於產品與專案混合型。",
+      "rationale_en": "The job description explicitly combines strategic product planning (Roadmap, positioning) with tactical project execution (project landing, cross-departmental coordination).",
+      "rationale_zh": "職位描述明確結合了策略性的產品規劃（藍圖、定位）與執行面的專案落地（跨部門整合、專案提案）。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Market and customer insight",
-          "name_zh": "市場與客戶洞察",
+          "name_en": "Market Strategy & Roadmap Planning",
+          "name_zh": "市場策略與藍圖規劃",
           "evidence_type": "Explicit",
-          "excerpt": "掌握市場趨勢與客戶需求，制定產品定位、Roadmap 及市場策略。"
+          "excerpt": "制定產品定位、Roadmap 及市場策略"
         },
         {
           "category": "Skills",
-          "name_en": "Product roadmap & launch planning",
-          "name_zh": "產品路線圖與上市規劃",
+          "name_en": "Financial & Cost Analysis",
+          "name_zh": "財務與成本分析",
           "evidence_type": "Explicit",
-          "excerpt": "規劃產品開發、上市時程與通路布局，推動產品商業化。"
+          "excerpt": "負責專案提案、成本分析、報價及獲利評估"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Cross-functional Integration",
+          "name_zh": "跨部門整合",
+          "evidence_type": "Explicit",
+          "excerpt": "整合研發、業務及供應鏈資源，推動跨部門專案落地"
         }
       ]
     },
@@ -277,32 +253,32 @@
       "posting_date": "20261109",
       "job_description_original": "1.\t熟悉整流器、二極體類、電晶體等相關元件的產品。\n2.\t與業務單位及工程單位合作，訂立產品線銷售計劃。\n3.\t制定價格策略及庫存管控。\n4.\t有保護零件，Connector，Switch，EMC經驗優先。\n\n",
       "job_title_en": "Product Manager (Electronic Components)",
-      "summary_en": "This PM role at 美商升陽科技有限公司台灣分公司 focuses on Product Manager.",
-      "summary_zh": "此職缺為「Product Manager」，主要工作內容涵蓋：1.\t熟悉整流器、二極體類、電晶體等相關元件的產品。",
+      "summary_en": "This position is centered on the commercial management of semiconductor components, specifically rectifiers and diodes. The focus is on sales planning, pricing strategies, and inventory control to optimize product line performance.",
+      "summary_zh": "此職位專注於整流器與二極體等半導體元件的商業管理。核心職責在於銷售計畫制定、價格策略及庫存管控，以優化產品線表現。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Product Manager.",
-      "rationale_zh": "依據「Product Manager」之實際工作內容判定為 PM。",
+      "rationale_en": "The responsibilities are heavily weighted towards product marketing and business management functions like pricing and inventory rather than project lifecycle management.",
+      "rationale_zh": "職責重心在於產品行銷與商業管理功能，如定價與庫存，而非專案生命週期管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "Semiconductor Component Knowledge",
+          "name_zh": "半導體元件知識",
           "evidence_type": "Explicit",
-          "excerpt": "1.\t熟悉整流器、二極體類、電晶體等相關元件的產品。"
+          "excerpt": "熟悉整流器、二極體類、電晶體等相關元件的產品"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Pricing & Inventory Strategy",
+          "name_zh": "定價與庫存策略",
           "evidence_type": "Explicit",
-          "excerpt": "2.\t與業務單位及工程單位合作，訂立產品線銷售計劃。"
+          "excerpt": "制定價格策略及庫存管控"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "1.\t熟悉整流器、二極體類、電晶體等相關元件的產品。"
+          "category": "Skills",
+          "name_en": "Sales Planning",
+          "name_zh": "銷售計畫制定",
+          "evidence_type": "Explicit",
+          "excerpt": "與業務單位及工程單位合作，訂立產品線銷售計劃"
         }
       ]
     },
@@ -316,33 +292,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "1. Manage new product initiation and introduction projects, coordinating cross-functional resources and serving as a",
-      "job_title_en": "Product Manager (New Product Initiation)",
-      "summary_en": "This PM role at 維田科技股份有限公司 focuses on Product Manager.",
-      "summary_zh": "此職缺為「Product Manager」，主要工作內容涵蓋：1. Manage new product initiation and introduction projects, coordinating cross-functional resources ",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Product Manager.",
-      "rationale_zh": "依據「Product Manager」之實際工作內容判定為 PM。",
+      "job_title_en": "Product Introduction Project Manager",
+      "summary_en": "The role is dedicated to managing the initiation and introduction phases of new products. It emphasizes the coordination of cross-functional resources to ensure smooth project transitions.",
+      "summary_zh": "此職位致力於管理新產品的啟動與導入階段。強調跨職能資源的協調，以確保專案順利銜接。",
+      "classification": "PjM",
+      "rationale_en": "The description focuses specifically on managing 'projects' and 'coordinating resources' for product introduction rather than long-term product strategy.",
+      "rationale_zh": "描述特別強調管理新產品導入的「專案」與「資源協調」，而非長期的產品策略。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Project Initiation & Management",
+          "name_zh": "專案啟動與管理",
           "evidence_type": "Explicit",
-          "excerpt": "1. Manage new product initiation and introduction projects, coordinating cross-functional resources "
+          "excerpt": "Manage new product initiation and introduction projects"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Resource Coordination",
+          "name_zh": "資源協調",
           "evidence_type": "Explicit",
-          "excerpt": "1. Manage new product initiation and introduction projects, coordinating cross-functional resources "
+          "excerpt": "coordinating cross-functional resources"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
+          "name_en": "Collaborative Leadership",
+          "name_zh": "協作領導力",
           "evidence_type": "Inferred",
-          "excerpt": "1. Manage new product initiation and introduction projects, coordinating cross-functional resources "
+          "excerpt": "serving as a [coordinating lead]"
         }
       ]
     },
@@ -357,32 +333,32 @@
       "posting_date": "20261112",
       "job_description_original": "We are seeking a young-talent product manager to join our product management team and ensure that our products remain",
       "job_title_en": "Junior Product Manager, RF Connectors",
-      "summary_en": "This PM role at 德商伍尔特電子有限公司台灣分公司 focuses on Junior Product Manager, RF Connectors.",
-      "summary_zh": "此職缺為「Junior Product Manager, RF Connectors」，主要工作內容涵蓋：We are seeking a young-talent product manager to join our product management team and ensure that ou",
+      "summary_en": "This is a talent-development role focused on maintaining the competitiveness of RF connector products. It involves learning the product management lifecycle within a specific technical domain.",
+      "summary_zh": "這是一個著重於人才培訓的職位，專注於維持射頻連接器產品的競爭力。涉及在特定技術領域內學習產品管理生命週期。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Junior Product Manager, RF Connectors.",
-      "rationale_zh": "依據「Junior Product Manager, RF Connectors」之實際工作內容判定為 PM。",
+      "rationale_en": "The title and objective focus on ensuring product relevance and management within a specific product category (RF Connectors).",
+      "rationale_zh": "職稱與目標專注於確保特定產品類別（射頻連接器）的市場相關性與管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "RF Connector Technology",
+          "name_zh": "射頻連接器技術",
           "evidence_type": "Explicit",
-          "excerpt": "We are seeking a young-talent product manager to join our product management team and ensure that ou"
+          "excerpt": "Junior Product Manager, RF Connectors"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
-          "evidence_type": "Explicit",
-          "excerpt": "We are seeking a young-talent product manager to join our product management team and ensure that ou"
+          "name_en": "Product Lifecycle Maintenance",
+          "name_zh": "產品生命週期維護",
+          "evidence_type": "Inferred",
+          "excerpt": "ensure that our products remain [competitive]"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
+          "name_en": "Growth Mindset",
+          "name_zh": "成長心態",
           "evidence_type": "Inferred",
-          "excerpt": "We are seeking a young-talent product manager to join our product management team and ensure that ou"
+          "excerpt": "seeking a young-talent product manager"
         }
       ]
     },
@@ -396,33 +372,47 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "Metis 是一款面向主觀交易者的跨市場 AI 交易助手，覆蓋加密貨幣、股票與商品領域。我們用 AI 重塑交易者原本散落在多個工具裡的工作流，打造真正 AI Native 的交易工具。\n\n主要職責\n1.規劃與維護產品路線圖：統籌所負責交易模組的功能優先順序與迭代計畫，涵蓋需求整理、原型設計、PRD 撰寫與版本迭代。\n2.交付完整交易功能鏈路：負責 Metis 各個模組的產品設計與上線。\n3.設計 AI 功能與決策邊界：規劃對話式研究、策略推薦、交易計畫生成、持倉監控與復盤，並明確定義哪些環節由 AI 完成、哪些必須由交易者確認。\n4.深度蒐集使用者需求：直接與交易者訪談，觀察真實下單流程與例外處理情境，將業務痛點轉化為清晰的產品規格文件（PRD）與驗收條件。\n5.跨團隊協調：整合 UI、研發、測試與運營團隊，進行產品全生命週期管理，並在工程資源有限時做出合理的優先順序取捨。\n6.定義成效指標：為各模組設立可量測的驗收標準，例如下單成功率、端到端延遲、滑點與成交品質、跟單有效率或關鍵流程完成率，並追蹤上線後表現。\n\n必要條件\n1.交易平台產品經驗：3 年以上產品設計經驗，其中 2 年以上聚焦交易平台（股票、期貨、商品或加密），熟悉下單、成交、風控、資產結算的完整流程。\n2.產品管理實務經驗：能獨立撰寫結構清楚的 PRD、管理產品路線圖、主持需求評審並推動跨團隊按期交付。\n3.技術理解能力：能與研發工程師、數據團隊溝通，理解延遲、訂單狀態機、行情協定、API 接入等技術概念，不需親自寫程式，但不能對技術細節陌生。\n4/需求轉譯能力：能將模糊或互相衝突的業務需求結構化為具體可執行的產品規格，並在工程資源有限時提出有依據的排序方案。\n5.中英文溝通能力：具備以中文主導內部協作、以英文閱讀技術文件並對接交易所或合作夥伴的能力。\n6.對 AI 與交易市場的熱情：具備較強的調研能力、學習能力與好奇心，能自行釐清不熟悉的市場規則。\n\n\n\n\n",
-      "job_title_en": "Product Manager (AI Trading)",
-      "summary_en": "This PM role at 領策科技有限公司 focuses on Product Manager.",
-      "summary_zh": "此職缺為「Product Manager」，主要工作內容涵蓋：Metis 是一款面向主觀交易者的跨市場 AI 交易助手，覆蓋加密貨幣、股票與商品領域。我們用 AI 重塑交易者原本散落在多個工具裡的工作流，打造真正 AI Native 的交易工具。",
+      "job_title_en": "AI Product Manager (Trading Systems)",
+      "summary_en": "This high-level PM role involves designing AI-native trading workflows and managing the full product lifecycle for cross-market trading tools. It requires deep technical understanding of trading systems and the ability to define AI decision boundaries.",
+      "summary_zh": "此高階產品經理職位涉及設計 AI 原生交易工作流，並管理跨市場交易工具的完整生命週期。需要對交易系統有深厚的技術理解，並能定義 AI 決策邊界。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Product Manager.",
-      "rationale_zh": "依據「Product Manager」之實際工作內容判定為 PM。",
+      "rationale_en": "The role is heavily focused on product discovery, PRD writing, feature design, and defining the product vision for an AI-driven platform.",
+      "rationale_zh": "此職位高度專注於產品探索、PRD 撰寫、功能設計，以及為 AI 驅動平台定義產品願景。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "AI Feature Design & Logic",
+          "name_zh": "AI 功能設計與邏輯",
           "evidence_type": "Explicit",
-          "excerpt": "Metis 是一款面向主觀交易者的跨市場 AI 交易助手，覆蓋加密貨幣、股票與商品領域。我們用 AI 重塑交易者原本散落在多個工具裡的工作流，打造真正 AI Native 的交易工具。"
+          "excerpt": "設計 AI 功能與決策邊界：規劃對話式研究、策略推薦、交易計畫生成"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Trading Domain Expertise",
+          "name_zh": "交易領域專業知識",
+          "evidence_type": "Explicit",
+          "excerpt": "熟悉下單、成交、風控、資產結算的完整流程"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Technical Requirement Translation",
+          "name_zh": "技術需求轉譯",
           "evidence_type": "Explicit",
-          "excerpt": "主要職責"
+          "excerpt": "理解延遲、訂單狀態機、行情協定、API 接入等技術概念"
+        },
+        {
+          "category": "Skills",
+          "name_en": "User Research & PRD Writing",
+          "name_zh": "用戶調研與 PRD 撰寫",
+          "evidence_type": "Explicit",
+          "excerpt": "直接與交易者訪談...將業務痛點轉化為清晰的產品規格文件（PRD）"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "Metis 是一款面向主觀交易者的跨市場 AI 交易助手，覆蓋加密貨幣、股票與商品領域。我們用 AI 重塑交易者原本散落在多個工具裡的工作流，打造真正 AI Native 的交易工具。"
+          "name_en": "Analytical Prioritization",
+          "name_zh": "分析性優先級排序",
+          "evidence_type": "Explicit",
+          "excerpt": "在工程資源有限時做出合理的優先順序取捨"
         }
       ]
     },
@@ -437,32 +427,32 @@
       "posting_date": "20261118",
       "job_description_original": " A process\no\tManager Product Development NPI and PCN\no\tSupplier engagement and roadmap management\n•\tCoordinate HQ Strategy/",
       "job_title_en": "Staff Product Manager",
-      "summary_en": "",
-      "summary_zh": "",
-      "classification": "PjM",
-      "rationale_en": "",
-      "rationale_zh": "",
+      "summary_en": "This role focuses on high-level product lifecycle management, specifically overseeing New Product Introduction (NPI) and supplier roadmaps. It requires a balance between technical process management and corporate strategic coordination.",
+      "summary_zh": "此職位專注於高階產品生命週期管理，特別是監督新產品導入 (NPI) 與供應商藍圖。這需要平衡技術流程管理與公司總部策略協調。",
+      "classification": "PM",
+      "rationale_en": "The role emphasizes product development processes (NPI/PCN) and long-term roadmap management rather than just project scheduling.",
+      "rationale_zh": "該職位強調產品開發流程（NPI/PCN）和長期藍圖管理，而非僅僅是專案進度排程。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Product development NPI and PCN process knowledge",
-          "name_zh": "產品開發新產品導入與變更通知流程知識",
+          "name_en": "NPI and PCN Lifecycle",
+          "name_zh": "新產品導入與變更管理流程",
           "evidence_type": "Explicit",
           "excerpt": "Manager Product Development NPI and PCN"
         },
         {
           "category": "Skills",
-          "name_en": "Supplier engagement and roadmap management",
-          "name_zh": "供應商參與與路線圖管理能力",
+          "name_en": "Supplier Roadmap Management",
+          "name_zh": "供應商藍圖管理",
           "evidence_type": "Explicit",
           "excerpt": "Supplier engagement and roadmap management"
         },
         {
           "category": "Attitudes",
-          "name_en": "HQ strategy coordination orientation",
-          "name_zh": "總部策略協調導向",
+          "name_en": "Strategic Alignment",
+          "name_zh": "策略對齊意識",
           "evidence_type": "Inferred",
-          "excerpt": "Coordinate HQ Strategy/"
+          "excerpt": "Coordinate HQ Strategy"
         }
       ]
     },
@@ -476,47 +466,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "1. 擔任Product Manager角色,有能力與客戶溝通,進而設定團隊目標, 協同前進.\n2. 熟悉理解EE/ME/SW/TD...等研發成員工作日常,有能力與研發同仁進行專案日常溝通,掌握進度.\n3. 熟悉工廠運作邏輯,有能力與工廠FPM",
-      "job_title_en": "Product Manager (PM)_15742",
-      "summary_en": "",
-      "summary_zh": "",
-      "classification": "PjM",
-      "rationale_en": "",
-      "rationale_zh": "",
+      "job_title_en": "Product Manager (R&D and Factory Coordination)",
+      "summary_en": "This position acts as a bridge between customers, R&D teams (EE/ME/SW), and factory operations to ensure project progress. It demands strong communication skills to align team goals with technical execution.",
+      "summary_zh": "此職位擔任客戶、研發團隊（電子/機構/軟體）與工廠營運之間的橋樑，以確保專案進度。它需要強大的溝通技巧，將團隊目標與技術執行對齊。",
+      "classification": "Hybrid",
+      "rationale_en": "The JD combines product goal setting (PM) with intensive cross-functional progress tracking and factory coordination (PjM).",
+      "rationale_zh": "職位描述結合了產品目標設定（PM）與密集的跨部門進度追蹤和工廠協調（PjM）。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Understanding of EE/ME/SW/TD R&D workflows",
-          "name_zh": "理解電子機械軟體測試研發工作流程",
-          "evidence_type": "Explicit",
-          "excerpt": "熟悉理解EE/ME/SW/TD...等研發成員工作日常"
-        },
-        {
-          "category": "Knowledge",
-          "name_en": "Factory operations logic",
-          "name_zh": "工廠運作邏輯知識",
-          "evidence_type": "Explicit",
-          "excerpt": "熟悉工廠運作邏輯"
-        },
-        {
           "category": "Skills",
-          "name_en": "Customer communication and team goal setting",
-          "name_zh": "客戶溝通與團隊目標設定能力",
-          "evidence_type": "Explicit",
-          "excerpt": "有能力與客戶溝通,進而設定團隊目標"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Project daily communication and progress control",
-          "name_zh": "專案日常溝通與進度掌握能力",
+          "name_en": "Cross-functional Progress Tracking",
+          "name_zh": "跨職能進度掌握",
           "evidence_type": "Explicit",
           "excerpt": "有能力與研發同仁進行專案日常溝通,掌握進度"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Collaborative forward movement",
-          "name_zh": "協同前進態度",
+          "category": "Knowledge",
+          "name_en": "Factory Operational Logic",
+          "name_zh": "工廠運作邏輯",
           "evidence_type": "Explicit",
-          "excerpt": "協同前進"
+          "excerpt": "熟悉工廠運作邏輯"
+        },
+        {
+          "category": "Attitudes",
+          "name_en": "Collaborative Leadership",
+          "name_zh": "協同領導態度",
+          "evidence_type": "Explicit",
+          "excerpt": "有能力與客戶溝通,進而設定團隊目標, 協同前進"
         }
       ]
     },
@@ -530,33 +506,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261111",
       "job_description_original": " 1. 產品企劃與產品藍圖規劃\n•\t負責產品企劃與產品發展方向之規劃。\n•\t制定產品策略、產品 Roadmap 及中長期產品發展藍圖。\n•\t根據市場趨勢、客戶需求、競爭環境及公司策略，規劃產品發展方向與優先順序。\n•\t負責 R0 Product",
-      "job_title_en": "Product Manager",
-      "summary_en": "This PM role at Ionex Energy_車能網科技股份有限公司 focuses on Product Manager.",
-      "summary_zh": "此職缺為「Product Manager」，主要工作內容涵蓋：1. 產品企劃與產品藍圖規劃",
+      "job_title_en": "Product Manager (Strategy & Planning)",
+      "summary_en": "This role is centered on product planning and the creation of long-term roadmaps based on market trends and competitive analysis. It involves defining the direction and priority of product development from the early R0 stage.",
+      "summary_zh": "此職位以產品企劃為核心，根據市場趨勢和競爭分析制定長期藍圖。它涉及從 R0 階段開始定義產品開發的方向與優先順序。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Product Manager.",
-      "rationale_zh": "依據「Product Manager」之實際工作內容判定為 PM。",
+      "rationale_en": "The responsibilities are strictly focused on product strategy, roadmap definition, and market-driven planning.",
+      "rationale_zh": "職責嚴格專注於產品策略、藍圖定義以及市場驅動的規劃。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Strategic Roadmap Planning",
+          "name_zh": "策略藍圖規劃",
           "evidence_type": "Explicit",
-          "excerpt": "1. 產品企劃與產品藍圖規劃"
+          "excerpt": "制定產品策略、產品 Roadmap 及中長期產品發展藍圖"
         },
         {
-          "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "category": "Knowledge",
+          "name_en": "Market and Competitive Analysis",
+          "name_zh": "市場與競爭環境分析",
           "evidence_type": "Explicit",
-          "excerpt": "•\t負責產品企劃與產品發展方向之規劃。"
+          "excerpt": "根據市場趨勢、客戶需求、競爭環境及公司策略"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "1. 產品企劃與產品藍圖規劃"
+          "name_en": "Prioritization Mindset",
+          "name_zh": "優先順序決策意識",
+          "evidence_type": "Explicit",
+          "excerpt": "規劃產品發展方向與優先順序"
         }
       ]
     },
@@ -571,39 +547,32 @@
       "posting_date": "20261124",
       "job_description_original": " diverse marketing channels.\n3. Develop product positioning in the global market.\n4. Setup product MSRP, selling strategy, and",
       "job_title_en": "USA Product Marketing Manager",
-      "summary_en": "",
-      "summary_zh": "",
-      "classification": "PjM",
-      "rationale_en": "",
-      "rationale_zh": "",
+      "summary_en": "This position focuses on the commercial success of products in the global market through channel management and pricing strategies. It emphasizes market positioning and MSRP setup rather than technical product development.",
+      "summary_zh": "此職位透過通路管理和定價策略，專注於產品在全球市場的商業成功。它強調市場定位和建議售價設定，而非技術產品開發。",
+      "classification": "Other",
+      "rationale_en": "The role is primarily a Product Marketing function, focusing on GTM strategy and pricing rather than product creation or project management.",
+      "rationale_zh": "該職位主要是產品行銷職能，專注於進入市場（GTM）策略和定價，而非產品創建或專案管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Diverse marketing channel knowledge",
-          "name_zh": "多元行銷通路知識",
+          "name_en": "Global Market Positioning",
+          "name_zh": "全球市場定位",
           "evidence_type": "Explicit",
-          "excerpt": "diverse marketing channels."
+          "excerpt": "Develop product positioning in the global market"
         },
         {
           "category": "Skills",
-          "name_en": "Global product positioning development",
-          "name_zh": "全球市場產品定位發展能力",
+          "name_en": "Pricing and Selling Strategy",
+          "name_zh": "定價與銷售策略",
           "evidence_type": "Explicit",
-          "excerpt": "Develop product positioning in the global market."
+          "excerpt": "Setup product MSRP, selling strategy"
         },
         {
           "category": "Skills",
-          "name_en": "MSRP and selling strategy setup",
-          "name_zh": "售價與銷售策略設定能力",
+          "name_en": "Marketing Channel Management",
+          "name_zh": "行銷通路管理",
           "evidence_type": "Explicit",
-          "excerpt": "Setup product MSRP, selling strategy, and"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Global market orientation",
-          "name_zh": "全球市場導向",
-          "evidence_type": "Inferred",
-          "excerpt": "global market"
+          "excerpt": "diverse marketing channels"
         }
       ]
     },
@@ -617,33 +586,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261112",
       "job_description_original": "A.\tGlobal Channel partner development and management.\nB.\tDevelop price strategy, product value proposition and daily price",
-      "job_title_en": "Global Product Manager",
-      "summary_en": "This PM role at 山太士股份有限公司 focuses on Global Product Manager.",
-      "summary_zh": "此職缺為「Global Product Manager」，主要工作內容涵蓋：A.\tGlobal Channel partner development and management.",
+      "job_title_en": "Global Product Manager (Channel & Pricing)",
+      "summary_en": "This role manages global channel partners and develops pricing strategies to enhance product value propositions. It is a commercially oriented PM role focused on market expansion and profitability.",
+      "summary_zh": "此職位管理全球通路合作夥伴，並制定定價策略以提升產品價值主張。這是一個以商業為導向的產品經理職位，專注於市場擴張和獲利能力。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Global Product Manager.",
-      "rationale_zh": "依據「Global Product Manager」之實際工作內容判定為 PM。",
+      "rationale_en": "While commercially focused, it involves core PM duties like value proposition and product strategy management.",
+      "rationale_zh": "雖然偏重商業，但涉及價值主張和產品策略管理等核心產品經理職責。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Channel Partner Development",
+          "name_zh": "通路夥伴開發",
           "evidence_type": "Explicit",
-          "excerpt": "A.\tGlobal Channel partner development and management."
+          "excerpt": "Global Channel partner development and management"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Product Value Proposition",
+          "name_zh": "產品價值主張",
+          "evidence_type": "Explicit",
+          "excerpt": "Develop price strategy, product value proposition"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Daily Pricing Management",
+          "name_zh": "日常定價管理",
           "evidence_type": "Explicit",
-          "excerpt": "B.\tDevelop price strategy, product value proposition and daily price"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "A.\tGlobal Channel partner development and management."
+          "excerpt": "daily price"
         }
       ]
     },
@@ -658,32 +627,32 @@
       "posting_date": "20261118",
       "job_description_original": "[About the Role]\n\nAs our Firmware Product Manager in the Embedded System Division, you'll own the firmware behind ViewSonic",
       "job_title_en": "Firmware Product Manager, Education Solutions",
-      "summary_en": "This role owns the firmware product for ViewSonic within an Embedded System Division, with an education-solutions context. The analysis emphasizes product ownership of firmware rather than general IT project delivery. It likely requires understanding embedded systems and translating firmware capabilities into product outcomes.",
-      "summary_zh": "此職位負責 ViewSonic 在嵌入式系統部門中的韌體產品，並帶有教育解決方案背景。分析重點在於對韌體產品的主導與成果負責，而非一般 IT 專案交付。該角色可能需要理解嵌入式系統，並將韌體能力轉化為產品成果。",
+      "summary_en": "This role focuses on the strategic direction and lifecycle management of firmware for embedded systems within the education sector. It requires a deep understanding of hardware-software integration to deliver high-quality user experiences in ViewSonic's ecosystem.",
+      "summary_zh": "此職位專注於教育解決方案中嵌入式系統韌體的策略方向與生命週期管理。需要深入了解硬體與軟體的整合，以在 ViewSonic 生態系統中提供高品質的使用者體驗。",
       "classification": "PM",
-      "rationale_en": "The title is Firmware Product Manager and the description says the person will own firmware, which is product management rather than project management.",
-      "rationale_zh": "職名稱為韌體產品經理，且描述指出需主導韌體，屬於產品管理而非專案管理。",
+      "rationale_en": "The role is explicitly defined as a Product Manager responsible for 'owning' the firmware product within a specific division.",
+      "rationale_zh": "該職位明確定義為產品經理，負責「擁有」特定部門內的韌體產品。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Embedded firmware product context",
-          "name_zh": "嵌入式韌體產品背景",
-          "evidence_type": "Inferred",
-          "excerpt": "Firmware Product Manager in the Embedded System Division"
+          "name_en": "Embedded Systems Firmware",
+          "name_zh": "嵌入式系統韌體知識",
+          "evidence_type": "Explicit",
+          "excerpt": "own the firmware behind ViewSonic"
         },
         {
           "category": "Skills",
-          "name_en": "Firmware product ownership",
-          "name_zh": "韌體產品主導能力",
+          "name_en": "Product Ownership",
+          "name_zh": "產品所有權管理",
           "evidence_type": "Explicit",
-          "excerpt": "you'll own the firmware behind ViewSonic"
+          "excerpt": "you'll own the firmware"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Ownership mindset for firmware outcomes",
-          "name_zh": "對韌體成果負責的態度",
-          "evidence_type": "Inferred",
-          "excerpt": "you'll own the firmware"
+          "category": "Knowledge",
+          "name_en": "Education Technology Solutions",
+          "name_zh": "教育科技解決方案",
+          "evidence_type": "Explicit",
+          "excerpt": "Education Solutions"
         }
       ]
     },
@@ -697,33 +666,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261117",
       "job_description_original": " Senior Product Manager to own the software features, data insights, and ML capabilities of our in-store AI system. Every Berry",
-      "job_title_en": "Senior Product Manager (In-Store AI System)",
-      "summary_en": "This Senior Product Manager role owns software features, data insights, and ML capabilities for an in-store AI system. The description points to product ownership across AI-enabled retail software rather than pure project coordination. It suggests a need to connect machine learning capabilities with store-level product value.",
-      "summary_zh": "此資深產品經理職位負責店內 AI 系統的軟體功能、數據洞察與機器學習能力。描述顯示重點是對 AI 零售軟體的產品主導，而非單純專案協調。此角色需要將機器學習能力與店內營運的產品價值連結。",
+      "job_title_en": "Senior Product Manager (AI & ML)",
+      "summary_en": "A senior-level role responsible for driving the roadmap of AI-driven in-store systems, focusing on ML capabilities and data-driven insights. The candidate will translate complex technical capabilities into actionable product features for retail environments.",
+      "summary_zh": "這是一個資深職位，負責推動 AI 驅動的店內系統藍圖，專注於機器學習能力和數據洞察。應徵者需將複雜的技術能力轉化為零售環境中具體的產品功能。",
       "classification": "PM",
-      "rationale_en": "The role is explicitly a Senior Product Manager owning software features and ML capabilities, which aligns with product management.",
-      "rationale_zh": "職位明確為資深產品經理，並負責軟體功能與機器學習能力，符合產品管理定位。",
+      "rationale_en": "The position focuses on product ownership of software features and AI/ML capabilities rather than just project execution.",
+      "rationale_zh": "該職位專注於軟體功能和 AI/ML 能力的產品所有權，而不僅僅是專案執行。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "In-store AI system domain",
-          "name_zh": "店內 AI 系統領域知識",
-          "evidence_type": "Inferred",
-          "excerpt": "in-store AI system"
+          "name_en": "Machine Learning Capabilities",
+          "name_zh": "機器學習能力應用",
+          "evidence_type": "Explicit",
+          "excerpt": "ML capabilities of our in-store AI system"
         },
         {
           "category": "Skills",
-          "name_en": "Software feature ownership",
-          "name_zh": "軟體功能主導能力",
+          "name_en": "Data-Driven Insight Generation",
+          "name_zh": "數據洞察產出",
           "evidence_type": "Explicit",
-          "excerpt": "own the software features"
+          "excerpt": "own the software features, data insights"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Data-insight orientation",
-          "name_zh": "數據洞察導向態度",
-          "evidence_type": "Inferred",
-          "excerpt": "data insights, and ML capabilities"
+          "category": "Skills",
+          "name_en": "AI System Product Management",
+          "name_zh": "AI 系統產品管理",
+          "evidence_type": "Explicit",
+          "excerpt": "own the software features... of our in-store AI system"
         }
       ]
     },
@@ -737,47 +706,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "【Position Impact】\n作為應收帳務管理團隊的管理角色，您將透過精準的數據分析與策略規劃，制定高效的帳務回收流程。除了帶領內部團隊協助客戶排除繳款困難，您亦需定期檢視並優化委外合作單位的執行成效。透過維護用戶的電池交換權益，確保 Gogoro 整體能源網絡的穩健運作。\n\n【Responsibilities】\n1. 策略規劃與流程優化：規劃並優化應收帳務之催收歷程與客戶溝通策略，制定各階段的行動方案，以提升整體案件回收率並維持良好的客戶體驗。\n2. 數據分析與成效追蹤：定期追蹤並分析帳務回收狀況、案件進度及客群樣貌，產出視覺化報表與洞察報告，作為決策與策略調整的依據。\n3. 團隊帶領與委外管理：帶領並培育內部作業團隊，同時負責監督與維護委外合作單位的作業品質及結果，確保內外部專案運作順暢。\n\n【Requirements】\n1. 工作經歷： 具備 5 年以上催收管理或客服團隊管理經驗，熟悉應收帳務管理流程。\n2. 卓越的管理與溝通力：具備跨部門協調、團隊帶領及委外廠商管理經驗，具優異的溝通技巧。\n3.  清晰的邏輯與分析力：對數據敏感，具備良好的資料分析能力，能從數據發掘問題並提出改善方案。\n4. 良好的抗壓與適應力：具備良好的自我管理能力，在快節奏且充滿挑戰的環境仍能保持正向樂觀與彈性。\n5. 個人特質：思緒清晰、誠信正直，具備高度的責任感與團隊協作精神。\n",
-      "job_title_en": "Collections Program Manager (Accounts Receivable Management)",
-      "summary_en": "This role leads accounts-receivable collection strategy, process optimization, data analysis, and vendor oversight for Gogoro’s battery-swap ecosystem. It combines program management with team leadership and operational performance tracking. The position is managerial and cross-functional rather than a software product role.",
-      "summary_zh": "此職位負責 Gogoro 電池交換生態系中的應收帳務催收策略、流程優化、數據分析與委外管理。角色結合專案／方案管理、團隊帶領與營運成效追蹤。此職位屬於管理與跨部門協調性質，並非軟體產品職能。",
+      "job_title_en": "Collections Program Manager",
+      "summary_en": "This position manages the accounts receivable program, focusing on optimizing collection processes and managing both internal teams and external vendors. It emphasizes data-driven decision-making to improve recovery rates while maintaining customer satisfaction.",
+      "summary_zh": "此職位管理應收帳務計畫，專注於優化催收流程並管理內部團隊與外部廠商。強調透過數據驅動的決策來提升回收率，同時維持客戶滿意度。",
       "classification": "PjM",
-      "rationale_en": "The title includes Program Manager and the duties center on planning, optimizing, tracking, and leading a collections program, which fits project/program management.",
-      "rationale_zh": "職稱包含 Program Manager，職責聚焦於規劃、優化、追蹤與帶領催收方案，符合專案／方案管理。",
+      "rationale_en": "The role focuses on managing a specific business program (collections), process optimization, and vendor management rather than product development.",
+      "rationale_zh": "該職位專注於管理特定的業務計畫（催收）、流程優化和供應商管理，而非產品開發。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Accounts receivable management",
-          "name_zh": "應收帳務管理",
+          "category": "Skills",
+          "name_en": "Strategic Collection Planning",
+          "name_zh": "策略性催收規劃",
           "evidence_type": "Explicit",
-          "excerpt": "熟悉應收帳務管理流程"
+          "excerpt": "規劃並優化應收帳務之催收歷程與客戶溝通策略"
         },
         {
           "category": "Skills",
-          "name_en": "Collection data analysis and reporting",
-          "name_zh": "催收數據分析與報表產出",
+          "name_en": "Outsourcing Vendor Management",
+          "name_zh": "委外廠商管理",
           "evidence_type": "Explicit",
-          "excerpt": "產出視覺化報表與洞察報告"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Internal team leadership",
-          "name_zh": "內部團隊帶領",
-          "evidence_type": "Explicit",
-          "excerpt": "帶領並培育內部作業團隊"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Outsourced vendor quality oversight",
-          "name_zh": "委外廠商品質監督",
-          "evidence_type": "Explicit",
-          "excerpt": "監督與維護委外合作單位的作業品質"
+          "excerpt": "負責監督與維護委外合作單位的作業品質及結果"
         },
         {
           "category": "Attitudes",
-          "name_en": "Resilience under pressure",
-          "name_zh": "壓力下的韌性",
+          "name_en": "Resilience and Adaptability",
+          "name_zh": "抗壓性與適應力",
           "evidence_type": "Explicit",
-          "excerpt": "良好的抗壓與適應力"
+          "excerpt": "在快節奏且充滿挑戰的環境仍能保持正向樂觀與彈性"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Data Analysis and Visualization",
+          "name_zh": "數據分析與視覺化",
+          "evidence_type": "Explicit",
+          "excerpt": "產出視覺化報表與洞察報告，作為決策與策略調整的依據"
         }
       ]
     },
@@ -791,31 +753,31 @@
       "salary_display": "Not provided",
       "posting_date": "20261119",
       "job_description_original": " retail systems).\n\n七、Project & Change Management\n1. Plan and execute IT projects such as system migrations, upgrades, and new",
-      "job_title_en": "IT Network & Systems Project/Change Manager",
-      "summary_en": "This role plans and executes IT projects such as system migrations, upgrades, and new retail systems. The description emphasizes project and change management within an IT network and systems context. It is oriented toward delivery and operational change rather than product feature ownership.",
-      "summary_zh": "此職位負責規劃並執行系統遷移、升級與新零售系統等 IT 專案。描述強調在 IT 網路與系統環境中進行專案與變更管理。重點在於交付與營運變更，而非產品功能主導。",
+      "job_title_en": "IT Project & Change Manager",
+      "summary_en": "This role involves the technical management of IT infrastructure projects, specifically focusing on network and system migrations and upgrades. It requires a strong background in change management within a retail system environment.",
+      "summary_zh": "此職位涉及 IT 基礎設施專案的技術管理，特別專注於網路與系統的遷移與升級。需要在零售系統環境中具備強大的變更管理背景。",
       "classification": "PjM",
-      "rationale_en": "The description explicitly mentions Project & Change Management and planning/executing IT projects, which is project management.",
-      "rationale_zh": "描述明確提及專案與變更管理，以及規劃與執行 IT 專案，屬於專案管理。",
+      "rationale_en": "The description specifically highlights 'Project & Change Management' for IT infrastructure tasks like migrations and upgrades.",
+      "rationale_zh": "職位描述特別強調了針對 IT 基礎設施任務（如遷移和升級）的「專案與變更管理」。",
       "competencies": [
         {
+          "category": "Skills",
+          "name_en": "IT Project Execution",
+          "name_zh": "IT 專案執行",
+          "evidence_type": "Explicit",
+          "excerpt": "Plan and execute IT projects such as system migrations"
+        },
+        {
           "category": "Knowledge",
-          "name_en": "IT project and change management",
-          "name_zh": "IT 專案與變更管理",
+          "name_en": "Change Management Methodology",
+          "name_zh": "變更管理方法論",
           "evidence_type": "Explicit",
           "excerpt": "Project & Change Management"
         },
         {
-          "category": "Skills",
-          "name_en": "IT migration and upgrade execution",
-          "name_zh": "IT 遷移與升級執行能力",
-          "evidence_type": "Explicit",
-          "excerpt": "system migrations, upgrades, and new"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Retail systems change readiness",
-          "name_zh": "零售系統變更準備度",
+          "category": "Knowledge",
+          "name_en": "Retail IT Systems",
+          "name_zh": "零售 IT 系統知識",
           "evidence_type": "Inferred",
           "excerpt": "retail systems"
         }
@@ -831,33 +793,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "We're looking for a Project Manager with a passion for software development and expertise in Agile methodologies. Your role",
-      "job_title_en": "Project Manager (Software Development / Agile)",
-      "summary_en": "This Project Manager role requires passion for software development and expertise in Agile methodologies. The description is brief but clearly targets software project delivery using Agile practices. It suggests coordination of software initiatives rather than product strategy ownership.",
-      "summary_zh": "此專案經理職位要求對軟體開發具熱情，並熟悉敏捷方法論。描述雖簡短，但明確指向使用敏捷實務的軟體專案交付。此角色偏向協調軟體專案，而非產品策略主導。",
+      "job_title_en": "Software Project Manager",
+      "summary_en": "A software-focused project management role that leverages Agile methodologies to drive development cycles. The position requires a passion for software and the ability to coordinate technical teams effectively.",
+      "summary_zh": "這是一個以軟體為核心的專案管理職位，利用敏捷開發方法論來推動開發週期。該職位需要對軟體開發充滿熱情，並能有效協調技術團隊。",
       "classification": "PjM",
-      "rationale_en": "The title is Project Manager and the description emphasizes Agile methodologies and software development, which fits project management.",
-      "rationale_zh": "職稱為專案經理，描述強調敏捷方法論與軟體開發，符合專案管理。",
+      "rationale_en": "The role is titled Project Manager and focuses on the execution of software development using Agile frameworks.",
+      "rationale_zh": "該職位職稱為專案經理，並專注於使用敏捷框架執行軟體開發。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Agile methodologies",
-          "name_zh": "敏捷方法論",
+          "name_en": "Agile Methodologies",
+          "name_zh": "敏捷開發方法論",
           "evidence_type": "Explicit",
           "excerpt": "expertise in Agile methodologies"
         },
         {
-          "category": "Skills",
-          "name_en": "Software development project coordination",
-          "name_zh": "軟體開發專案協調能力",
-          "evidence_type": "Inferred",
-          "excerpt": "Project Manager with a passion for software development"
+          "category": "Knowledge",
+          "name_en": "Software Development Lifecycle",
+          "name_zh": "軟體開發生命週期",
+          "evidence_type": "Explicit",
+          "excerpt": "passion for software development"
         },
         {
           "category": "Attitudes",
-          "name_en": "Passion for software development",
-          "name_zh": "對軟體開發的熱情",
+          "name_en": "Passion for Software",
+          "name_zh": "對軟體的熱情",
           "evidence_type": "Explicit",
-          "excerpt": "passion for software development"
+          "excerpt": "Project Manager with a passion for software development"
         }
       ]
     },
@@ -871,47 +833,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "加入我們，打造技術與創新的未來！\n\n我們的專案橫跨新創企業、AI 智能應用、電商平台、金融機構、大型系統整合廠商及知名科技公司等領域，提供軟體工程師深入參與多元專案的舞台，幫助你在實戰中快速累積經驗，鍛鍊技術實力與解決問題的能力。\n\n在這裡，你不只是寫程式的工程師，而是能與團隊共同創造價值的關鍵推動者。\n\n我們正在尋找主動積極、細心負責的你，一起加入我們的大家庭。\n無論你是想挑戰更多元的專案，還是期望成為影響未來技術的創新者，這裡都將是你理想的舞台。 \n\n\n\n【工作內容】\n1. 具完整專案執行經驗。\n2. 制定開發計劃，監控專案進度及質量。\n3. 分析並理解客戶需求，轉化為具體的技術規格和功能需求。\n4. 領導軟體開發團隊，分配工作任務，指導團隊成員完成工作。\n5. 進行風險評估並制定風險管理對策，確保專案順利推進。\n6. 與各相關部門協調，確保資源的有效利用及問題的及時解決。\n7. 監督軟體測試流程，確保軟體產品符合既定標準和需求。\n8. 負責專案相關文檔的編寫及維護，保證文檔的完整性和準確性。\n9. 與政府標案經驗者佳（含投標、備標、服務建議書撰寫…等等內容）。\n\n",
-      "job_title_en": "Project Manager",
-      "summary_en": "The role drives software projects across startups, AI, e‑commerce, finance and large system integrators, emphasizing hands‑on technical leadership. Responsibilities span planning, risk management, team coordination and government tender activities, positioning the manager as a key value‑creator beyond coding.",
-      "summary_zh": "此職位負責跨新創、AI、電商、金融與大型系統整合等領域的軟體專案，強調技術領導與實務執行。工作內容涵蓋計畫制定、風險管理、團隊協調與政府標案，讓專案經理成為創造價值的關鍵推手。",
-      "classification": "PM",
-      "rationale_en": "The description focuses on end‑to‑end project execution, team leadership and risk/tender management typical of a Project Manager role.",
-      "rationale_zh": "說明內容聚焦於專案全流程執行、團隊領導與風險/標案管理，屬於典型的專案經理職務。",
+      "job_title_en": "Software Project Manager",
+      "summary_en": "This role focuses on managing software development lifecycles across diverse sectors like AI and E-commerce, requiring a blend of technical requirement translation and team leadership. It emphasizes risk management and the ability to handle government bidding processes alongside standard project execution.",
+      "summary_zh": "此職位專注於管理跨領域（如 AI 和電商）的軟體開發生命週期，需要具備將技術需求轉化為規格的能力與團隊領導力。除了標準的專案執行，還強調風險管理以及處理政府標案流程的能力。",
+      "classification": "Hybrid",
+      "rationale_en": "The role requires both project execution (PjM) and the translation of client needs into technical specifications and functional requirements (PM).",
+      "rationale_zh": "該職位既需要負責專案執行（PjM），也需要將客戶需求轉化為技術規格與功能需求（PM）。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Software Development Lifecycle",
-          "name_zh": "軟體開發生命週期",
-          "evidence_type": "Explicit",
-          "excerpt": "制定開發計劃，監控專案進度及質量。"
-        },
-        {
           "category": "Skills",
-          "name_en": "Team Leadership & Task Allocation",
-          "name_zh": "團隊領導與工作分配",
+          "name_en": "Requirement Analysis & Specification",
+          "name_zh": "需求分析與規格制定",
           "evidence_type": "Explicit",
-          "excerpt": "領導軟體開發團隊，分配工作任務，指導團隊成員完成工作。"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Proactive Risk Management",
-          "name_zh": "積極風險管理",
-          "evidence_type": "Explicit",
-          "excerpt": "進行風險評估並制定風險管理對策，確保專案順利推進。"
+          "excerpt": "分析並理解客戶需求，轉化為具體的技術規格和功能需求。"
         },
         {
           "category": "Knowledge",
-          "name_en": "Government Tender Processes",
+          "name_en": "Government Bidding Procedures",
           "name_zh": "政府標案流程",
           "evidence_type": "Explicit",
           "excerpt": "與政府標案經驗者佳（含投標、備標、服務建議書撰寫…等等內容）。"
         },
         {
           "category": "Skills",
-          "name_en": "Documentation & Quality Assurance",
-          "name_zh": "文件撰寫與品質保證",
+          "name_en": "Risk Management & Mitigation",
+          "name_zh": "風險管理與對策",
           "evidence_type": "Explicit",
-          "excerpt": "監督軟體測試流程，確保軟體產品符合既定標準和需求。"
+          "excerpt": "進行風險評估並制定風險管理對策，確保專案順利推進。"
+        },
+        {
+          "category": "Attitudes",
+          "name_en": "Proactive Responsibility",
+          "name_zh": "主動積極與責任感",
+          "evidence_type": "Explicit",
+          "excerpt": "我們正在尋找主動積極、細心負責的你"
         }
       ]
     },
@@ -925,40 +880,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "工作職責：\n1.\t帶領團隊內所有專案，對接客戶，及時溝通專案進度並轉化至內部；\n2.\t組織完成新產品開發與導入，涵蓋概念、樣品、試產至量產，並管理專案實施與關鍵節點評審；\n3.\t主導工程端對客事宜，包括 DFM 審核、各類驗證計畫與報告跟進；\n4.\t與客戶即時溝通圖紙、工藝等問題，管控專案難點與風險點；\n5.\t主導設計/工程團隊會議，包含準備、主持、記錄與落實跟進；\n6.\t監督與控制專案特性，協調資源，控管風險與品質，確保達成開發目標。\n\n",
-      "job_title_en": "Project Manager (Taipei)",
-      "summary_en": "This manager leads all client‑facing projects, steering new product development from concept through mass production while handling engineering reviews and risk control. The role requires tight coordination with design, engineering and client teams to ensure timely delivery and quality.",
-      "summary_zh": "此職位負責領導所有客戶專案，將新產品從概念推進至量產，同時處理工程審核與風險管控。需要與設計、工程及客戶團隊緊密協作，確保交付時程與品質。",
-      "classification": "PM",
-      "rationale_en": "The duties describe full project ownership, from planning to execution and quality oversight, matching a classic Project Manager scope.",
-      "rationale_zh": "工作內容描述從規劃到執行與品質監控的完整專案所有權，符合典型的專案經理職務。",
+      "job_title_en": "NPI Project Manager",
+      "summary_en": "This position is centered on New Product Introduction (NPI), managing the transition from concept and sampling to mass production. It requires heavy coordination between engineering teams and clients, specifically focusing on DFM reviews and manufacturing validation.",
+      "summary_zh": "此職位以新產品導入 (NPI) 為核心，管理從概念、樣品到量產的過渡階段。需要工程團隊與客戶之間的高度協調，特別專注於 DFM 審核和製造驗證。",
+      "classification": "PjM",
+      "rationale_en": "The focus is strictly on the execution of the product development lifecycle, manufacturing milestones, and resource coordination for specific project delivery.",
+      "rationale_zh": "職責完全集中於產品開發生命週期的執行、製造里程碑以及特定專案交付的資源協調。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Product Development Lifecycle (Concept to Mass Production)",
-          "name_zh": "產品開發全流程（概念至量產）",
+          "name_en": "New Product Introduction (NPI) Lifecycle",
+          "name_zh": "新產品開發與導入流程",
           "evidence_type": "Explicit",
-          "excerpt": "組織完成新產品開發與導入，涵蓋概念、樣品、試產至量產，並管理專案實施與關鍵節點評審；"
+          "excerpt": "組織完成新產品開發與導入，涵蓋概念、樣品、試產至量產"
         },
         {
           "category": "Skills",
-          "name_en": "Engineering Client Liaison (DFM Review)",
-          "name_zh": "工程客戶聯繫（DFM審核）",
+          "name_en": "Design for Manufacturing (DFM) Review",
+          "name_zh": "可製造性設計 (DFM) 審核",
           "evidence_type": "Explicit",
-          "excerpt": "主導工程端對客事宜，包括 DFM 審核、各類驗證計畫與報告跟進；"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Cross‑functional Communication",
-          "name_zh": "跨部門溝通協作",
-          "evidence_type": "Explicit",
-          "excerpt": "與客戶即時溝通圖紙、工藝等問題，管控專案難點與風險點；"
+          "excerpt": "主導工程端對客事宜，包括 DFM 審核、各類驗證計畫與報告跟進"
         },
         {
           "category": "Skills",
-          "name_en": "Project Monitoring & Quality Control",
-          "name_zh": "專案監控與品質控制",
+          "name_en": "Stakeholder Communication & Management",
+          "name_zh": "利害關係人溝通與管理",
           "evidence_type": "Explicit",
-          "excerpt": "監督與控制專案特性，協調資源，控管風險與品質，確保達成開發目標。"
+          "excerpt": "對接客戶，及時溝通專案進度並轉化至內部"
         }
       ]
     },
@@ -972,33 +920,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "新事業團隊正在推動「AI 驅動的客製化製造平台」，讓客戶透過平台提出客製化商品需求，再串接外部供應商生產及出貨。商品可涵蓋服飾、紙盒、袋類、公仔及其他民生消費商品。我們需要一位能掌握進度、協調內外部資源，推動平台建置及營運流程落地的專案經理。\n\n工作內容\n• 負責平台建置及相關營運專案的規劃、時程、工作分工與進度追蹤，確保各階段事項按計畫完成。\n• 協調平台技術、設計、業務、供應鏈及外部合作夥伴，釐清需求、工作界面、交付項目與驗收標準。\n• 推動平台接單、商品客製化需求確認、報價、委外生產、品質確認及出貨等作業流程的建立與串接。\n• 主持或參與專案會議，追蹤待辦、風險、問題與改善措施，協助排除跨部門執行障礙。\n• 配合不同商品類別的導入需求，協調打樣、供應商配合、流程測試及上線準備。\n",
-      "job_title_en": "Project Manager (BD4)",
-      "summary_en": "This PjM role at 正美科技股份有限公司 focuses on BD4-專案經理 Project Manager.",
-      "summary_zh": "此職缺為「BD4-專案經理 Project Manager」，主要工作內容涵蓋：新事業團隊正在推動「AI 驅動的客製化製造平台」，讓客戶透過平台提出客製化商品需求，再串接外部供應商生產及出貨。商品可涵蓋服飾、紙盒、袋類、公仔及其他民生消費商品。我們需要一位能掌握進度、協調內外部資",
-      "classification": "PjM",
-      "rationale_en": "Classified as PjM based on responsibilities in BD4-專案經理 Project Manager.",
-      "rationale_zh": "依據「BD4-專案經理 Project Manager」之實際工作內容判定為 PjM。",
+      "job_title_en": "Business Development Project Manager",
+      "summary_en": "This role involves building an AI-driven manufacturing platform and establishing the operational workflows from order to delivery. It requires managing both the technical platform construction and the external supply chain integration.",
+      "summary_zh": "此職位涉及建立 AI 驅動的製造平台，並建立從接單到出貨的營運流程。需要同時管理技術平台建置與外部供應鏈整合。",
+      "classification": "Hybrid",
+      "rationale_en": "The role combines product-level platform planning and workflow design (PM) with the execution of platform construction and supply chain coordination (PjM).",
+      "rationale_zh": "該職位結合了產品層級的平台規劃與流程設計 (PM)，以及平台建置與供應鏈協調的執行 (PjM)。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Operational Workflow Design",
+          "name_zh": "營運流程設計",
           "evidence_type": "Explicit",
-          "excerpt": "新事業團隊正在推動「AI 驅動的客製化製造平台」，讓客戶透過平台提出客製化商品需求，再串接外部供應商生產及出貨。商品可涵蓋服飾、紙盒、袋類、公仔及其他民生消費商品。我們需要一位能掌握進度、協調內外部資"
+          "excerpt": "推動平台接單、商品客製化需求確認、報價、委外生產、品質確認及出貨等作業流程的建立與串接。"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Supply Chain Coordination",
+          "name_zh": "供應鏈協調",
           "evidence_type": "Explicit",
-          "excerpt": "工作內容"
+          "excerpt": "協調平台技術、設計、業務、供應鏈及外部合作夥伴"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
+          "category": "Knowledge",
+          "name_en": "Platform Development Lifecycle",
+          "name_zh": "平台開發生命週期",
           "evidence_type": "Inferred",
-          "excerpt": "新事業團隊正在推動「AI 驅動的客製化製造平台」，讓客戶透過平台提出客製化商品需求，再串接外部供應商生產及出貨。商品可涵蓋服飾、紙盒、袋類、公仔及其他民生消費商品。我們需要一位能掌握進度、協調內外部資"
+          "excerpt": "負責平台建置及相關營運專案的規劃、時程、工作分工與進度追蹤"
         }
       ]
     },
@@ -1012,33 +960,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261111",
       "job_description_original": "【關於這份工作】\n在職掘，我們相信，教育不只是知識的傳遞，更是陪伴孩子透過真實體驗，認識自己的興趣、能力與未來的各種可能性。\n\n我們透過職業體驗、探索營隊與多元教育活動，讓孩子在實際參與、動手嘗試的過程中，逐步發現自己的方向。\n\n我們正在尋找一位具備專案統籌能力、良好溝通協調能力，並且對教育充滿熱忱的專案經理，你將負責從專案規劃、跨部門協作到現場執行與成果檢討，確保每個專案都能在預定時程與資源內順利完成。\n\n【工作職責】\n1. 專案規劃與執行管理\n負責 B2C 教育營隊、B2B 企業合作等專案的整體規劃與執行，包含專案時程安排、預算控管、人力配置及進度追蹤，並依據執行狀況即時調整策略、解決問題，確保專案順利推進並達成預期目標。\n\n2. 內部行政對接與跨部門協作\n擔任專案主要統籌窗口，與課程企劃、行銷、行政夥伴密切合作，整合各部門需求、協調工作分工與資源配置，確保資訊傳遞清楚、團隊合作順暢，並持續優化內部作業流程與執行效率。\n\n3. 活動／課程設計審核與品質管理\n依據專案目標、學生年齡及學習需求，審核活動企劃、課程設計與現場執行流程，並整合教學與營隊現場執行需求，透過活動成效及參與者回饋，持續提升課程品質與學習體驗。\n\n【我們期待的能力與經驗 】\n1. 積極主動，具備問題解決與應變能力： 擁有 3 年以上專案管理、教育活動、課程企劃等相關工作經驗，能預先評估活動風險、建立應變備案，迅速掌握問題、協調資源並提出可行的解決方案。\n\n2. 善於統籌，推動團隊達成目標：具備專案規劃與進度管理能力，能獨立制定執行時程、工作分工、預算規劃及成果指標，運用 Google Workspace 、AI 工具協作等方式，追蹤任務進度，並有效協調課程、行銷、行政及外部合作夥伴，確保專案如期完成。\n\n3. 獨立思考，具備判斷與決策能力：能依據專案目標、預算成本、執行時程及人力資源等條件，評估不同方案的可行性與優先順序，並透過有效溝通整合團隊意見，做出適當決策。\n\n加分條件：\n・曾獨立統籌教育營隊、大型實體活動、企業合作、政府標案或跨組織合作專案\n・具備跨部門團隊管理、外部合作協調或專案作業流程優化經驗\n・具備專案預算編列、成本控管、資源配置及成果結案經驗\n・熟悉 AI 工具應用，或擁有將工作流程自動化經驗\n\n【應徵細節】\n・工作時間： 平日上午九點半至下午六點半（隨到隨審）\n・工作地點： 台北市中正區許昌街 24 號 5 樓（台北車站 M8 出口步行 1 分鐘／島輝國際教育股份有限公司）\n・薪資待遇： 月薪 40,000－60,000  元（實際薪資將依過往資歷與實戰能力面議）\n・福利內容：\n＃勞健保 ＃內外部培訓與閱讀學習補助 ＃擁有高度決策空間，親手打造品牌與教育活動的影響力 ＃彈性補休制度（寒暑假或假日活動期間）\n\n\n【徵才三階段流程】\n\n我們重視每一位候選人的時間，也希望透過嚴謹的流程尋找最契合的夥伴。\n\n第一階段：履歷篩選\n・應徵方式：請將中文履歷寄至 vocationworkshop@gmail.com。\n・信件主旨：職掘｜專案經理申請｜[申請人姓名] \n・信中附上：\n   1. 中文履歷一份\n   2. 加分附件：得依各職位內容檢附相關加分作品或想法\n   3. 嚴謹性檢核：我們將優先篩選排版邏輯清晰、無錯別字且能精準回應加分項目的候選人\n\n\n第二階段：三日實戰任務\n・通過履歷篩選者，我們將寄發「實戰任務說明書」。\n・要求：候選人需在收到題目後 3 日（72 小時）內提交。\n・目標：評估候選人將模糊需求轉化為精確方案的實戰技能。\n\n第三階段：實體面試\n・時間：預計 1－1.5 小時。\n・地點：台北市中正區許昌街 24 號 5 樓。\n・內容：包含基礎提問（15min）、生涯提問與夢想卡實作（15min）、ＱＡ與公司現況說明（20min）。",
-      "job_title_en": "Project Manager",
-      "summary_en": "This PM role at 島輝國際教育股份有限公司 focuses on 專案經理／Project Manager.",
-      "summary_zh": "此職缺為「專案經理／Project Manager」，主要工作內容涵蓋：【關於這份工作】",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in 專案經理／Project Manager.",
-      "rationale_zh": "依據「專案經理／Project Manager」之實際工作內容判定為 PM。",
+      "job_title_en": "Education Program Project Manager",
+      "summary_en": "This role manages educational camps and corporate partnerships, overseeing everything from planning and budgeting to on-site execution. It emphasizes curriculum quality control and the integration of AI tools to optimize internal workflows.",
+      "summary_zh": "此職位管理教育營隊與企業合作，監督從規劃、預算控管到現場執行的所有環節。強調課程品質控管以及利用 AI 工具優化內部工作流程。",
+      "classification": "PjM",
+      "rationale_en": "The primary focus is on the end-to-end execution of specific events and programs within defined timeframes and budgets.",
+      "rationale_zh": "主要職責是在定義的時間框架和預算內，對特定活動和計畫進行端到端的執行。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Event Planning & Execution",
+          "name_zh": "活動規劃與執行",
           "evidence_type": "Explicit",
-          "excerpt": "【關於這份工作】"
+          "excerpt": "負責 B2C 教育營隊、B2B 企業合作等專案的整體規劃與執行"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Budget & Resource Management",
+          "name_zh": "預算與資源管理",
           "evidence_type": "Explicit",
-          "excerpt": "在職掘，我們相信，教育不只是知識的傳遞，更是陪伴孩子透過真實體驗，認識自己的興趣、能力與未來的各種可能性。"
+          "excerpt": "包含專案時程安排、預算控管、人力配置及進度追蹤"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "AI-Assisted Workflow Optimization",
+          "name_zh": "AI 輔助工作流程優化",
+          "evidence_type": "Explicit",
+          "excerpt": "運用 Google Workspace 、AI 工具協作等方式，追蹤任務進度"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "【關於這份工作】"
+          "name_en": "Adaptability & Problem Solving",
+          "name_zh": "應變能力與問題解決",
+          "evidence_type": "Explicit",
+          "excerpt": "積極主動，具備問題解決與應變能力"
         }
       ]
     },
@@ -1052,33 +1007,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261109",
       "job_description_original": "The Project Manager oversees the planning, implementation, and tracking of a specific short-term project which has a",
-      "job_title_en": "Project Manager (PJM)",
-      "summary_en": "This PjM role at 廣達集團_雲達科技股份有限公司 focuses on Project Manager(PJM).",
-      "summary_zh": "此職缺為「Project Manager(PJM)」，主要工作內容涵蓋：The Project Manager oversees the planning, implementation, and tracking of a specific short-term pro",
+      "job_title_en": "Project Manager (PjM)",
+      "summary_en": "This role is dedicated to the systematic oversight of short-term projects, focusing on the core project management pillars of planning, implementation, and tracking. It is a pure execution-oriented management position.",
+      "summary_zh": "此職位致力於短期專案的系統化監督，專注於規劃、執行和追蹤等核心專案管理支柱。這是一個純粹以執行為導向的管理職位。",
       "classification": "PjM",
-      "rationale_en": "Classified as PjM based on responsibilities in Project Manager(PJM).",
-      "rationale_zh": "依據「Project Manager(PJM)」之實際工作內容判定為 PjM。",
+      "rationale_en": "The title explicitly specifies PJM and the description focuses on the lifecycle of specific short-term projects.",
+      "rationale_zh": "職稱明確標註為 PJM，且工作描述專注於特定短期專案的生命週期管理。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Project Planning & Implementation",
+          "name_zh": "專案規劃與實施",
           "evidence_type": "Explicit",
-          "excerpt": "The Project Manager oversees the planning, implementation, and tracking of a specific short-term pro"
+          "excerpt": "oversees the planning, implementation, and tracking"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Progress Tracking",
+          "name_zh": "進度追蹤",
           "evidence_type": "Explicit",
-          "excerpt": "The Project Manager oversees the planning, implementation, and tracking of a specific short-term pro"
+          "excerpt": "tracking of a specific short-term project"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
+          "category": "Knowledge",
+          "name_en": "Short-term Project Lifecycle Management",
+          "name_zh": "短期專案生命週期管理",
           "evidence_type": "Inferred",
-          "excerpt": "The Project Manager oversees the planning, implementation, and tracking of a specific short-term pro"
+          "excerpt": "oversees the planning, implementation, and tracking of a specific short-term project"
         }
       ]
     },
@@ -1093,32 +1048,32 @@
       "posting_date": "20261110",
       "job_description_original": "1. 規劃專案時程與里程碑，訂定各階段完成條件。\n2. 每週追蹤進度，提早找出可能延誤的項目並提出調整方式。\n3. 與供應商確認規格、報價、樣品與交期，追蹤至交貨。\n4. 整理專案風險與待決事項，定期回報。\n5. 管理專案文件與版本紀錄。",
       "job_title_en": "Technical Project Manager",
-      "summary_en": "This technical project manager role focuses on planning schedules and milestones, defining stage completion conditions, and tracking progress weekly to surface delays early. It also requires supplier coordination for specifications, quotations, samples, and delivery, along with risk reporting and document version control.",
-      "summary_zh": "此技術專案經理職位聚焦於規劃專案時程與里程碑、訂定各階段完成條件，並每週追蹤進度以提早發現延誤。另需與供應商確認規格、報價、樣品與交期，並整理風險、待決事項與文件版本。",
+      "summary_en": "This role focuses on the execution phase of technical projects, emphasizing schedule control and vendor coordination. It requires a meticulous approach to risk management and documentation to ensure delivery milestones are met.",
+      "summary_zh": "此職位專注於技術專案的執行階段，強調進度控制與供應商協調。需要嚴謹的風險管理與文件紀錄能力，以確保各階段里程碑如期達成。",
       "classification": "PjM",
-      "rationale_en": "The JD centers on project scheduling, progress tracking, supplier delivery coordination, risk reporting, and document control, which are project management duties.",
-      "rationale_zh": "職缺核心為專案時程規劃、進度追蹤、供應商交貨協調、風險回報與文件管理，屬於專案管理職能。",
+      "rationale_en": "The job description focuses entirely on project lifecycle management, including scheduling, vendor tracking, and risk mitigation, without mentioning product strategy or market analysis.",
+      "rationale_zh": "工作內容完全集中在專案生命週期管理，包括時程規劃、供應商追蹤及風險控管，未提及產品策略或市場分析。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Technical milestone completion criteria",
-          "name_zh": "技術里程碑完成條件",
+          "name_en": "Vendor Procurement Management",
+          "name_zh": "供應商採購管理",
           "evidence_type": "Explicit",
-          "excerpt": "規劃專案時程與里程碑，訂定各階段完成條件。"
+          "excerpt": "與供應商確認規格、報價、樣品與交期"
         },
         {
           "category": "Skills",
-          "name_en": "Weekly delay adjustment tracking",
-          "name_zh": "每週延誤調整追蹤",
+          "name_en": "Project Risk Mitigation",
+          "name_zh": "專案風險緩解",
           "evidence_type": "Explicit",
-          "excerpt": "每週追蹤進度，提早找出可能延誤的項目並提出調整方式。"
+          "excerpt": "整理專案風險與待決事項，定期回報"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Supplier delivery follow-through",
-          "name_zh": "供應商交貨追蹤態度",
-          "evidence_type": "Inferred",
-          "excerpt": "與供應商確認規格、報價、樣品與交期，追蹤至交貨。"
+          "category": "Skills",
+          "name_en": "Milestone Planning",
+          "name_zh": "里程碑規劃",
+          "evidence_type": "Explicit",
+          "excerpt": "規劃專案時程與里程碑，訂定各階段完成條件"
         }
       ]
     },
@@ -1133,32 +1088,32 @@
       "posting_date": "20261118",
       "job_description_original": "1.制定專案時程、里程碑和工作計畫\n2.與客戶、主管或相關部門確認需求\n3.主持專案會議，追蹤工作進度。\n4.定期向主管或客戶報告專案狀況。\n5.制定因應計畫。\n6.確保成果符合需求及品質標準。\n7.控制專案預算。\n8.與客戶、主管及團隊保持良好溝通。\n",
       "job_title_en": "Project Manager",
-      "summary_en": "This project manager role owns schedule, milestones, work plans, requirements confirmation, meeting facilitation, progress tracking, and status reporting. It also includes contingency planning, quality compliance, budget control, and stakeholder communication.",
-      "summary_zh": "此專案經理負責時程、里程碑、工作計畫、需求確認、會議主持、進度追蹤與狀態回報。另包含因應計畫、品質符合、預算控制與利害關係人溝通。",
+      "summary_en": "A comprehensive project management role covering the full project lifecycle from requirement gathering to budget control. The position demands strong communication skills to align stakeholders and ensure quality standards.",
+      "summary_zh": "這是一個全面的專案管理職位，涵蓋從需求收集到預算控制的完整專案生命週期。該職位需要強大的溝通能力，以協調利益相關者並確保品質標準。",
       "classification": "PjM",
-      "rationale_en": "The JD explicitly lists project planning, monitoring, reporting, contingency planning, quality assurance, budget control, and communication, all core project management responsibilities.",
-      "rationale_zh": "職缺明確列出專案規劃、監控、回報、因應計畫、品質確保、預算控制與溝通，均為專案管理核心職責。",
+      "rationale_en": "The responsibilities center on project constraints such as time, budget, and quality, which are core functions of a Project Manager.",
+      "rationale_zh": "職責核心在於專案限制條件（如時間、預算和品質）的管理，這是專案經理的核心職能。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Project work plan structure",
-          "name_zh": "專案工作計畫結構",
+          "name_en": "Budgetary Control",
+          "name_zh": "預算控制",
           "evidence_type": "Explicit",
-          "excerpt": "制定專案時程、里程碑和工作計畫"
+          "excerpt": "控制專案預算"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-functional requirements confirmation",
-          "name_zh": "跨部門需求確認",
+          "name_en": "Stakeholder Management",
+          "name_zh": "利益相關者管理",
           "evidence_type": "Explicit",
-          "excerpt": "與客戶、主管或相關部門確認需求"
+          "excerpt": "與客戶、主管及團隊保持良好溝通"
         },
         {
           "category": "Attitudes",
-          "name_en": "Quality standard assurance",
-          "name_zh": "品質標準確保態度",
-          "evidence_type": "Inferred",
-          "excerpt": "確保成果符合需求及品質標準。"
+          "name_en": "Quality Orientation",
+          "name_zh": "品質導向",
+          "evidence_type": "Explicit",
+          "excerpt": "確保成果符合需求及品質標準"
         }
       ]
     },
@@ -1173,32 +1128,32 @@
       "posting_date": "20261104",
       "job_description_original": "、機電或弱電系統設計，並希望在國際化環境中發展職涯，歡迎加入我們，共同推動企業數位基礎建設的未來發展。\n\n工作內容:\n作為設計與營建產業中備受肯定的領導者，您將負責以下工作：\n\n- 專案管理（Project Management）\n確保專案在既定範",
       "job_title_en": "Data Center Design Project Manager",
-      "summary_en": "This role is for a data center design project manager with exposure to electromechanical or weak-current systems in an international environment. The JD emphasizes project management, ensuring projects remain within a defined scope, and supporting enterprise digital infrastructure development.",
-      "summary_zh": "此職缺為資料中心設計專案經理，涉及機電或弱電系統設計，並在國際化環境中發展職涯。內容強調專案管理、確保專案在既定範圍內推進，以及推動企業數位基礎建設。",
+      "summary_en": "This specialized role manages the design and construction of data center infrastructure, requiring knowledge of electromechanical systems. It operates within an international context to drive digital infrastructure development.",
+      "summary_zh": "此專業職位負責管理資料中心基礎設施的設計與營建，需具備機電系統知識。該職位在國際化環境中運作，推動數位基礎建設發展。",
       "classification": "PjM",
-      "rationale_en": "The title and JD identify the role as a project manager responsible for project management in a design and construction context.",
-      "rationale_zh": "職缺名稱與內容均指向專案經理，負責設計與營建情境下的專案管理。",
+      "rationale_en": "The role is focused on the delivery of specific infrastructure design projects within the construction and engineering domain.",
+      "rationale_zh": "該職位專注於營建與工程領域中特定基礎設施設計專案的交付。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Data center MEP and weak-current design",
-          "name_zh": "資料中心機電與弱電設計",
+          "name_en": "Electromechanical System Design",
+          "name_zh": "機電或弱電系統設計",
           "evidence_type": "Explicit",
           "excerpt": "機電或弱電系統設計"
         },
         {
-          "category": "Skills",
-          "name_en": "Design project management",
-          "name_zh": "設計專案管理",
-          "evidence_type": "Explicit",
-          "excerpt": "專案管理（Project Management）"
-        },
-        {
           "category": "Attitudes",
-          "name_en": "International environment adaptability",
-          "name_zh": "國際化環境適應態度",
+          "name_en": "Global Professionalism",
+          "name_zh": "國際化專業素養",
           "evidence_type": "Inferred",
           "excerpt": "希望在國際化環境中發展職涯"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Infrastructure Project Leadership",
+          "name_zh": "基礎建設專案領導",
+          "evidence_type": "Inferred",
+          "excerpt": "共同推動企業數位基礎建設的未來發展"
         }
       ]
     },
@@ -1212,33 +1167,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261115",
       "job_description_original": "1.主動對接客戶，會報專案進展。\n2.負責現場管理供應商，包括安裝進度、安裝品質、安全管理。\n3.負責現場專案管理，整理專案日報，整理實施過程中的文檔。\n4.保障現場的安裝進度，確保專案可以如期上線。\n5.負責現場的物料管理，到貨簽收等。\n6.跨部門溝通與協調。\n7.有相關整合專案（多項設備）管理經驗。",
-      "job_title_en": "Project Manager (Yangmei Site, 2027)",
-      "summary_en": "This project manager role is site-based in Yangmei from 2027 and requires proactive client reporting, on-site supplier management, daily logs, documentation, material receiving, and cross-department coordination. It emphasizes installation schedule, quality, safety, and ensuring on-time go-live for multi-equipment integration projects.",
-      "summary_zh": "此專案經理職缺自2027年起需駐廠楊梅，負責主動對接客戶、現場供應商管理、日報與文檔整理、物料簽收及跨部門協調。重點在安裝進度、品質、安全管理與如期上線，並具多項設備整合專案經驗。",
+      "job_title_en": "On-site Project Manager",
+      "summary_en": "A field-intensive project management role requiring on-site presence for vendor supervision and installation quality control. It involves heavy logistics management and cross-departmental coordination to ensure system go-live.",
+      "summary_zh": "這是一個高度依賴現場管理的專案管理職位，需要駐廠監督供應商並控管安裝品質。工作涉及大量的物流管理與跨部門協調，以確保系統如期上線。",
       "classification": "PjM",
-      "rationale_en": "The JD describes on-site project management, supplier and installation control, reporting, material management, and cross-functional coordination.",
-      "rationale_zh": "職缺描述現場專案管理、供應商與安裝管控、回報、物料管理與跨部門協調，屬於專案管理職能。",
+      "rationale_en": "The focus is on site management, installation progress, and material logistics, which are tactical project execution tasks.",
+      "rationale_zh": "重點在於現場管理、安裝進度與物料物流，這些均屬於戰術性的專案執行任務。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Multi-equipment integration project experience",
-          "name_zh": "多設備整合專案知識",
-          "evidence_type": "Explicit",
-          "excerpt": "有相關整合專案（多項設備）管理經驗"
-        },
-        {
-          "category": "Skills",
-          "name_en": "On-site installation safety control",
-          "name_zh": "現場安裝安全管控",
+          "name_en": "Site Safety and Quality Management",
+          "name_zh": "現場安全與品質管理",
           "evidence_type": "Explicit",
           "excerpt": "負責現場管理供應商，包括安裝進度、安裝品質、安全管理"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Proactive client progress reporting",
-          "name_zh": "主動客戶進度回報態度",
-          "evidence_type": "Inferred",
-          "excerpt": "主動對接客戶，會報專案進展"
+          "category": "Skills",
+          "name_en": "Material and Logistics Coordination",
+          "name_zh": "物料與物流協調",
+          "evidence_type": "Explicit",
+          "excerpt": "負責現場的物料管理，到貨簽收等"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Integrated Equipment Systems",
+          "name_zh": "整合設備系統",
+          "evidence_type": "Explicit",
+          "excerpt": "有相關整合專案（多項設備）管理經驗"
         }
       ]
     },
@@ -1253,32 +1208,32 @@
       "posting_date": "20261115",
       "job_description_original": "專案經理 (Project Manager)\n你的角色：\n你是團隊與客戶間的橋梁，是確保專案準時完成、品質過關的 任務導航官。\n\n你將負責：\n協調內外部資源，排定專案時程與進度追蹤\n與客戶、技術顧問緊密合作，保持高效溝通\n文件規劃、驗收報告準備、",
       "job_title_en": "Project Manager",
-      "summary_en": "This project manager acts as a bridge between the team and client, coordinating internal and external resources, scheduling, progress tracking, and close collaboration with clients and technical advisors. It also includes document planning and acceptance report preparation to ensure timely delivery and quality.",
-      "summary_zh": "此專案經理是團隊與客戶間的橋梁，負責協調內外部資源、排定時程與追蹤進度，並與客戶及技術顧問緊密合作。另需進行文件規劃與驗收報告準備，以確保準時完成與品質過關。",
+      "summary_en": "Acting as a bridge between technical teams and clients, this role ensures project delivery through efficient communication and resource coordination. It emphasizes documentation and the preparation of acceptance reports.",
+      "summary_zh": "作為技術團隊與客戶之間的橋樑，此職位透過高效溝通與資源協調確保專案交付。強調文件規劃與驗收報告的準備。",
       "classification": "PjM",
-      "rationale_en": "The JD describes resource coordination, scheduling, progress tracking, communication, documentation, and acceptance reporting, which are project management functions.",
-      "rationale_zh": "職缺描述資源協調、時程安排、進度追蹤、溝通、文件與驗收回報，屬於專案管理職能。",
+      "rationale_en": "The role is described as a 'Mission Navigator' focused on timely delivery and quality assurance for client projects.",
+      "rationale_zh": "該職位被描述為「任務導航官」，專注於客戶專案的準時交付與品質保證。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Project timeline and progress navigation",
-          "name_zh": "專案時程與進度導航",
+          "category": "Skills",
+          "name_en": "Client-Technical Liaison",
+          "name_zh": "客戶與技術端聯繫協調",
           "evidence_type": "Explicit",
-          "excerpt": "排定專案時程與進度追蹤"
+          "excerpt": "你是團隊與客戶間的橋梁"
         },
         {
           "category": "Skills",
-          "name_en": "Technical advisor collaboration",
-          "name_zh": "技術顧問協作",
+          "name_en": "Technical Documentation and Reporting",
+          "name_zh": "技術文件與報告撰寫",
           "evidence_type": "Explicit",
-          "excerpt": "與客戶、技術顧問緊密合作，保持高效溝通"
+          "excerpt": "文件規劃、驗收報告準備"
         },
         {
           "category": "Attitudes",
-          "name_en": "On-time quality assurance",
-          "name_zh": "準時品質把關態度",
+          "name_en": "Mission-Driven Accountability",
+          "name_zh": "任務驅動的責任感",
           "evidence_type": "Inferred",
-          "excerpt": "確保專案準時完成、品質過關"
+          "excerpt": "確保專案準時完成、品質過關的 任務導航官"
         }
       ]
     },
@@ -1293,32 +1248,32 @@
       "posting_date": "20261119",
       "job_description_original": "✅About the job\nWe are seeking a Senior Project Manager to drive hardware and system-level projects for our LPU-based PCIe",
       "job_title_en": "Senior Project Manager",
-      "summary_en": "The role seeks a senior project manager to lead hardware and system‑level initiatives centered on LPU‑based PCIe solutions. Emphasis is on delivering complex technical projects on schedule.",
-      "summary_zh": "此職位尋找資深專案經理，負責推動以 LPU 為基礎的 PCIe 硬體與系統層面專案。重點在於確保複雜技術專案如期交付。",
+      "summary_en": "This role focuses on driving high-level hardware and system integration projects specifically for LPU-based PCIe technology. It requires a senior professional to oversee technical execution and delivery within a specialized hardware environment.",
+      "summary_zh": "此職位專注於推動基於 LPU 架構的 PCIe 硬體與系統級專案。需要具備資深經驗的專業人士，在特定的硬體技術環境中負責技術執行與交付管理。",
       "classification": "PjM",
-      "rationale_en": "The title and description focus on delivering hardware projects, matching a classic project‑manager scope.",
-      "rationale_zh": "職稱與描述皆聚焦於硬體專案執行，屬於典型的專案經理職務。",
+      "rationale_en": "The job description emphasizes driving hardware and system-level projects to completion, which is a core project management function.",
+      "rationale_zh": "工作說明強調推動硬體與系統級專案的完成，這是專案管理的核功能。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Hardware system architecture",
-          "name_zh": "硬體系統架構",
+          "name_en": "Hardware Development Lifecycle",
+          "name_zh": "硬體開發生命週期",
           "evidence_type": "Explicit",
-          "excerpt": "hardware and system-level projects"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Project scheduling and delivery",
-          "name_zh": "專案排程與交付",
-          "evidence_type": "Inferred",
           "excerpt": "drive hardware and system-level projects"
         },
         {
+          "category": "Skills",
+          "name_en": "System Integration Management",
+          "name_zh": "系統整合管理",
+          "evidence_type": "Explicit",
+          "excerpt": "system-level projects for our LPU-based PCIe"
+        },
+        {
           "category": "Attitudes",
-          "name_en": "Leadership in technical teams",
-          "name_zh": "技術團隊領導力",
+          "name_en": "Proactive Leadership",
+          "name_zh": "主動領導",
           "evidence_type": "Inferred",
-          "excerpt": "Senior Project Manager"
+          "excerpt": "seeking a Senior Project Manager to drive"
         }
       ]
     },
@@ -1332,40 +1287,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261006",
       "job_description_original": "【為什麼開這個職缺】\n達特艾立的服務正從「單點」升級為「整合」── 過去我們可能只為合作醫師寫一篇 SEO 長文、投放一檔廣告、舉辦一場講座；現在我們正在把這些動作整合為 12-24 個月的「醫師個人品牌養成計畫」、「診所從 0 到 1 開幕與上軌道專案」、以及「醫療體系品牌轉型」這類橫跨多產品線的長期合作。這樣的整合性服務需要一位專業的專案經理，把品牌策略、內容生產（SEO／GEO／AIO）、廣告投放、診所營運顧問、教育訓練、業務開發 ── 公司目前的五條產品線 ── 整合為一致的客戶體驗，並在客戶與內部之間建立信任與節奏。\n未來 3 年，達特艾立的目標是從目前 40+ 合作醫師、20+ 診所醫院，擴展至 100+ 醫師、50+ 診所，並升級三條旗艦產品線：（1）醫師個人品牌成長加速器、（2）診所開業 0→1 全包服務、（3）醫療體系品牌轉型顧問。本職位將直接向總經理彙報，是公司在規模化過程中「執行品質不掉、客戶體驗不漏接」的核心關鍵角色。\n\n【工作內容】\n1. 整合性客戶專案規劃｜為合作醫師、診所、醫療體系制定 12-24 個月整合性專案路徑圖，串接品牌策略、內容生產（SEO／GEO／AIO）、廣告投放、診所營運、教育訓練、業務開發，確保每個動作都對齊客戶的長期商業目標。\n\n2.跨產品線資源協調｜在公司五條產品線之間調度資源：醫療品牌顧問、診所行銷（內容＋廣告）、診所營運顧問、教育訓練（醫師職涯成長學院）、醫師品牌經紀；確保每個專案準時、達標、不超預算。\n\n3.客戶端專案對口｜每月與合作醫師、診所院長、醫療體系主管線上聚焦，必要時進行線上會議，理解需求變化、把策略翻譯為可執行計畫、即時處理變動與衝突。\n\n4.三角接力 SOP 主導與優化｜主導「業務 → PM → 執行單位」的接力流程，確保需求不遺失、品質不打折、進度不延誤；持續維護內部 Brain Wiki 中的 PM SOP 模組。\n\n5.預算、品質、風險管控｜管理每個專案的預算、人力配置、品質檢核、風險識別與緩解措施；建立每個專案的「健康儀表板」，異常時即時升級至營運長。\n\n6.月報、季報與客戶會議｜主導客戶月報、季度策略檢討會議、年度回顧；整合品牌、內容、廣告、訓練的成效數據，提出策略級洞察與下季度調整建議。\n\n7.新客戶 onboarding｜與業務團隊協作設計 30 / 60 / 90 天的新客戶 onboarding 流程；確保每位新醫師、新診所在前 3 個月就能感受到達特艾立的價值與專業節奏。\n\n8.既有客戶續約與升級｜在合約到期前 90 天主動啟動續約評估，並提出下一階段的服務升級提案；與業務團隊協作把客戶從「單點服務」升級為「整合性長期合作」。\n\n9.案件知識庫建構｜把每個專案的學習轉化為公司資產：客戶類型 SOP、專案模板、案例研究、訓練教材；讓新進 PM 與專員可以站在公司既有的肩膀上加速上手。\n\n10.帶領 PM 專員（隨公司擴展）｜在公司擴展時帶領 1-2 名專案管理助理 ／ PM 專員 + 外部協力夥伴；制定 OKR、雙週 1on1、季度績效檢核、人才培育。\n\n11.跨部門深度協作｜與內容部（SEO／GEO／AIO）、品牌部、廣告部、訓練部、業務部、財務部緊密協作；在跨部門衝突時擔任協調者，並把每次協作經驗回饋為流程優化。\n\n12.產業洞察與服務創新｜每季提出 1-2 項可規模化的服務升級或流程創新（例如新型態的整合服務組合、新工具導入、新型態客戶體驗）；協助公司持續升級競爭力。",
-      "job_title_en": "Project Manager",
-      "summary_en": "The candidate will orchestrate long‑term, 12‑24‑month integrated campaigns for physicians and clinics, aligning branding, SEO, advertising, operations, training and business development. Responsibilities include cross‑product resource coordination, risk and budget control, and client‑facing reporting.",
-      "summary_zh": "此職位負責規劃 12‑24 個月的醫師與診所整合性專案，串接品牌策略、SEO、廣告、營運、教育訓練與業務開發。工作涵蓋跨產品線資源協調、風險與預算管控，以及客戶報告與續約。",
+      "job_title_en": "Project Manager (Medical Branding & Marketing)",
+      "summary_en": "This role manages complex, long-term medical branding and clinic operation projects by integrating multiple service lines like SEO and advertising. It acts as a bridge between business goals and execution, ensuring high-quality client experiences during company scaling.",
+      "summary_zh": "此職位負責整合 SEO、廣告與診所營運等多條產品線，為醫療客戶制定 12-24 個月的長期品牌專案。作為業務與執行單位的橋樑，在公司規模化過程中確保執行品質與客戶體驗。",
       "classification": "PjM",
-      "rationale_en": "The duties revolve around planning, coordinating and delivering multi‑disciplinary client projects, indicating a project‑manager role.",
-      "rationale_zh": "工作內容以規劃、協調與交付跨領域客戶專案為主，屬於專案經理職務。",
+      "rationale_en": "The role is centered on project roadmaps, resource scheduling, and delivery across multiple service lines for specific clients.",
+      "rationale_zh": "該職位核心在於專案路徑圖規劃、資源調度以及針對特定客戶的跨產品線交付管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Integrated multi‑product branding strategy",
-          "name_zh": "整合式多產品線品牌策略",
+          "name_en": "Integrated Marketing Strategy",
+          "name_zh": "整合行銷策略",
           "evidence_type": "Explicit",
-          "excerpt": "品牌策略、內容生產（SEO／GEO／AIO）、廣告投放、診所營運顧問、教育訓練、業務開發"
+          "excerpt": "制定 12-24 個月整合性專案路徑圖，串接品牌策略、內容生產"
         },
         {
           "category": "Skills",
-          "name_en": "Cross‑functional resource coordination",
-          "name_zh": "跨功能資源協調",
+          "name_en": "Cross-functional Resource Coordination",
+          "name_zh": "跨職能資源協調",
           "evidence_type": "Explicit",
           "excerpt": "在公司五條產品線之間調度資源"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Client‑centric communication",
-          "name_zh": "以客戶為中心的溝通態度",
+          "category": "Skills",
+          "name_en": "Project Governance & SOP Optimization",
+          "name_zh": "專案治理與 SOP 優化",
           "evidence_type": "Explicit",
-          "excerpt": "每月與合作醫師、診所院長、醫療體系主管線上聚焦"
+          "excerpt": "主導「業務 → PM → 執行單位」的接力流程...持續維護內部 Brain Wiki 中的 PM SOP 模組"
         },
         {
-          "category": "Knowledge",
-          "name_en": "Risk and budget governance",
-          "name_zh": "風險與預算治理",
+          "category": "Attitudes",
+          "name_en": "Client-Centric Value Delivery",
+          "name_zh": "以客戶為中心的價值交付",
           "evidence_type": "Explicit",
-          "excerpt": "預算、品質、風險管控"
+          "excerpt": "確保每位新醫師、新診所在前 3 個月就能感受到達特艾立的價值與專業節奏"
         }
       ]
     },
@@ -1379,33 +1334,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261118",
       "job_description_original": "台南、高雄、新加坡及越南。\n\n在現在這個數位轉型的大時代中，為了提供更專業的服務及產品，我們需要優秀的夥伴加入。\n\n【PMO專案經理的夥伴工作內容會包含什麼？】\n\n協助 PMO 主管進行專案組合（Project Portfolio）的監控、數據整合",
-      "job_title_en": "PMO Project Manager – Taipei",
-      "summary_en": "This PM role at 昕力資訊股份有限公司 focuses on PMO專案經理 Project Manager_台北.",
-      "summary_zh": "此職缺為「PMO專案經理 Project Manager_台北」，主要工作內容涵蓋：台南、高雄、新加坡及越南。",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in PMO專案經理 Project Manager_台北.",
-      "rationale_zh": "依據「PMO專案經理 Project Manager_台北」之實際工作內容判定為 PM。",
+      "job_title_en": "PMO Project Manager",
+      "summary_en": "Positioned within a Project Management Office, this role focuses on high-level portfolio monitoring and data integration to support digital transformation. It involves assisting leadership in overseeing project health across multiple international regions.",
+      "summary_zh": "此職位於專案管理辦公室 (PMO) 內，專注於高階專案組合監控與數據整合以支援數位轉型。工作內容包括協助主管監督跨國區域的專案健康狀況。",
+      "classification": "PjM",
+      "rationale_en": "The role is explicitly within a PMO and focuses on project portfolio monitoring and governance.",
+      "rationale_zh": "該職位明確隸屬於 PMO，且專注於專案組合監控與治理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "Project Portfolio Management (PPM)",
+          "name_zh": "專案組合管理",
           "evidence_type": "Explicit",
-          "excerpt": "台南、高雄、新加坡及越南。"
+          "excerpt": "協助 PMO 主管進行專案組合（Project Portfolio）的監控"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Data Integration & Analysis",
+          "name_zh": "數據整合與分析",
           "evidence_type": "Explicit",
-          "excerpt": "在現在這個數位轉型的大時代中，為了提供更專業的服務及產品，我們需要優秀的夥伴加入。"
+          "excerpt": "數據整合"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
+          "name_en": "Digital Transformation Mindset",
+          "name_zh": "數位轉型思維",
           "evidence_type": "Inferred",
-          "excerpt": "台南、高雄、新加坡及越南。"
+          "excerpt": "在現在這個數位轉型的大時代中，為了提供更專業的服務及產品"
         }
       ]
     },
@@ -1419,33 +1374,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261008",
       "job_description_original": "身為 專案經理（Project Manager），您將是團隊推進專案的關鍵角色。\n從需求釐清到產品上線，您需要兼顧時程、品質與團隊協作，讓每一個創意都能成為可被市場驗證的成功案例。\n\n[ What You’ll Do ]\n- 主導需求訪談與對焦，",
-      "job_title_en": "Project Manager – Stock Sense (股感資訊)",
-      "summary_en": "This PM role at 股感資訊股份有限公司 focuses on Project Manager 專案經理【股感資訊】.",
-      "summary_zh": "此職缺為「Project Manager 專案經理【股感資訊】」，主要工作內容涵蓋：身為 專案經理（Project Manager），您將是團隊推進專案的關鍵角色。",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in Project Manager 專案經理【股感資訊】.",
-      "rationale_zh": "依據「Project Manager 專案經理【股感資訊】」之實際工作內容判定為 PM。",
+      "job_title_en": "Project Manager",
+      "summary_en": "A core execution role responsible for the end-to-end lifecycle of digital products from requirement gathering to market launch. It emphasizes the balance between schedule, quality, and team collaboration to validate creative ideas.",
+      "summary_zh": "核心執行角色，負責數位產品從需求釐清到上線的完整生命週期。強調在時程、品質與團隊協作之間取得平衡，將創意轉化為可驗證的成功案例。",
+      "classification": "Hybrid",
+      "rationale_en": "While the title is Project Manager, the focus on requirement clarification and market validation of products leans toward Product Management responsibilities.",
+      "rationale_zh": "雖然職稱為專案經理，但其對需求釐清與產品市場驗證的關注，更偏向產品管理職責。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "Product Launch Lifecycle",
+          "name_zh": "產品上線生命週期",
           "evidence_type": "Explicit",
-          "excerpt": "身為 專案經理（Project Manager），您將是團隊推進專案的關鍵角色。"
+          "excerpt": "從需求釐清到產品上線"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Requirement Interviewing & Alignment",
+          "name_zh": "需求訪談與對焦",
           "evidence_type": "Explicit",
-          "excerpt": "從需求釐清到產品上線，您需要兼顧時程、品質與團隊協作，讓每一個創意都能成為可被市場驗證的成功案例。"
+          "excerpt": "主導需求訪談與對焦"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "身為 專案經理（Project Manager），您將是團隊推進專案的關鍵角色。"
+          "name_en": "Quality & Schedule Balance",
+          "name_zh": "品質與時程平衡",
+          "evidence_type": "Explicit",
+          "excerpt": "您需要兼顧時程、品質與團隊協作"
         }
       ]
     },
@@ -1459,33 +1414,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261117",
       "job_description_original": "這個職位就是產品行銷企劃 PM ，至於是經理還是專員，就看你能扛多少，能力夠強，成為總監也沒問題。\n\n你會負責樂利豐自有及代理時尚服飾品牌的產品與行銷企劃，從品牌經營的角度，思考每個品牌如何定位、包裝與宣傳。\n\n【工作內容】\n1. 品牌定位與行銷",
-      "job_title_en": "Product Marketing Manager (Fashion Apparel)",
-      "summary_en": "This PM role at 樂利豐股份有限公司 focuses on 產品行銷企劃 ｜PM 產品經理（潮流服飾）.",
-      "summary_zh": "此職缺為「產品行銷企劃 ｜PM 產品經理（潮流服飾）」，主要工作內容涵蓋：這個職位就是產品行銷企劃 PM ，至於是經理還是專員，就看你能扛多少，能力夠強，成為總監也沒問題。",
+      "job_title_en": "Product Marketing Manager (Fashion)",
+      "summary_en": "This role blends product management with marketing planning for fashion brands, focusing on brand positioning and promotion. It requires a strategic mindset to handle both self-owned and agency brands from a business perspective.",
+      "summary_zh": "此職位結合了潮流服飾的產品管理與行銷企劃，專注於品牌定位與宣傳。需要具備策略思維，從經營角度處理自有及代理品牌。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in 產品行銷企劃 ｜PM 產品經理（潮流服飾）.",
-      "rationale_zh": "依據「產品行銷企劃 ｜PM 產品經理（潮流服飾）」之實際工作內容判定為 PM。",
+      "rationale_en": "The role focuses on brand positioning, marketing strategy, and product packaging rather than project execution schedules.",
+      "rationale_zh": "該職位專注於品牌定位、行銷策略與產品包裝，而非專案執行時程管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "Brand Positioning & Strategy",
+          "name_zh": "品牌定位與策略",
           "evidence_type": "Explicit",
-          "excerpt": "這個職位就是產品行銷企劃 PM ，至於是經理還是專員，就看你能扛多少，能力夠強，成為總監也沒問題。"
+          "excerpt": "思考每個品牌如何定位、包裝與宣傳"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Product Marketing Planning",
+          "name_zh": "產品行銷企劃",
           "evidence_type": "Explicit",
-          "excerpt": "你會負責樂利豐自有及代理時尚服飾品牌的產品與行銷企劃，從品牌經營的角度，思考每個品牌如何定位、包裝與宣傳。"
+          "excerpt": "負責樂利豐自有及代理時尚服飾品牌的產品與行銷企劃"
         },
         {
           "category": "Attitudes",
           "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "這個職位就是產品行銷企劃 PM ，至於是經理還是專員，就看你能扛多少，能力夠強，成為總監也沒問題。"
+          "name_zh": "所有權與責任感",
+          "evidence_type": "Explicit",
+          "excerpt": "至於是經理還是專員，就看你能扛多少"
         }
       ]
     },
@@ -1499,30 +1454,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "存儲系統/人工智慧/雲端解決方案之產品規劃、規格制定\n巿場需求競爭分析、技術架構研究\n提供產品解決方案、技術支持\n\nProduct software planning, specification definition, technical architecture analysis, and competitive market analysis for AI and Cloud solutions.\nProvide product solutions and technical support to sales, including pre-sales consultation, customer presentations, and solution design.\nDevelop and deliver product training, documentation, and enablement materials for internal teams and customers.",
-      "job_title_en": "Product Manager",
-      "summary_en": "We are seeking a Product Manager with strong market sensitivity and OEM collaboration capabilities. Responsibilities include product planning, market analysis, business and technical resource coordination, and converting product strengths into competitive advantages and operational excellence.\n\nIf you are familiar with barcode, RFID, label printing, or mobile end-to-end solutions, and have experience in project management.",
-      "summary_zh": "我們正在招請專業的產品經理，專注於市場敏感及合作合作能力。專業負責產品規劃、市場分析、企業及技術資源協調、將產品優勢轉換為競爭優勢及操作优秀。\n\n如果您熟悉條碼、RFID、標籤印印或行動端到端解決方案，及顧客專案管理經驗。",
-      "classification": "Hybrid",
-      "rationale_en": "",
-      "rationale_zh": "",
+      "job_title_en": "AI & Cloud Product Planning Manager",
+      "summary_en": "This role focuses on the strategic planning and technical specification of AI and cloud storage solutions. It involves a mix of market research, technical architecture analysis, and high-level pre-sales support to drive product adoption.",
+      "summary_zh": "此職位專注於 AI 與雲端儲存解決方案的策略規劃與技術規格制定。工作內容涵蓋市場研究、技術架構分析以及高階售前支援，旨在推動產品的市場採用。",
+      "classification": "PM",
+      "rationale_en": "The role emphasizes product lifecycle management, market analysis, and specification definition, which are core product management functions.",
+      "rationale_zh": "該職位強調產品生命週期管理、市場分析和規格定義，這些都是產品經理的核心職能。",
       "competencies": [
         {
-          "name_en": "Project Management",
-          "name_zh": "顧客專案管理",
-          "evidence_type": "Experience",
-          "evidence": "Project Management experience"
+          "category": "Knowledge",
+          "name_en": "Cloud & AI Architecture",
+          "name_zh": "雲端與 AI 架構知識",
+          "evidence_type": "Explicit",
+          "excerpt": "技術架構研究"
         },
         {
-          "name_en": "RFID/NFC Technology",
-          "name_zh": "RFID/NFC 技術",
-          "evidence_type": "Experience",
-          "evidence": "Experience in RFID/NFC technology"
+          "category": "Skills",
+          "name_en": "Market Competitive Analysis",
+          "name_zh": "市場競爭分析",
+          "evidence_type": "Explicit",
+          "excerpt": "巿場需求競爭分析"
         },
         {
-          "name_en": "Customer Relationship Management",
-          "name_zh": "客戶關係經理",
-          "evidence_type": "Experience",
-          "evidence": "Experience in Customer Relationship Management"
+          "category": "Skills",
+          "name_en": "Pre-sales Solution Design",
+          "name_zh": "售前解決方案設計",
+          "evidence_type": "Explicit",
+          "excerpt": "pre-sales consultation, customer presentations, and solution design"
         }
       ]
     },
@@ -1536,33 +1494,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "- 產品規格書撰寫\n- 撰寫產品使用手冊\n- 產品 SOP 製定\n- 產品功能簡易測試\n\n本職位將為公司產品線的發展提供重要支持，具有良好的發展前景。\n歡迎有志之士加入我們，共同發展！",
-      "job_title_en": "Product Manager Assistant",
-      "summary_en": "This PM role at 誠釱科技股份有限公司 focuses on PM產品經理助理.",
-      "summary_zh": "此職缺為「PM產品經理助理」，主要工作內容涵蓋：- 產品規格書撰寫",
+      "job_title_en": "Assistant Product Manager",
+      "summary_en": "This is a foundational role focused on the documentation and operational support of the product development process. Key tasks include writing manuals, SOPs, and performing basic functional testing to ensure product quality.",
+      "summary_zh": "這是一個基礎職位，專注於產品開發過程中的文件編寫與營運支援。主要任務包括撰寫手冊、SOP 以及進行基礎功能測試，以確保產品品質。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in PM產品經理助理.",
-      "rationale_zh": "依據「PM產品經理助理」之實際工作內容判定為 PM。",
+      "rationale_en": "Although an assistant role, the tasks are centered around product documentation and specifications rather than project scheduling or resource management.",
+      "rationale_zh": "雖然是助理職位，但任務集中在產品文件和規格，而非專案排程或資源管理。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Technical Documentation",
+          "name_zh": "技術文件撰寫",
           "evidence_type": "Explicit",
-          "excerpt": "- 產品規格書撰寫"
+          "excerpt": "撰寫產品使用手冊"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Standard Operating Procedures",
+          "name_zh": "標準作業程序制定",
+          "evidence_type": "Explicit",
+          "excerpt": "產品 SOP 製定"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Functional Testing",
+          "name_zh": "功能測試",
           "evidence_type": "Explicit",
-          "excerpt": "- 撰寫產品使用手冊"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "- 產品規格書撰寫"
+          "excerpt": "產品功能簡易測試"
         }
       ]
     },
@@ -1576,33 +1534,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261111",
       "job_description_original": "1. 設備產品代理作業\n2. 設備投標規範定義\n3. 代理設備測試\n4. 展場規劃\n5. 客戶諮詢\n6. 主管其他交辦事項",
-      "job_title_en": "Product Manager (Equipment Solutions)",
-      "summary_en": "This PM role at 昕拓科技有限公司 focuses on 產品經理.",
-      "summary_zh": "此職缺為「產品經理」，主要工作內容涵蓋：1. 設備產品代理作業",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in 產品經理.",
-      "rationale_zh": "依據「產品經理」之實際工作內容判定為 PM。",
+      "job_title_en": "Product Manager (Equipment & Agency)",
+      "summary_en": "This position manages agency-represented equipment, involving technical bidding specifications and product testing. It also requires marketing activities like exhibition planning and direct customer consultation.",
+      "summary_zh": "此職位管理代理設備，涉及技術投標規範和產品測試。此外，還需要進行展場規劃和直接客戶諮詢等行銷活動。",
+      "classification": "Hybrid",
+      "rationale_en": "The role blends product-specific technical tasks (specs/testing) with marketing and sales support activities (bidding/exhibitions).",
+      "rationale_zh": "該職位結合了產品特定的技術任務（規格/測試）與行銷和銷售支援活動（投標/展覽）。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "Bidding Specification Definition",
+          "name_zh": "投標規範定義",
           "evidence_type": "Explicit",
-          "excerpt": "1. 設備產品代理作業"
+          "excerpt": "設備投標規範定義"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Exhibition & Event Planning",
+          "name_zh": "展場與活動規劃",
           "evidence_type": "Explicit",
-          "excerpt": "2. 設備投標規範定義"
+          "excerpt": "展場規劃"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "1. 設備產品代理作業"
+          "name_en": "Customer-Centric Consulting",
+          "name_zh": "以客戶為中心的諮詢服務",
+          "evidence_type": "Explicit",
+          "excerpt": "客戶諮詢"
         }
       ]
     },
@@ -1616,33 +1574,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "1.作為客戶端主要窗口，負責日常溝通與關係維護。\n2.負責專案時程規劃與進度控管，確保產品如期交付。\n3.跨部門協調（工程、製造、生管、採購...），推動專案執行。",
-      "job_title_en": "Product Manager / Project Lead",
-      "summary_en": "This PM role at 景美科技股份有限公司 focuses on 產品經理PM.",
-      "summary_zh": "此職缺為「產品經理PM」，主要工作內容涵蓋：1.作為客戶端主要窗口，負責日常溝通與關係維護。",
-      "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in 產品經理PM.",
-      "rationale_zh": "依據「產品經理PM」之實際工作內容判定為 PM。",
+      "job_title_en": "Project Manager (Manufacturing/OEM)",
+      "summary_en": "This role acts as the primary interface for clients, focusing on project scheduling and cross-departmental execution. It ensures that products are delivered on time by coordinating between engineering, manufacturing, and procurement.",
+      "summary_zh": "此職位擔任客戶的主要窗口，專注於專案時程規劃與跨部門執行。透過協調工程、製造和採購部門，確保產品如期交付。",
+      "classification": "PjM",
+      "rationale_en": "Despite the 'PM' title, the description focuses exclusively on schedule control, client communication, and cross-functional coordination for delivery.",
+      "rationale_zh": "儘管職稱為「PM」，但說明完全集中在時程控管、客戶溝通和跨部門交付協調。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "category": "Skills",
+          "name_en": "Project Schedule Control",
+          "name_zh": "專案進度控管",
           "evidence_type": "Explicit",
-          "excerpt": "1.作為客戶端主要窗口，負責日常溝通與關係維護。"
+          "excerpt": "負責專案時程規劃與進度控管"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Cross-functional Coordination",
+          "name_zh": "跨部門協調",
           "evidence_type": "Explicit",
-          "excerpt": "2.負責專案時程規劃與進度控管，確保產品如期交付。"
+          "excerpt": "跨部門協調（工程、製造、生管、採購...）"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "1.作為客戶端主要窗口，負責日常溝通與關係維護。"
+          "name_en": "Client Relationship Management",
+          "name_zh": "客戶關係維護",
+          "evidence_type": "Explicit",
+          "excerpt": "負責日常溝通與關係維護"
         }
       ]
     },
@@ -1656,33 +1614,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261119",
       "job_description_original": "【 職缺簡介】\n我們正在尋找具備產品管理思維及市場敏銳度的 AIDC 產品經理，負責產品線規劃、市場分析、原廠合作及產品推廣，串聯產品、業務與技術資源，將產品優勢轉化為市場競爭力與營運成果。\n\n如果你熟悉條碼、RFID、標籤列印或行動終端設備，並",
-      "job_title_en": "【台北】AIDC 產品經理",
-      "summary_en": "This PM role at 建達國際股份有限公司 focuses on 【台北】AIDC 產品經理.",
-      "summary_zh": "此職缺為「【台北】AIDC 產品經理」，主要工作內容涵蓋：【 職缺簡介】",
+      "job_title_en": "AIDC Product Manager",
+      "summary_en": "This role manages the AIDC product line, requiring deep knowledge of barcode and RFID technologies to drive market competitiveness. It involves strategic planning, vendor collaboration, and translating technical advantages into business results.",
+      "summary_zh": "此職位管理 AIDC 產品線，需要具備條碼和 RFID 技術的深厚知識以提升市場競爭力。工作涉及策略規劃、原廠合作，並將技術優勢轉化為業務成果。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in 【台北】AIDC 產品經理.",
-      "rationale_zh": "依據「【台北】AIDC 產品經理」之實際工作內容判定為 PM。",
+      "rationale_en": "The focus is on product line planning, market sensitivity, and vendor management to achieve business goals.",
+      "rationale_zh": "重點在於產品線規劃、市場敏銳度和原廠管理，以達成業務目標。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "AIDC Technology Domain",
+          "name_zh": "AIDC 技術領域知識",
           "evidence_type": "Explicit",
-          "excerpt": "【 職缺簡介】"
+          "excerpt": "熟悉條碼、RFID、標籤列印或行動終端設備"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Vendor Relationship Management",
+          "name_zh": "原廠合作管理",
           "evidence_type": "Explicit",
-          "excerpt": "我們正在尋找具備產品管理思維及市場敏銳度的 AIDC 產品經理，負責產品線規劃、市場分析、原廠合作及產品推廣，串聯產品、業務與技術資源，將產品優勢轉化為市場競爭力與營運成果。"
+          "excerpt": "負責產品線規劃、市場分析、原廠合作及產品推廣"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "【 職缺簡介】"
+          "name_en": "Market Sensitivity",
+          "name_zh": "市場敏銳度",
+          "evidence_type": "Explicit",
+          "excerpt": "具備產品管理思維及市場敏銳度"
         }
       ]
     },
@@ -1697,30 +1655,30 @@
       "posting_date": "20261120",
       "job_description_original": "識與流程管理能力，協助公司持續優化產品品質及開發流程。\n未來可依據專業能力與工作經驗，朝資深產品經理、產品開發主管或產品管理相關職務發展。\n",
       "job_title_en": "Product Manager",
-      "summary_en": "This Product Manager role focuses on improving product quality and development processes through process management. It also indicates a career path toward senior product management or product development leadership.",
-      "summary_zh": "此職位為產品經理，重點在協助公司持續優化產品品質與開發流程，並具備流程管理能力。未來可依專業能力與工作經驗，朝資深產品經理、產品開發主管或產品管理相關職務發展。",
+      "summary_en": "This role focuses on the continuous optimization of product quality and development workflows within the organization. It is designed for candidates looking to advance into senior product leadership or specialized product management positions.",
+      "summary_zh": "此職位專注於公司內部產品品質與開發流程的持續優化。該職缺為具備專業能力的候選人提供明確的晉升路徑，可朝向資深產品經理或產品開發主管等領導職務發展。",
       "classification": "PM",
-      "rationale_en": "The title and duties center on product management, product quality, and process optimization rather than project delivery.",
-      "rationale_zh": "職稱與內容聚焦產品管理、產品品質與流程優化，並非以專案交付為核心，因此歸類為 PM。",
+      "rationale_en": "The description emphasizes product quality optimization and long-term product management career development rather than specific project delivery timelines.",
+      "rationale_zh": "工作描述強調產品品質優化與長期產品管理職涯發展，而非單純的專案時程交付。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Product quality and development process optimization",
-          "name_zh": "產品品質與開發流程優化",
+          "name_en": "Product Development Lifecycle",
+          "name_zh": "產品開發生命週期",
           "evidence_type": "Explicit",
-          "excerpt": "持續優化產品品質及開發流程"
+          "excerpt": "協助公司持續優化產品品質及開發流程"
         },
         {
           "category": "Skills",
-          "name_en": "Process management",
-          "name_zh": "流程管理能力",
+          "name_en": "Process Optimization",
+          "name_zh": "流程優化",
           "evidence_type": "Explicit",
-          "excerpt": "識與流程管理能力"
+          "excerpt": "流程管理能力"
         },
         {
           "category": "Attitudes",
-          "name_en": "Career growth orientation in product management",
-          "name_zh": "產品管理職涯成長導向",
+          "name_en": "Professional Growth Mindset",
+          "name_zh": "專業成長心態",
           "evidence_type": "Inferred",
           "excerpt": "朝資深產品經理、產品開發主管或產品管理相關職務發展"
         }
@@ -1737,37 +1695,44 @@
       "posting_date": "20261118",
       "job_description_original": "產品定義與規格制定 (Product Definition)\n1. 技術藍圖規畫： 定義 Inyde BIOS Kernel 的長期發展藍圖，包含對 UEFI 標準的追隨  與自研技術的開發。\n2. 需求分析： 收集來自 OEM/ODM 客戶以及內部硬體部門的需求，將其轉化為詳細的產品需求文件 (PRD)。\n3. 功能權重排序： 在研發資源有限的情況下，決定核心功能的開發優先順序（如：Security Boot, Redfish 支援, Overclocking 功能等）。\n\n跨部門協作與專案管理 (Cross-functional Leadership)\n1. 研發橋樑： 擔任 BIOS 工程師與市場行銷/業務之間的翻譯官，確保開發方向符合市場趨勢。\n2. 進度控管： 監控開發里程碑，解決開發過程中的資源衝突，確保產品準時交付 (Time-to-Market)。\n\n生態系與合作夥伴管理 (Ecosystem Management)\n1. 供應商對接： 與矽智財廠商（如 Intel, AMD, NVIDIA）或周邊Device/ Chip vender (如Sandisk, Kingston, Realtek )保持密切聯繫，獲取最新的參考程式碼 (Reference Code) 與技術支援。\n2. 合規性確保： 確保 BIOS 核心符合行業標準（如 NIST 安全規範、Windows 標誌認證）。\n\n市場競爭分析 (Market Intelligence)\n1. 競爭者研究： 分析競爭對手的優劣勢。\n2. 技術推廣： 準備產品技術簡報，協助業務團隊向客戶展示 BIOS 核心的獨特性與優勢。\n",
       "job_title_en": "BIOS Product Manager",
-      "summary_en": "This BIOS Product Manager role defines the long-term BIOS kernel roadmap, translates OEM/ODM and internal hardware needs into PRDs, and prioritizes core features under limited R&D resources. It also coordinates engineering, marketing, suppliers, and compliance requirements to ensure timely delivery and market competitiveness.",
-      "summary_zh": "此職位聚焦基本輸入輸出系統產品的技術藍圖、需求分析與功能優先順序，並將客戶與內部硬體需求轉化為產品需求文件。工作亦包含跨部門協作、供應商對接、合規性確保與競爭分析，以支持產品準時交付與市場推廣。",
-      "classification": "PM",
-      "rationale_en": "The role is primarily product definition, roadmap, PRD, and go-to-market support, with project management as a supporting activity.",
-      "rationale_zh": "此職位以產品定義、技術藍圖、需求文件與市場支援為主，專案管理僅為輔助職能，因此歸類為 PM。",
+      "summary_en": "A highly technical PM role responsible for defining BIOS kernel roadmaps and translating OEM/ODM requirements into detailed PRDs. It involves managing complex ecosystems with silicon vendors like Intel and AMD while ensuring industry standard compliance.",
+      "summary_zh": "這是一個高度技術性的產品經理職位，負責定義 BIOS 核心藍圖並將 OEM/ODM 需求轉化為詳細的 PRD。職責涵蓋與 Intel、AMD 等晶片廠商的生態系管理，並確保符合產業標準規範。",
+      "classification": "Hybrid",
+      "rationale_en": "The role combines strategic product definition (PM) with tactical progress monitoring and resource conflict resolution (PjM).",
+      "rationale_zh": "此職位結合了策略性的產品定義（PM）與戰術性的進度監控及資源衝突解決（PjM）。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "BIOS and UEFI technology roadmap",
-          "name_zh": "BIOS 與 UEFI 技術藍圖",
+          "name_en": "UEFI & BIOS Standards",
+          "name_zh": "UEFI 與 BIOS 標準",
           "evidence_type": "Explicit",
-          "excerpt": "定義 Inyde BIOS Kernel 的長期發展藍圖"
+          "excerpt": "定義 Inyde BIOS Kernel 的長期發展藍圖，包含對 UEFI 標準的追隨"
         },
         {
           "category": "Skills",
-          "name_en": "Product requirements document creation",
-          "name_zh": "產品需求文件撰寫",
+          "name_en": "Technical PRD Authoring",
+          "name_zh": "技術性產品需求文件撰寫",
           "evidence_type": "Explicit",
           "excerpt": "將其轉化為詳細的產品需求文件 (PRD)"
         },
         {
           "category": "Skills",
-          "name_en": "Feature prioritization under resource constraints",
-          "name_zh": "資源限制下的功能優先排序",
+          "name_en": "Ecosystem Partner Management",
+          "name_zh": "生態系合作夥伴管理",
           "evidence_type": "Explicit",
-          "excerpt": "決定核心功能的開發優先順序"
+          "excerpt": "與矽智財廠商（如 Intel, AMD, NVIDIA）或周邊Device/ Chip vender 保持密切聯繫"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Feature Prioritization",
+          "name_zh": "功能優先順序排序",
+          "evidence_type": "Explicit",
+          "excerpt": "在研發資源有限的情況下，決定核心功能的開發優先順序"
         },
         {
           "category": "Attitudes",
-          "name_en": "Cross-functional translation and delivery orientation",
-          "name_zh": "跨部門翻譯與交付導向",
+          "name_en": "Cross-functional Diplomacy",
+          "name_zh": "跨部門溝通協調",
           "evidence_type": "Inferred",
           "excerpt": "擔任 BIOS 工程師與市場行銷/業務之間的翻譯官"
         }
@@ -1783,40 +1748,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "1. 負責公司代理之資通訊、資安及企業級 IT 解決方案產品之產品規劃與管理\n2. 規劃產品定位、上市策略（Go-To-Market）與市場推廣計畫\n3. 與原廠進行產品、技術、商務及產品發展方向之溝通與協調\n4. 支援業務及通路夥伴進行產品簡報、解決方案說明與競品分析\n5. 規劃並執行產品相關教育訓練、行銷活動與客戶說明會\n6. 蒐集市場趨勢與客戶需求，進行分析並提出產品建議\n7. 協助重要專案、標案及關鍵客戶之產品面支援\n8. 跨部門協作（業務、技術、行銷），提升產品銷售與市場競爭力\n",
-      "job_title_en": "Product Manager",
-      "summary_en": "This Product Manager role handles product planning and management for ICT, security, and enterprise IT solutions. It includes go-to-market planning, vendor coordination, sales enablement, training, and market analysis to strengthen product competitiveness.",
-      "summary_zh": "此職位負責資通訊、資安與企業級資訊科技解決方案的產品規劃、定位、上市策略與市場推廣。需與原廠協調產品與商務方向，支援業務與通路夥伴，並透過教育訓練、行銷活動與市場分析提升產品競爭力。",
+      "job_title_en": "Product Manager (ICT & Cybersecurity)",
+      "summary_en": "This position focuses on the planning and market promotion of enterprise-level IT and cybersecurity solutions. It requires strong vendor management skills and the ability to support sales through technical presentations and competitive analysis.",
+      "summary_zh": "此職位專注於企業級 IT 與資安解決方案的規劃與市場推廣。需要強大的原廠管理能力，並能透過技術簡報與競品分析支援業務銷售。",
       "classification": "PM",
-      "rationale_en": "The position is centered on product planning, positioning, go-to-market, and product lifecycle support rather than project management.",
-      "rationale_zh": "此職位核心為產品規劃、產品定位、上市策略與產品支援，並非以專案管理為主，因此歸類為 PM。",
+      "rationale_en": "The focus is on Go-To-Market strategy, product positioning, and vendor coordination rather than internal project execution.",
+      "rationale_zh": "重點在於上市策略（GTM）、產品定位及原廠協調，而非內部的專案執行。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "ICT, security, and enterprise IT solution product planning",
-          "name_zh": "資通訊、資安與企業級 IT 解決方案產品規劃",
-          "evidence_type": "Explicit",
-          "excerpt": "資通訊、資安及企業級 IT 解決方案產品之產品規劃與管理"
-        },
-        {
-          "category": "Skills",
-          "name_en": "Go-to-market and marketing plan development",
-          "name_zh": "上市策略與行銷計畫規劃",
+          "name_en": "Go-To-Market Strategy",
+          "name_zh": "市場進入策略",
           "evidence_type": "Explicit",
           "excerpt": "規劃產品定位、上市策略（Go-To-Market）與市場推廣計畫"
         },
         {
           "category": "Skills",
-          "name_en": "Vendor and partner coordination",
-          "name_zh": "原廠與夥伴協調",
+          "name_en": "Vendor Relationship Management",
+          "name_zh": "原廠關係管理",
           "evidence_type": "Explicit",
           "excerpt": "與原廠進行產品、技術、商務及產品發展方向之溝通與協調"
         },
         {
+          "category": "Skills",
+          "name_en": "Competitive Intelligence",
+          "name_zh": "競爭情報分析",
+          "evidence_type": "Explicit",
+          "excerpt": "支援業務及通路夥伴進行產品簡報、解決方案說明與競品分析"
+        },
+        {
           "category": "Attitudes",
-          "name_en": "Cross-functional sales enablement orientation",
-          "name_zh": "跨部門銷售支援導向",
+          "name_en": "Market Sensitivity",
+          "name_zh": "市場敏銳度",
           "evidence_type": "Inferred",
-          "excerpt": "跨部門協作（業務、技術、行銷），提升產品銷售與市場競爭力"
+          "excerpt": "蒐集市場趨勢與客戶需求，進行分析並提出產品建議"
         }
       ]
     },
@@ -1830,40 +1795,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261111",
       "job_description_original": "- 負責會員與課程系統的成長型產品規劃與指標管理。\n- 設計實驗、建立追蹤，持續優化轉換率、留存與營收。\n- 與工程/設計/行銷協作推進功能上線與體驗改善。\n- 盤點營運痛點，導入自動化與AI工具提升效率。\n- 追蹤競品與市場趨勢，提出可執行的成長策略。\n\n承擔用戶成長與營收提升的關鍵角色，透過實驗與數據驅動迭代產品。\n如果你喜歡用數據實驗驅動成長，這裡有舞台展現你的影響力！",
-      "job_title_en": "AI Agent Product Manager",
-      "summary_en": "This AI Agent Product Manager role owns growth product planning and metric management for membership and course systems. It emphasizes experiment design, conversion, retention, revenue optimization, cross-functional launches, and AI-driven automation. The role is data-driven and focused on user growth and revenue improvement.",
-      "summary_zh": "此職位負責會員與課程系統的成長型產品規劃與指標管理，並透過實驗設計與數據追蹤優化轉換率、留存與營收。工作需與工程、設計、行銷協作推進功能上線，導入自動化與人工智慧工具，並提出可執行的成長策略。",
+      "job_title_en": "AI Agent Growth Product Manager",
+      "summary_en": "A growth-oriented PM role that leverages data experiments and AI tools to optimize user conversion and retention. The position is central to driving revenue through iterative product improvements and automation.",
+      "summary_zh": "這是一個以成長為導向的產品經理職位，利用數據實驗和 AI 工具來優化用戶轉換與留存。該職位透過產品迭代與自動化，成為驅動營收增長的關鍵角色。",
       "classification": "PM",
-      "rationale_en": "The role focuses on product planning, growth metrics, experimentation, and product iteration rather than project coordination.",
-      "rationale_zh": "此職位聚焦產品規劃、成長指標、實驗設計與產品迭代，並非以專案協調為核心，因此歸類為 PM。",
+      "rationale_en": "The role is defined by metric management, growth hacking, and product strategy rather than project scheduling.",
+      "rationale_zh": "該職位由指標管理、成長駭客和產品策略定義，而非專案排程。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Growth product planning and metric management",
-          "name_zh": "成長型產品規劃與指標管理",
+          "name_en": "Growth Hacking & Metrics",
+          "name_zh": "成長駭客與指標管理",
           "evidence_type": "Explicit",
           "excerpt": "負責會員與課程系統的成長型產品規劃與指標管理"
         },
         {
           "category": "Skills",
-          "name_en": "Experiment design and tracking",
-          "name_zh": "實驗設計與追蹤",
+          "name_en": "A/B Testing & Data Analysis",
+          "name_zh": "A/B 測試與數據分析",
           "evidence_type": "Explicit",
-          "excerpt": "設計實驗、建立追蹤"
+          "excerpt": "設計實驗、建立追蹤，持續優化轉換率、留存與營收"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-functional feature launch collaboration",
-          "name_zh": "跨部門功能上線協作",
+          "name_en": "AI Tool Implementation",
+          "name_zh": "AI 工具導入",
           "evidence_type": "Explicit",
-          "excerpt": "與工程/設計/行銷協作推進功能上線與體驗改善"
+          "excerpt": "盤點營運痛點，導入自動化與AI工具提升效率"
         },
         {
           "category": "Attitudes",
-          "name_en": "Data-driven experimentation mindset",
-          "name_zh": "數據驅動實驗心態",
+          "name_en": "Data-Driven Mindset",
+          "name_zh": "數據驅動心態",
           "evidence_type": "Inferred",
-          "excerpt": "透過實驗與數據驅動迭代產品"
+          "excerpt": "如果你喜歡用數據實驗驅動成長，這裡有舞台展現你的影響力"
         }
       ]
     },
@@ -1877,40 +1842,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "工作內容\n我們正在尋找具備藥品行銷策略與產品管理能力的夥伴，加入保瑞聯邦（Bora Health）藥品行銷團隊！\n本職位將負責處方藥產品的市場策略、品牌推廣及業績成長，並參與未來腫瘤新產品的上市規劃。透過市場分析、醫療專業人員溝通及跨部門合作，推動產品在醫院通路的發展與市場拓展。\n\n主要工作職責\n1. 產品策略與市場發展\n負責處方藥產品定位、年度行銷策略及銷售目標規劃。\n分析市場趨勢、競爭產品及臨床需求，發掘市場成長機會。\n與業務團隊合作，推動醫院列名、既有客戶經營及產品用量成長。\n\n2. 新產品上市規劃（Product Launch）\n參與腫瘤新產品的市場評估、定位與上市策略制定。\n規劃產品上市時程、銷售預估及市場推廣計畫。\n協調法規、健保准入、供應鏈及業務團隊，推動上市準備與市場導入。\n\n3. 產品行銷與專業推廣\n規劃醫學研討會、醫師交流及產品推廣活動。\n建立並維護關鍵意見領袖（KOL）關係，掌握臨床需求及市場動態。\n製作產品行銷素材、醫學簡報及業務訓練內容，提升產品專業溝通成效。\n\n4. 市場分析與績效管理\n追蹤產品銷售表現、醫院列名進度及市場競爭動態。\n建立並分析產品 KPI，提出具體改善及成長方案。\n管理年度行銷預算（A&P Budget），評估行銷活動效益並優化資源配置。",
-      "job_title_en": "Pharmaceutical Marketing Product Manager / Senior Product Manager",
-      "summary_en": "This pharmaceutical marketing product manager role leads prescription drug market strategy, brand promotion, and sales growth, including oncology product launch planning. It requires market and clinical needs analysis, KOL engagement, medical materials, and A&P budget management. The role works with regulatory, reimbursement, supply chain, and sales teams to expand hospital channels.",
-      "summary_zh": "此職位負責處方藥產品的市場策略、品牌推廣、業績成長與新產品上市規劃，並需分析市場趨勢、競爭產品與臨床需求。工作包含醫學研討會、關鍵意見領袖關係、行銷素材與年度預算管理，以推動醫院通路發展。",
+      "job_title_en": "Pharmaceutical Product Manager",
+      "summary_en": "This role manages the marketing lifecycle of prescription drugs, focusing on oncology products and hospital channel expansion. It involves strategic planning, KOL relationship maintenance, and budget management to drive clinical adoption.",
+      "summary_zh": "此職位負責處方藥的行銷生命週期管理，專注於腫瘤產品與醫院通路拓展。職責包括策略規劃、KOL 關係維護及預算管理，以推動臨床採用。",
       "classification": "PM",
-      "rationale_en": "The role is centered on product strategy, brand marketing, launch planning, and product performance management rather than project delivery.",
-      "rationale_zh": "此職位以產品策略、品牌行銷、上市規劃與產品績效管理為主，並非以專案交付為核心，因此歸類為 PM。",
+      "rationale_en": "The role focuses on brand strategy, market access, and clinical promotion within the pharmaceutical industry.",
+      "rationale_zh": "該職位專注於醫藥產業中的品牌策略、市場准入及臨床推廣。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Pharmaceutical market and clinical needs analysis",
-          "name_zh": "藥品市場與臨床需求分析",
+          "name_en": "Pharmaceutical Market Access",
+          "name_zh": "醫藥市場准入",
           "evidence_type": "Explicit",
-          "excerpt": "分析市場趨勢、競爭產品及臨床需求"
+          "excerpt": "協調法規、健保准入、供應鏈及業務團隊，推動上市準備"
         },
         {
           "category": "Skills",
-          "name_en": "Oncology product launch planning",
-          "name_zh": "腫瘤新產品上市規劃",
+          "name_en": "KOL Management",
+          "name_zh": "關鍵意見領袖管理",
           "evidence_type": "Explicit",
-          "excerpt": "參與腫瘤新產品的市場評估、定位與上市策略制定"
+          "excerpt": "建立並維護關鍵意見領袖（KOL）關係，掌握臨床需求"
         },
         {
           "category": "Skills",
-          "name_en": "Key opinion leader relationship management",
-          "name_zh": "關鍵意見領袖關係管理",
+          "name_en": "Marketing Budget Management",
+          "name_zh": "行銷預算管理",
           "evidence_type": "Explicit",
-          "excerpt": "建立並維護關鍵意見領袖（KOL）關係"
+          "excerpt": "管理年度行銷預算（A&P Budget），評估行銷活動效益"
         },
         {
           "category": "Attitudes",
-          "name_en": "Budget optimization and resource allocation orientation",
-          "name_zh": "預算優化與資源配置導向",
+          "name_en": "Strategic Clinical Thinking",
+          "name_zh": "策略性臨床思維",
           "evidence_type": "Inferred",
-          "excerpt": "管理年度行銷預算（A&P Budget），評估行銷活動效益並優化資源配置"
+          "excerpt": "分析市場趨勢、競爭產品及臨床需求，發掘市場成長機會"
         }
       ]
     },
@@ -1925,32 +1890,32 @@
       "posting_date": "20261112",
       "job_description_original": "•AIoT智慧醫療新產品\n•Medical Device × Software Integration\n•Cloud / AI / IoT/ Web/ APP\n•從0到1產品開發\n•高度參與產品架構及Roadmap\n•與國際客戶及技術夥伴合作\n•具備產品商業化發展機會\n•整合方案規格制定",
       "job_title_en": "AIoT Product Manager",
-      "summary_en": "The role drives the creation of AIoT-enabled medical devices, overseeing everything from concept to commercialization. It emphasizes product architecture, roadmap definition, and collaboration with international partners.",
-      "summary_zh": "此職位負責開發 AIoT 醫療新產品，從概念到商業化全程掌控。重點在產品架構、路線圖制定，並與國際客戶及技術夥伴合作。",
+      "summary_en": "This role focuses on the end-to-end development of AIoT medical devices, requiring a strong grasp of software and hardware integration. The candidate will lead product roadmaps from inception to commercialization, collaborating with international partners.",
+      "summary_zh": "此職位專注於 AIoT 醫療器材的端到端開發，要求具備強大的軟硬體整合能力。候選人將主導從零到一的產品路線圖規劃與商業化，並與國際合作夥伴協作。",
       "classification": "PM",
-      "rationale_en": "The description focuses on product definition, market fit and roadmap rather than pure project execution.",
-      "rationale_zh": "描述聚焦於產品定義、市場適配與路線圖，未見純粹的專案執行職責。",
+      "rationale_en": "The role emphasizes product roadmap ownership, '0 to 1' development, and commercialization strategy, which are core Product Management functions.",
+      "rationale_zh": "該職位強調產品路線圖的所有權、從 0 到 1 的開發以及商業化策略，這些都是產品管理的核核心職能。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "AIoT medical device ecosystem",
-          "name_zh": "AIoT 醫療設備生態系統",
+          "name_en": "Medical Device & Software Integration",
+          "name_zh": "醫療器材與軟體整合",
           "evidence_type": "Explicit",
-          "excerpt": "AIoT智慧醫療新產品"
+          "excerpt": "Medical Device × Software Integration"
         },
         {
           "category": "Skills",
-          "name_en": "End‑to‑end product development (0‑to‑1)",
-          "name_zh": "從0到1產品開發",
+          "name_en": "Product Roadmap Planning",
+          "name_zh": "產品路線圖規劃",
           "evidence_type": "Explicit",
-          "excerpt": "從0到1產品開發"
+          "excerpt": "高度參與產品架構及Roadmap"
         },
         {
           "category": "Attitudes",
-          "name_en": "Proactive ownership of product architecture",
-          "name_zh": "高度參與產品架構及Roadmap",
-          "evidence_type": "Explicit",
-          "excerpt": "高度參與產品架構及Roadmap"
+          "name_en": "Entrepreneurial Mindset",
+          "name_zh": "創業家精神",
+          "evidence_type": "Inferred",
+          "excerpt": "從0到1產品開發"
         }
       ]
     },
@@ -1964,33 +1929,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "工作內容：\n\n1. 根據客戶需求（醫療機構/企業），設計AI醫療整體解決方案。\n2. 整合產品、演算法、數據與應用場景，形成可商業化提案。\n3. 與客戶經理合作，參與客戶需求訪談與技術溝通。\n4. 主導或支援提案簡報（Solution Pitch",
-      "job_title_en": "Product Manager – AI Healthcare Solutions",
-      "summary_en": "Responsible for designing AI‑driven medical solutions that combine algorithms, data and application scenarios into commercial proposals. Works closely with client managers and leads solution pitching.",
-      "summary_zh": "負責設計結合演算法、資料與應用情境的 AI 醫療解決方案，並將其商業化。與客戶經理合作，主導方案提案。",
+      "job_title_en": "Product Manager (AI Medical Solutions)",
+      "summary_en": "This position bridges the gap between AI algorithms and clinical needs by designing integrated medical solutions. It involves heavy client interaction and the creation of commercial proposals to drive business growth.",
+      "summary_zh": "此職位透過設計整合型醫療解決方案，橋接 AI 演算法與臨床需求。工作內容涉及大量客戶互動及撰寫商業提案，以推動業務成長。",
       "classification": "PM",
-      "rationale_en": "The duties revolve around solution design and client‑facing proposal work, typical of product management.",
-      "rationale_zh": "工作內容以解決方案設計與客戶提案為主，屬於產品管理範疇。",
+      "rationale_en": "The focus is on solution design, commercialization, and translating client needs into product requirements, aligning with a Solution PM profile.",
+      "rationale_zh": "重點在於解決方案設計、商業化以及將客戶需求轉化為產品需求，符合解決方案產品經理的特徵。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "AI healthcare solution design",
-          "name_zh": "AI 醫療整體解決方案設計",
+          "category": "Skills",
+          "name_en": "Solution Pitching",
+          "name_zh": "解決方案提案",
           "evidence_type": "Explicit",
-          "excerpt": "設計AI醫療整體解決方案"
+          "excerpt": "主導或支援提案簡報（Solution Pitch"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "AI Medical Application Scenarios",
+          "name_zh": "AI 醫療應用場景",
+          "evidence_type": "Explicit",
+          "excerpt": "整合產品、演算法、數據與應用場景"
         },
         {
           "category": "Skills",
-          "name_en": "Solution pitching and presentation",
-          "name_zh": "提案簡報（Solution Pitch）",
+          "name_en": "Client Requirement Interviewing",
+          "name_zh": "客戶需求訪談",
           "evidence_type": "Explicit",
-          "excerpt": "主導或支援提案簡報（Solution Pitch）"
-        },
-        {
-          "category": "Attitudes",
-          "name_en": "Collaborative client engagement",
-          "name_zh": "與客戶經理合作，參與客戶需求訪談與技術溝通",
-          "evidence_type": "Explicit",
-          "excerpt": "與客戶經理合作，參與客戶需求訪談與技術溝通"
+          "excerpt": "參與客戶需求訪談與技術溝通"
         }
       ]
     },
@@ -2004,33 +1969,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "1.產品推廣與銷售\n2.客戶關係經營\n3.解決方案諮詢\n4.主管交辦事宜",
-      "job_title_en": "PM Officer / Product Manager (Hybrid)",
-      "summary_en": "Combines product promotion, sales, and solution consulting with general PM duties assigned by supervisors. Heavy emphasis on customer relationship and market outreach.",
-      "summary_zh": "兼具產品推廣、銷售與解決方案諮詢，並執行主管交辦的各項任務，重點在客戶關係與市場拓展。",
-      "classification": "Hybrid",
-      "rationale_en": "The role mixes product management with sales and consulting activities, indicating a hybrid scope.",
-      "rationale_zh": "職務同時包含產品推廣、銷售與諮詢，屬於產品與業務混合的範疇。",
+      "job_title_en": "Product Specialist / Product Manager",
+      "summary_en": "This role is primarily focused on the sales and promotion side of product management, including customer relationship management and solution consulting. It appears to be more of a sales-support or business development role than a technical PM role.",
+      "summary_zh": "此職位主要專注於產品管理的銷售與推廣端，包括客戶關係管理與解決方案諮詢。比起技術型產品經理，這更像是一個銷售支援或業務開發的角色。",
+      "classification": "Other",
+      "rationale_en": "The job description lists sales, promotion, and CRM as the primary tasks, which falls under Sales or Account Management rather than PM/PjM.",
+      "rationale_zh": "職位描述將銷售、推廣和客戶關係管理列為主要任務，這屬於銷售或客戶經理範疇，而非產品或專案管理。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Product promotion and sales strategies",
+          "category": "Skills",
+          "name_en": "Product Promotion & Sales",
           "name_zh": "產品推廣與銷售",
           "evidence_type": "Explicit",
-          "excerpt": "產品推廣與銷售"
+          "excerpt": "1.產品推廣與銷售"
         },
         {
           "category": "Skills",
-          "name_en": "Customer relationship management",
+          "name_en": "Customer Relationship Management",
           "name_zh": "客戶關係經營",
           "evidence_type": "Explicit",
-          "excerpt": "客戶關係經營"
+          "excerpt": "2.客戶關係經營"
         },
         {
-          "category": "Attitudes",
-          "name_en": "Consultative problem‑solving mindset",
+          "category": "Knowledge",
+          "name_en": "Solution Consulting",
           "name_zh": "解決方案諮詢",
           "evidence_type": "Explicit",
-          "excerpt": "解決方案諮詢"
+          "excerpt": "3.解決方案諮詢"
         }
       ]
     },
@@ -2044,33 +2009,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261115",
       "job_description_original": "【把技術、產品、客戶需求與市場機會串在一起】\n建菱科技正在尋找一位具備整合能力與市場敏銳度的 產品經理 PM／產品企劃。\n我們的產品橫跨醫療設備、智慧健康、光療科技、復健設備、APP、雲端平台與售後服務。產品經理將扮演研發、生產、業務、客戶與市場",
-      "job_title_en": "Product Manager – Integrated Health Technology",
-      "summary_en": "Acts as a bridge linking technology, product, customer needs and market opportunities across medical devices, smart health, rehab equipment, apps and cloud services. Requires strong cross‑functional coordination.",
-      "summary_zh": "負責串聯技術、產品、客戶需求與市場機會，涵蓋醫療設備、智慧健康、復健設備、APP 與雲端平台，需要跨部門協作能力。",
+      "job_title_en": "Product Manager (Health & Medical Tech)",
+      "summary_en": "This role acts as a central hub connecting R&D, production, and sales to bring health-tech products to market. It requires a high degree of integration capability across diverse hardware and software platforms.",
+      "summary_zh": "此職位作為連接研發、生產與銷售的核心樞紐，旨在將健康科技產品推向市場。它要求在多元的軟硬體平台之間具備高度的整合能力。",
       "classification": "PM",
-      "rationale_en": "The description centers on integrating market and technical inputs into product strategy, a core product‑manager function.",
-      "rationale_zh": "描述聚焦於將技術、客戶與市場需求整合成產品策略，屬於典型的產品經理職責。",
+      "rationale_en": "The core responsibility is aligning technology with market opportunities and managing the product across its lifecycle through cross-functional coordination.",
+      "rationale_zh": "核心職責是將技術與市場機會對齊，並透過跨部門協調管理產品的整個生命週期。",
       "competencies": [
         {
-          "category": "Knowledge",
-          "name_en": "Cross‑functional integration of tech, market and user needs",
-          "name_zh": "技術、產品、客戶需求與市場機會串在一起",
-          "evidence_type": "Explicit",
-          "excerpt": "技術、產品、客戶需求與市場機會串在一起"
-        },
-        {
           "category": "Skills",
-          "name_en": "Coordinating R&D, production, sales and customer teams",
-          "name_zh": "研發、生產、業務、客戶與市場協調",
+          "name_en": "Cross-functional Integration",
+          "name_zh": "跨部門整合",
           "evidence_type": "Explicit",
-          "excerpt": "研發、生產、業務、客戶與市場"
+          "excerpt": "扮演研發、生產、業務、客戶與市場"
         },
         {
           "category": "Attitudes",
-          "name_en": "Market‑sensitive and integrative mindset",
-          "name_zh": "具備整合能力與市場敏銳度",
+          "name_en": "Market Sensitivity",
+          "name_zh": "市場敏銳度",
           "evidence_type": "Explicit",
           "excerpt": "具備整合能力與市場敏銳度"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Multi-domain Health Technology",
+          "name_zh": "多領域健康科技知識",
+          "evidence_type": "Explicit",
+          "excerpt": "橫跨醫療設備、智慧健康、光療科技、復健設備"
         }
       ]
     },
@@ -2084,33 +2049,40 @@
       "salary_display": "Not provided",
       "posting_date": "20261118",
       "job_description_original": "本職位負責公司雲平台產品之規劃、設計與推動，深入理解雲端技術與使用者需求，與研發、營運及商務團隊合作，推動產品落地與持續優化。\n\n工作內容：\n產品管理\n• 規劃與管理雲平台產品路線圖（Roadmap）。\n• 蒐集市場趨勢、客戶需求與競品資訊，產出產品需求文件（PRD）。\n• 追蹤產品成效指標（使用率、穩定性、滿意度）以支援決策。\n• 與工程、架構及維運團隊合作，推動產品開發與上線。\n• 規劃雲平台服務模組與功能範疇（IaaS、PaaS、Kubernetes、監控、資安等）。\n• 管理產品生命週期，持續優化效能、穩定性與使用者體驗。\n• 與內外部利害關係人對齊產品定位、核心價值與技術方向。\n• 支援售前與業務拓展（客戶說明、產品文件、技術提案與投標）。\n\n工作地點(可選擇淡水/新竹辦公室辦公)：\n淡水辦公室：新北市淡水區中正東路二段177號\n新竹辦公室：新竹市東區慈雲路118 號25樓之1 \n\n＊本職務需配合業務需求拜訪客戶，或支援公司重要商務活動。\n＊非外派職務，但需配合業務需求拜訪客戶或支援公司重要商務活動(行銷活動出差...)。\n\n#平台開發企劃 #AI應用規劃",
-      "job_title_en": "Senior Product Manager – Cloud Platform",
-      "summary_en": "Leads the planning, design and delivery of cloud platform services (IaaS, PaaS, Kubernetes, monitoring, security). Manages roadmap, metrics, and cross‑team execution while supporting sales and pre‑sales activities.",
-      "summary_zh": "負責雲平台服務（IaaS、PaaS、Kubernetes、監控、資安等）的規劃、設計與落地，管理路線圖與效能指標，並支援銷售與投標。",
+      "job_title_en": "Senior Product Manager (Cloud Platform)",
+      "summary_en": "A senior role responsible for the strategic planning and execution of cloud platform services, including IaaS and PaaS. The candidate must manage the entire product lifecycle, from PRD creation to performance tracking and pre-sales support.",
+      "summary_zh": "負責雲端平台服務（包括 IaaS 和 PaaS）策略規劃與執行的資深職位。候選人必須管理整個產品生命週期，從撰寫 PRD 到成效追蹤及售前支援。",
       "classification": "PM",
-      "rationale_en": "The duties are centered on product lifecycle, roadmap and performance metrics, typical of senior product management.",
-      "rationale_zh": "工作聚焦於產品生命週期、路線圖與效能指標，屬於資深產品經理職責。",
+      "rationale_en": "The role involves classic PM duties such as roadmap management, PRD creation, and lifecycle management for a technical platform product.",
+      "rationale_zh": "該職位涉及經典的產品經理職責，如技術平台產品的路線圖管理、PRD 撰寫和生命週期管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Cloud service models and orchestration (IaaS, PaaS, Kubernetes)",
-          "name_zh": "雲平台服務模組與功能範疇（IaaS、PaaS、Kubernetes）",
+          "name_en": "Cloud Infrastructure (IaaS/PaaS/K8s)",
+          "name_zh": "雲端基礎架構",
           "evidence_type": "Explicit",
-          "excerpt": "雲平台服務模組與功能範疇（IaaS、PaaS、Kubernetes、監控、資安等）"
+          "excerpt": "規劃雲平台服務模組與功能範疇（IaaS、PaaS、Kubernetes"
         },
         {
           "category": "Skills",
-          "name_en": "Roadmap planning and product lifecycle management",
-          "name_zh": "規劃與管理雲平台產品路線圖（Roadmap）",
+          "name_en": "Product Requirements Documentation (PRD)",
+          "name_zh": "產品需求文件撰寫",
           "evidence_type": "Explicit",
-          "excerpt": "規劃與管理雲平台產品路線圖（Roadmap）"
+          "excerpt": "產出產品需求文件（PRD）"
         },
         {
           "category": "Attitudes",
-          "name_en": "Continuous improvement of performance and user experience",
-          "name_zh": "持續優化效能、穩定性與使用者體驗",
+          "name_en": "Data-Driven Decision Making",
+          "name_zh": "數據驅動決策",
           "evidence_type": "Explicit",
-          "excerpt": "持續優化效能、穩定性與使用者體驗"
+          "excerpt": "追蹤產品成效指標（使用率、穩定性、滿意度）以支援決策"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Product Lifecycle Management",
+          "name_zh": "產品生命週期管理",
+          "evidence_type": "Explicit",
+          "excerpt": "管理產品生命週期，持續優化效能、穩定性與使用者體驗"
         }
       ]
     },
@@ -2124,22 +2096,34 @@
       "salary_display": "Not provided",
       "posting_date": "20261120",
       "job_description_original": "\n6、協助工程協調並積極與專案經理回報執行結果，確保各項工安任務限時完成無誤。\n7、落實職場環境整潔整理整頓，並配合公司政策完成主管交辦之工作任務。\n\n※ 進入廠區作業需嚴格遵守各項環境與工安規範（包含配合穿著無塵衣等規定）。\n\n※ 工程專案跨縣市",
-      "job_title_en": "Senior Safety Engineer (Semiconductor Plant)",
-      "summary_en": "The role focuses on on‑site safety and engineering coordination within a semiconductor fab, reporting progress to the project manager and ensuring compliance with strict clean‑room protocols. It emphasizes maintaining a tidy workplace and adhering to environmental and safety regulations.",
-      "summary_zh": "此職位專注於半導體廠區的安全與工程協調，向專案經理回報執行結果，確保遵守嚴格的無塵與安全規範，並落實職場整潔。",
+      "job_title_en": "Safety/Senior Engineer (Semiconductor Facility)",
+      "summary_en": "This role focuses on on-site safety management and construction supervision within a semiconductor facility. It involves reporting progress to project managers and ensuring compliance with strict environmental and safety regulations.",
+      "summary_zh": "此職位專注於半導體廠房的現場安全管理與監造，負責確保各項工安任務準時完成。工作內容包含與專案經理協調執行結果，並嚴格遵守無塵室及環境規範。",
       "classification": "Other",
-      "rationale_en": "The duties are centered on safety engineering and site management rather than full project ownership.",
-      "rationale_zh": "工作內容以安全工程與現場管理為主，未涉及完整的專案負責。",
+      "rationale_en": "The role is primarily an engineering and safety compliance position that supports a project rather than managing the project lifecycle itself.",
+      "rationale_zh": "該職位主要負責工安執行與現場監造，屬於支援專案運行的工程技術職，而非主導專案管理的職位。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Semiconductor clean‑room safety standards",
-          "name_zh": "半導體無塵廠安全標準",
+          "name_en": "Industrial Safety Regulations",
+          "name_zh": "工安規範",
           "evidence_type": "Explicit",
-          "excerpt": "進入廠區作業需嚴格遵守各項環境與工安規範（包含配合穿著無塵衣等規定）"
+          "excerpt": "遵守各項環境與工安規範"
         },
-        "{\"category\":\"Skills\",\"name_en\":\"Engineering coordination and reporting to PM\",\"name_zh\":\"工程協調與向專案經理回報\",\"evidence_type\":\"Explicit\",\"excerpt\":\"協助工程協調並積極與專案經理回報執行結果，確保各項工安任務限時完成無誤\"}",
-        "{\"category\":\"Attitudes\",\"name_en\":\"Proactive compliance mindset\",\"name_zh\":\"主動遵守規範的態度\",\"evidence_type\":\"Explicit\",\"excerpt\":\"落實職場環境整潔整理整頓，並配合公司政策完成主管交辦之工作任務\"}"
+        {
+          "category": "Skills",
+          "name_en": "Construction Supervision",
+          "name_zh": "現場管理監造",
+          "evidence_type": "Explicit",
+          "excerpt": "現場管理監造工程師"
+        },
+        {
+          "category": "Attitudes",
+          "name_en": "Proactive Reporting",
+          "name_zh": "積極回報",
+          "evidence_type": "Explicit",
+          "excerpt": "積極與專案經理回報執行結果"
+        }
       ]
     },
     {
@@ -2152,23 +2136,34 @@
       "salary_display": "Not provided",
       "posting_date": "20261123",
       "job_description_original": "1.規劃及執行基金會服務專案 。\n2.規劃及執行衛生教育活動 。\n3.可配合因業務短期出差。\n4.國際事務與活動執行：規劃與執行國際醫療合作、公益活動及學術交流專案。\n5.英文官網內容更新等\n6.其他主管交辦業務 \n\n",
-      "job_title_en": "Senior Service Specialist – Public Health & Optometry",
-      "summary_en": "The specialist plans and executes foundation service projects, health‑education activities, and international medical collaborations, while also handling English website updates. Short‑term travel may be required, indicating a flexible, project‑oriented role blended with specialist expertise.",
-      "summary_zh": "此資深專員負責規劃與執行基金會服務專案、衛生教育活動及國際醫療合作，同時更新英文官網，需配合短期出差，屬於兼具專業與專案執行的職務。",
-      "classification": "Hybrid",
-      "rationale_en": "The position mixes project planning/execution with domain‑specific public‑health tasks, not a pure PM role.",
-      "rationale_zh": "工作同時包含專案規劃與公共衛生專業執行，屬於專案與專業職能的混合。",
+      "job_title_en": "Senior Service Specialist (Public Health/Optometry)",
+      "summary_en": "This position involves planning and executing public health service projects and international medical cooperation initiatives. It requires a blend of administrative coordination and specialized knowledge in health education.",
+      "summary_zh": "此職位負責規劃與執行基金會的服務專案及衛教活動，並包含國際醫療合作與公益活動的執行。工作內容涉及國際事務處理與官方網站內容維護。",
+      "classification": "PjM",
+      "rationale_en": "The focus is on the end-to-end planning and execution of specific service-oriented projects and international events.",
+      "rationale_zh": "職責核心在於特定服務專案與國際活動的規劃與執行，符合專案執行管理的特徵。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Public‑health program design",
-          "name_zh": "公共衛生專案設計",
+          "name_en": "Public Health Education",
+          "name_zh": "衛生教育規劃",
           "evidence_type": "Explicit",
-          "excerpt": "規劃及執行基金會服務專案"
+          "excerpt": "規劃及執行衛生教育活動"
         },
-        "{\"category\":\"Skills\",\"name_en\":\"International collaboration coordination\",\"name_zh\":\"國際合作協調能力\",\"evidence_type\":\"Explicit\",\"excerpt\":\"規劃與執行國際醫療合作、公益活動及學術交流專案\"}",
-        "{\"category\":\"Attitudes\",\"name_en\":\"Flexibility for short‑term travel\",\"name_zh\":\"因業務短期出差的彈性態度\",\"evidence_type\":\"Explicit\",\"excerpt\":\"可配合因業務短期出差\"}",
-        "{\"category\":\"Skills\",\"name_en\":\"Bilingual website content management\",\"name_zh\":\"雙語網站內容管理技能\",\"evidence_type\":\"Explicit\",\"excerpt\":\"英文官網內容更新等\"}"
+        {
+          "category": "Skills",
+          "name_en": "International Project Execution",
+          "name_zh": "國際事務執行",
+          "evidence_type": "Explicit",
+          "excerpt": "規劃與執行國際醫療合作、公益活動及學術交流專案"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Digital Content Management",
+          "name_zh": "數位內容管理",
+          "evidence_type": "Explicit",
+          "excerpt": "英文官網內容更新"
+        }
       ]
     },
     {
@@ -2181,23 +2176,34 @@
       "salary_display": "Not provided",
       "posting_date": "20261110",
       "job_description_original": "一、職位簡介（Job Summary）\n我們正在尋找一位具備專案整合、跨部門溝通及技術協調能力的專案經理，負責營建工程 AI 應用導入與政府補助相關專案之規劃及執行。\n此職位將作為客戶/業主、AI 技術開發團隊、產品團隊及公司管理階層之間的主要溝",
-      "job_title_en": "Project Manager – AI Integration for Construction",
-      "summary_en": "The manager leads AI‑driven construction projects, handling government grant applications, cross‑departmental communication, and technical coordination between owners, AI developers, product teams, and senior management. The role demands strong integration and stakeholder alignment skills.",
-      "summary_zh": "此專案經理負責營建工程 AI 應用導入與政府補助專案，需跨部門溝通協調，充當客戶、AI 開發團隊、產品團隊與公司高層之間的橋樑。",
-      "classification": "PM",
-      "rationale_en": "The description explicitly calls for full‑cycle project planning, execution, and stakeholder management.",
-      "rationale_zh": "說明中明確要求專案規劃、執行與利害關係人管理，屬於典型的專案經理職務。",
+      "job_title_en": "Project Manager (AI Construction)",
+      "summary_en": "This role bridges the gap between AI technical teams and construction stakeholders to implement smart technology solutions. It involves managing government subsidy projects and coordinating cross-departmental resources for AI integration.",
+      "summary_zh": "此職位負責營建工程 AI 應用的導入，擔任客戶、技術開發團隊與管理階層間的溝通橋樑。工作重點在於專案整合、技術協調以及政府補助專案的執行。",
+      "classification": "PjM",
+      "rationale_en": "The role emphasizes the coordination and execution of specific AI implementation projects within the construction industry.",
+      "rationale_zh": "該職位強調在營建領域中，針對特定 AI 導入專案進行跨部門協調與執行管理。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "AI applications in construction engineering",
-          "name_zh": "營建工程 AI 應用知識",
+          "name_en": "AI Application Integration",
+          "name_zh": "AI 應用導入",
           "evidence_type": "Explicit",
-          "excerpt": "負責營建工程 AI 應用導入與政府補助相關專案之規劃及執行"
+          "excerpt": "負責營建工程 AI 應用導入"
         },
-        "{\"category\":\"Skills\",\"name_en\":\"Government grant proposal management\",\"name_zh\":\"政府補助提案管理技能\",\"evidence_type\":\"Explicit\",\"excerpt\":\"與政府補助相關專案之規劃及執行\"}",
-        "{\"category\":\"Attitudes\",\"name_en\":\"Stakeholder alignment orientation\",\"name_zh\":\"利害關係人協調導向的態度\",\"evidence_type\":\"Explicit\",\"excerpt\":\"此職位將作為客戶/業主、AI 技術開發團隊、產品團隊及公司管理階層之間的主要溝\"}",
-        "{\"category\":\"Skills\",\"name_en\":\"Cross‑functional technical coordination\",\"name_zh\":\"跨部門技術協調能力\",\"evidence_type\":\"Explicit\",\"excerpt\":\"具備專案整合、跨部門溝通及技術協調能力的專案經理\"}"
+        {
+          "category": "Skills",
+          "name_en": "Stakeholder Coordination",
+          "name_zh": "利益相關者協調",
+          "evidence_type": "Explicit",
+          "excerpt": "作為客戶/業主、AI 技術開發團隊、產品團隊及公司管理階層之間的主要溝通"
+        },
+        {
+          "category": "Knowledge",
+          "name_en": "Government Subsidy Management",
+          "name_zh": "政府補助專案管理",
+          "evidence_type": "Explicit",
+          "excerpt": "政府補助相關專案之規劃及執行"
+        }
       ]
     },
     {
@@ -2210,24 +2216,41 @@
       "salary_display": "Not provided",
       "posting_date": "20261113",
       "job_description_original": "作為客戶的主要聯絡窗口，負責客戶關係維護、解決方案執行及專案管理。\n\n與客戶進行深度溝通，深入了解其業務需求與痛點，提供專業建議與客製化解決方案，確保客戶滿意度與長期合作關係。\n\n* 解決方案設計與實施\n1. 主導企業核心系統 ERP 解決方案的設計與導入，專注於 ERP 的顧問服務。\n2. 熟悉 ERP 系統導入管理方法論，或擁有 ERP 專案導入執行經驗。\n3. 具備 Oracle NetSuite ERP, Fusion ERP, EBS ERP 或 SAP S4/HANA, B1 經驗者尤佳。\n4. 提供附屬解決方案，包括 CRM, SCM, WMS, 數據中台建置及生成式 AI 技術應用。\n5. 根據客戶需求，設計並實施符合其業務流程的解決方案，協助客戶提升營運效率與競爭力。\n\n* 客戶群體與業務範圍\n台灣中大型企業客戶，協助其進行數位轉型、系統優化與創新技術導入。\n\n* 客戶成功管理與專案執行\n1. 協同內部 PMO 團隊，全程監控中大型專案的執行進度，確保專案按時、按預算完成並達成客戶目標。\n2. 協調跨團隊資源，確保專案順利進行，並與客戶保持緊密溝通，即時解決專案過程中的挑戰。",
-      "job_title_en": "Project Manager – ERP Solutions & Client Success",
-      "summary_en": "The manager acts as the primary client liaison, overseeing ERP solution design, implementation, and broader digital transformation initiatives. Responsibilities include coordinating PMO teams, monitoring large‑scale project timelines and budgets, and aligning cross‑functional resources to meet client goals.",
-      "summary_zh": "此專案經理是客戶的主要聯絡窗口，負責 ERP 解決方案的設計與導入，協同 PMO 監控大型專案進度與預算，並協調跨團隊資源以達成客戶目標。",
-      "classification": "PM",
-      "rationale_en": "The role covers end‑to‑end project delivery, client relationship management, and resource coordination, matching a classic PM profile.",
-      "rationale_zh": "工作內容涵蓋完整的專案交付、客戶關係管理與資源協調，符合典型的專案經理職務。",
+      "job_title_en": "Project Manager (ERP & Digital Transformation)",
+      "summary_en": "This position focuses on leading large-scale ERP implementation projects and providing digital transformation consulting for enterprise clients. It requires deep expertise in ERP methodologies and the ability to design customized business solutions.",
+      "summary_zh": "此職位負責中大型企業的 ERP 系統導入與數位轉型專案，擔任客戶主要聯絡窗口。工作涵蓋解決方案設計、跨團隊資源協調以及專案進度與預算監控。",
+      "classification": "Hybrid",
+      "rationale_en": "It combines project management with solution consulting and account management responsibilities.",
+      "rationale_zh": "該職位結合了專案管理、解決方案諮詢以及客戶關係維護等多重職能。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Enterprise ERP platforms (NetSuite, SAP, Oracle)",
-          "name_zh": "企業 ERP 平台（NetSuite、SAP、Oracle）知識",
+          "name_en": "ERP Implementation Methodology",
+          "name_zh": "ERP 導入方法論",
           "evidence_type": "Explicit",
-          "excerpt": "具備 Oracle NetSuite ERP, Fusion ERP, EBS ERP 或 SAP S4/HANA, B1 經驗者尤佳"
+          "excerpt": "熟悉 ERP 系統導入管理方法論"
         },
-        "{\"category\":\"Skills\",\"name_en\":\"Client communication and solution consulting\",\"name_zh\":\"客戶溝通與解決方案諮詢技能\",\"evidence_type\":\"Explicit\",\"excerpt\":\"作為客戶的主要聯絡窗口，負責客戶關係維護、解決方案執行及專案管理\"}",
-        "{\"category\":\"Attitudes\",\"name_en\":\"Result‑driven project ownership\",\"name_zh\":\"以結果為導向的專案負責態度\",\"evidence_type\":\"Explicit\",\"excerpt\":\"確保專案按時、按預算完成並達成客戶目標\"}",
-        "{\"category\":\"Knowledge\",\"name_en\":\"PMO governance and monitoring processes\",\"name_zh\":\"PMO 治理與監控流程知識\",\"evidence_type\":\"Explicit\",\"excerpt\":\"協同內部 PMO 團隊，全程監控中大型專案的執行進度\"}",
-        "{\"category\":\"Skills\",\"name_en\":\"Cross‑team resource coordination\",\"name_zh\":\"跨團隊資源協調能力\",\"evidence_type\":\"Explicit\",\"excerpt\":\"協調跨團隊資源，確保專案順利進行\"}"
+        {
+          "category": "Skills",
+          "name_en": "Solution Design",
+          "name_zh": "解決方案設計",
+          "evidence_type": "Explicit",
+          "excerpt": "主導企業核心系統 ERP 解決方案的設計與導入"
+        },
+        {
+          "category": "Attitudes",
+          "name_en": "Customer Success Orientation",
+          "name_zh": "客戶成功導向",
+          "evidence_type": "Inferred",
+          "excerpt": "確保客戶滿意度與長期合作關係"
+        },
+        {
+          "category": "Skills",
+          "name_en": "Resource Coordination",
+          "name_zh": "資源協調",
+          "evidence_type": "Explicit",
+          "excerpt": "協調跨團隊資源，確保專案順利進行"
+        }
       ]
     },
     {
@@ -2240,33 +2263,33 @@
       "salary_display": "Not provided",
       "posting_date": "20261124",
       "job_description_original": "術，致力於協助企業無需撰寫程式，即可快速建構專屬的 AI 知識大腦，實現資料的智能應用與私有部署。\n\n\n\n【這份工作將會做什麼】\n作為 APMIC 的專案經理，你將是 AI 技術與客戶商業價值之間的關鍵橋樑。你將負責驅動公司核心產品的專案成功落地，",
-      "job_title_en": "Project Manager (No-code AI Knowledge Platform)",
-      "summary_en": "This PM role at 亞太智能機器股份有限公司 focuses on [PS-PM] 專案經理 Project Manager.",
-      "summary_zh": "此職缺為「[PS-PM] 專案經理 Project Manager」，主要工作內容涵蓋：術，致力於協助企業無需撰寫程式，即可快速建構專屬的 AI 知識大腦，實現資料的智能應用與私有部署。",
+      "job_title_en": "Project Manager (AI Solutions)",
+      "summary_en": "This role acts as a bridge between AI technology and commercial value, ensuring the successful deployment of AI knowledge systems for clients. It focuses on product landing and translating technical capabilities into business solutions.",
+      "summary_zh": "此職位擔任 AI 技術與客戶商業價值間的橋樑，負責推動公司核心 AI 產品的成功落地。工作重點在於協助企業實現資料的智能應用與私有化部署。",
       "classification": "PM",
-      "rationale_en": "Classified as PM based on responsibilities in [PS-PM] 專案經理 Project Manager.",
-      "rationale_zh": "依據「[PS-PM] 專案經理 Project Manager」之實際工作內容判定為 PM。",
+      "rationale_en": "The role focuses on the strategic alignment of product technology with business value and successful market landing.",
+      "rationale_zh": "該職位核心在於產品價值的實現與落地，強調技術與商業價值的對接，符合產品經理/專案經理的綜合屬性。",
       "competencies": [
         {
           "category": "Knowledge",
-          "name_en": "Domain & Product/Project Knowledge",
-          "name_zh": "領域與產品專案知識",
+          "name_en": "AI Knowledge Systems",
+          "name_zh": "AI 知識大腦架構",
           "evidence_type": "Explicit",
-          "excerpt": "術，致力於協助企業無需撰寫程式，即可快速建構專屬的 AI 知識大腦，實現資料的智能應用與私有部署。"
+          "excerpt": "快速建構專屬的 AI 知識大腦"
         },
         {
           "category": "Skills",
-          "name_en": "Cross-Functional Execution & Coordination",
-          "name_zh": "跨部門協作與執行控管",
+          "name_en": "Business Value Translation",
+          "name_zh": "商業價值轉化",
           "evidence_type": "Explicit",
-          "excerpt": "【這份工作將會做什麼】"
+          "excerpt": "你是 AI 技術與客戶商業價值之間的關鍵橋樑"
         },
         {
           "category": "Attitudes",
-          "name_en": "Ownership & Accountability",
-          "name_zh": "主動負責與目標導向",
-          "evidence_type": "Inferred",
-          "excerpt": "術，致力於協助企業無需撰寫程式，即可快速建構專屬的 AI 知識大腦，實現資料的智能應用與私有部署。"
+          "name_en": "Result-Driven",
+          "name_zh": "結果驅動",
+          "evidence_type": "Explicit",
+          "excerpt": "負責驅動公司核心產品的專案成功落地"
         }
       ]
     }
