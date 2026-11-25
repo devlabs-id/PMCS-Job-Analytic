@@ -51,7 +51,50 @@ def fetch_keyword_jobs(keyword: str, api_key: str) -> list[dict]:
         elif isinstance(payload.get("list"), list):
             raw_list = payload["list"]
 
+    if raw_list and isinstance(raw_list[0], dict):
+        print(f"[DEBUG] Keyword '{keyword}' sample keys: {list(raw_list[0].keys())}")
+
     return raw_list
+
+
+def extract_104_salary(item: dict) -> str:
+    # 1. Cek field teks gaji langsung dari respon 104
+    for key in (
+        "salaryDesc",
+        "salary_desc",
+        "salaryStr",
+        "salaryText",
+        "salaryRangeDesc",
+        "salary",
+    ):
+        val = item.get(key)
+        if isinstance(val, (str, int, float)):
+            text = str(val).strip()
+            if text and text.lower() not in ("none", "null", "nan", "0"):
+                return text
+
+    # 2. Jika gaji dikirim terpisah sebagai angka low / high
+    low_raw = item.get("salaryLow") or item.get("salary_low") or 0
+    high_raw = item.get("salaryHigh") or item.get("salary_high") or 0
+
+    try:
+        low_num = int(float(str(low_raw).replace(",", "").strip()))
+    except (ValueError, TypeError):
+        low_num = 0
+
+    try:
+        high_num = int(float(str(high_raw).replace(",", "").strip()))
+    except (ValueError, TypeError):
+        high_num = 0
+
+    if low_num > 0 and high_num > 0 and high_num != low_num:
+        return f"{low_num:,} ~ {high_num:,}"
+    if low_num > 0:
+        return f"{low_num:,}+"
+    if high_num > 0:
+        return f"Up to {high_num:,}"
+
+    return "Not provided"
 
 
 def fallback_enrich(job: dict) -> None:
@@ -59,7 +102,11 @@ def fallback_enrich(job: dict) -> None:
     job["job_title_en"] = job["job_title_original"]
     job["summary_en"] = desc[:220]
     job["summary_zh"] = desc[:220]
-    job["classification"] = "PM" if "產品" in job["job_title_original"] or "Product" in job["job_title_original"] else "PjM"
+    job["classification"] = (
+        "PM"
+        if "產品" in job["job_title_original"] or "Product" in job["job_title_original"]
+        else "PjM"
+    )
     job["rationale_en"] = "Role classified from 104 job title and responsibility description."
     job["rationale_zh"] = "依據 104 職稱與工作內容描述進行職責分類。"
     job["competencies"] = [
@@ -93,7 +140,6 @@ def analyze_jobs_with_openai(jobs: list[dict], openai_key: str) -> None:
             fallback_enrich(j)
         return
 
-    # Process in chunks of 8 jobs so response JSON stays fast and complete
     for start in range(0, len(jobs), 8):
         chunk = jobs[start : start + 8]
         payload_items = [
@@ -192,7 +238,7 @@ def normalize_job(item: dict, fallback_idx: int) -> dict | None:
     title = str(item.get("jobName") or "").strip()
     company = str(item.get("custName") or "").strip()
     location = str(item.get("jobAddrNoDesc") or "Taiwan").strip()
-    salary = str(item.get("salaryDesc") or "Not provided").strip()
+    salary = extract_104_salary(item)
     posting_date = str(item.get("appearDate") or datetime.now(CST).strftime("%Y-%m-%d")).strip()
     desc = str(item.get("description") or title).strip()
 
