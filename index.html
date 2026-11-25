@@ -233,7 +233,7 @@
                 <span data-i18n="metrics.totalLabel">Synced 104 Dataset</span>
                 <span class="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-[11px]">104</span>
               </div>
-              <div class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-blue-600 dark:text-blue-400"><span id="heroTotalJobsCount">6</span> <span class="text-sm font-semibold text-slate-500" data-i18n="metrics.rolesUnit">Vacancies</span></div>
+              <div class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-blue-600 dark:text-blue-400"><span id="heroTotalJobsCount">1</span> <span class="text-sm font-semibold text-slate-500" data-i18n="metrics.rolesUnit">Vacancies</span></div>
               <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.totalSub">Live sync from 104 Job Bank</div>
             </div>
 
@@ -242,8 +242,8 @@
                 <span data-i18n="metrics.taxonomyLabel">Role Breakdown</span>
                 <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-[11px]">AI</span>
               </div>
-              <div id="heroRoleBreakdown" class="text-lg sm:text-xl font-extrabold mt-2 text-slate-800 dark:text-slate-100">2 PM • 1 PjM • 1 Hybrid</div>
-              <div id="heroRoleExtra" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.taxonomySub">+ 1 Unclear, 1 Other</div>
+              <div id="heroRoleBreakdown" class="text-lg sm:text-xl font-extrabold mt-2 text-slate-800 dark:text-slate-100">1 PM • 0 PjM • 0 Hybrid</div>
+              <div id="heroRoleExtra" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">+ 0 Unclear, 0 Other</div>
             </div>
 
             <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-emerald-500">
@@ -251,8 +251,8 @@
                 <span data-i18n="metrics.ksaLabel">Extracted KSA Signals</span>
                 <span class="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-[11px]">KSA</span>
               </div>
-              <div id="ksaTotalCount" class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-emerald-600 dark:text-emerald-400">24</div>
-              <div id="ksaBreakdownText" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">16 Explicit • 8 AI-Inferred</div>
+              <div id="ksaTotalCount" class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-emerald-600 dark:text-emerald-400">4</div>
+              <div id="ksaBreakdownText" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">3 Explicit • 1 AI-Inferred</div>
             </div>
 
             <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-amber-500">
@@ -449,10 +449,10 @@
         <div class="flex flex-wrap items-center gap-2">
           <label for="insightRoleFilter" class="text-xs font-semibold text-slate-500 dark:text-slate-400" data-i18n="insights.filterLabel">Dataset Slice:</label>
           <select id="insightRoleFilter" onchange="renderCompetencyInsights()" class="px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs sm:text-sm font-medium">
-            <option value="ALL" id="insightOptAll">All Analyzed Vacancies (n = 6)</option>
-            <option value="PM" id="insightOptPm">PM Only (n = 2)</option>
-            <option value="PjM" id="insightOptPjm">PjM Only (n = 1)</option>
-            <option value="Hybrid" id="insightOptHybrid">Hybrid Only (n = 1)</option>
+            <option value="ALL" id="insightOptAll">All Analyzed Vacancies (n = 1)</option>
+            <option value="PM" id="insightOptPm">PM Only</option>
+            <option value="PjM" id="insightOptPjm">PjM Only</option>
+            <option value="Hybrid" id="insightOptHybrid">Hybrid Only</option>
           </select>
         </div>
       </div>
@@ -565,11 +565,11 @@
           </div>
           <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.dedupLabel">Deduplication & Validation</div>
-            <div id="opsDedupVal" class="font-bold mt-1" data-i18n="ops.dedupVal">6 Valid • 0 Corrupted</div>
+            <div id="opsDedupVal" class="font-bold mt-1">1 Valid • 0 Corrupted</div>
           </div>
           <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.queueLabel">AI Batch Queue</div>
-            <div id="opsQueueVal" class="font-bold mt-1" data-i18n="ops.queueVal">6/6 Analyzed (v1.6)</div>
+            <div id="opsQueueVal" class="font-bold mt-1">1/1 Analyzed (v1.6)</div>
           </div>
         </div>
       </div>
@@ -700,7 +700,7 @@
       activePipelineStep: 0,
       searchMode: 'keyword',
       selectedCategories: new Set(['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']),
-      selectedForCompare: new Set(['job-104-01', 'job-104-02']),
+      selectedForCompare: new Set(['job-104-01']),
       activeDetailJobId: null,
       assistantOpen: false,
       chatHistory: []
@@ -968,6 +968,77 @@
       }
     ];
 
+    function translateLocationToEnglish(rawLoc = '') {
+      const text = String(rawLoc || '').trim();
+      if (!text) return 'Taiwan';
+
+      const cityMap = [
+        { zh: '台北市', en: 'Taipei City' },
+        { zh: '臺北市', en: 'Taipei City' },
+        { zh: '新北市', en: 'New Taipei City' },
+        { zh: '桃園市', en: 'Taoyuan City' },
+        { zh: '台中市', en: 'Taichung City' },
+        { zh: '臺中市', en: 'Taichung City' },
+        { zh: '台南市', en: 'Tainan City' },
+        { zh: '臺南市', en: 'Tainan City' },
+        { zh: '高雄市', en: 'Kaohsiung City' },
+        { zh: '新竹市', en: 'Hsinchu City' },
+        { zh: '新竹縣', en: 'Hsinchu County' },
+        { zh: '基隆市', en: 'Keelung City' },
+        { zh: '嘉義市', en: 'Chiayi City' },
+        { zh: '嘉義縣', en: 'Chiayi County' },
+        { zh: '彰化縣', en: 'Changhua County' },
+        { zh: '南投縣', en: 'Nantou County' },
+        { zh: '雲林縣', en: 'Yunlin County' },
+        { zh: '屏東縣', en: 'Pingtung County' },
+        { zh: '宜蘭縣', en: 'Yilan County' },
+        { zh: '花蓮縣', en: 'Hualien County' },
+        { zh: '台東縣', en: 'Taitung County' },
+        { zh: '臺東縣', en: 'Taitung County' },
+        { zh: '苗栗縣', en: 'Miaoli County' }
+      ];
+
+      const distMap = {
+        '中正區': 'Zhongzheng Dist.',
+        '大同區': 'Datong Dist.',
+        '中山區': 'Zhongshan Dist.',
+        '松山區': 'Songshan Dist.',
+        '大安區': "Da'an Dist.",
+        '萬華區': 'Wanhua Dist.',
+        '信義區': 'Xinyi Dist.',
+        '士林區': 'Shilin Dist.',
+        '北投區': 'Beitou Dist.',
+        '內湖區': 'Neihu Dist.',
+        '南港區': 'Nangang Dist.',
+        '文山區': 'Wenshan Dist.',
+        '板橋區': 'Banqiao Dist.',
+        '三重區': 'Sanchong Dist.',
+        '中和區': 'Zhonghe Dist.',
+        '永和區': 'Yonghe Dist.',
+        '新莊區': 'Xinzhuang Dist.',
+        '新店區': 'Xindian Dist.',
+        '土城區': 'Tucheng Dist.',
+        '蘆洲區': 'Luzhou Dist.',
+        '汐止區': 'Xizhi Dist.',
+        '林口區': 'Linkou Dist.',
+        '淡水區': 'Tamsui Dist.'
+      };
+
+      let out = text;
+      for (const item of cityMap) {
+        if (out.includes(item.zh)) {
+          out = out.replace(item.zh, `${item.en} `);
+          break;
+        }
+      }
+      for (const [zhDist, enDist] of Object.entries(distMap)) {
+        if (out.includes(zhDist)) {
+          out = out.replace(zhDist, `(${enDist})`);
+        }
+      }
+      return out.replace(/\s+/g, ' ').trim();
+    }
+
     function getDisplayJobTitle(job) {
       return appState.lang === 'zh' ? (job.titleOriginal || job.titleEn || '') : (job.titleEn || job.titleOriginal || '');
     }
@@ -978,10 +1049,18 @@
         : ((job.summary && job.summary.en) || job.jdOriginal || '');
     }
 
-   locationDisplay: {
-  en: translateLocationToEnglish(locRaw),
-  zh: locRaw
-},
+    function getDisplayJobLocation(job) {
+      if (appState.lang === 'en') {
+        if (job.locationDisplay && job.locationDisplay.en) {
+          return translateLocationToEnglish(job.locationDisplay.en);
+        }
+        return translateLocationToEnglish(job.location || 'Taiwan');
+      }
+      if (job.locationDisplay && job.locationDisplay.zh) {
+        return job.locationDisplay.zh;
+      }
+      return job.location || '台灣';
+    }
 
     function syncKsaSignals(jobsList) {
       const count = Array.isArray(jobsList) ? jobsList.length : 0;
@@ -1678,8 +1757,8 @@
           context: JSON.stringify(contextObj).slice(0, 3500),
           language: langCode
         }, 'POST');
-        if (aiResult && aiResult.answer) {
-          pushAssistantMessage('bot', aiResult.answer);
+        if (aiResult && (aiResult.answer || aiResult.reply)) {
+          pushAssistantMessage('bot', aiResult.answer || aiResult.reply);
           return;
         }
       } catch (_) {}
@@ -1778,6 +1857,11 @@
           const cat = item.classification || 'PM';
           const locRaw = item.location || 'Taiwan';
 
+          let locFilterKey = 'Taipei';
+          if (/新北|new taipei/i.test(locRaw)) locFilterKey = 'New Taipei';
+          else if (/新竹|hsinchu/i.test(locRaw)) locFilterKey = 'Hsinchu';
+          else if (/台中|臺中|taichung/i.test(locRaw)) locFilterKey = 'Taichung';
+
           return {
             id: `live-104-${item.job_id || idx}`,
             source: '104 Job Bank',
@@ -1785,8 +1869,11 @@
             titleOriginal: titleZh,
             titleEn: titleEn,
             companyOriginal: item.company_name_original || '104 Employer',
-            location: /新北|new taipei/i.test(locRaw) ? 'New Taipei' : 'Taipei',
-            locationDisplay: { en: locRaw, zh: locRaw },
+            location: locFilterKey,
+            locationDisplay: {
+              en: translateLocationToEnglish(locRaw),
+              zh: locRaw
+            },
             salaryDisplay: { en: item.salary_display || 'Not provided', zh: item.salary_display || '待遇面議' },
             salaryMin: 50000,
             postingDate: item.posting_date || '2026-11-24',
@@ -1870,76 +1957,7 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
     }
-function translateLocationToEnglish(rawLoc = '') {
-  const text = String(rawLoc || '').trim();
-  if (!text) return 'Taiwan';
 
-  const cityMap = [
-    { zh: '台北市', en: 'Taipei City' },
-    { zh: '臺北市', en: 'Taipei City' },
-    { zh: '新北市', en: 'New Taipei City' },
-    { zh: '桃園市', en: 'Taoyuan City' },
-    { zh: '台中市', en: 'Taichung City' },
-    { zh: '臺中市', en: 'Taichung City' },
-    { zh: '台南市', en: 'Tainan City' },
-    { zh: '臺南市', en: 'Tainan City' },
-    { zh: '高雄市', en: 'Kaohsiung City' },
-    { zh: '新竹市', en: 'Hsinchu City' },
-    { zh: '新竹縣', en: 'Hsinchu County' },
-    { zh: '基隆市', en: 'Keelung City' },
-    { zh: '嘉義市', en: 'Chiayi City' },
-    { zh: '嘉義縣', en: 'Chiayi County' },
-    { zh: '彰化縣', en: 'Changhua County' },
-    { zh: '南投縣', en: 'Nantou County' },
-    { zh: '雲林縣', en: 'Yunlin County' },
-    { zh: '屏東縣', en: 'Pingtung County' },
-    { zh: '宜蘭縣', en: 'Yilan County' },
-    { zh: '花蓮縣', en: 'Hualien County' },
-    { zh: '台東縣', en: 'Taitung County' },
-    { zh: '臺東縣', en: 'Taitung County' },
-    { zh: '苗栗縣', en: 'Miaoli County' }
-  ];
-
-  const distMap = {
-    '中正區': 'Zhongzheng Dist.',
-    '大同區': 'Datong Dist.',
-    '中山區': 'Zhongshan Dist.',
-    '松山區': 'Songshan Dist.',
-    '大安區': 'Da\'an Dist.',
-    '萬華區': 'Wanhua Dist.',
-    '信義區': 'Xinyi Dist.',
-    '士林區': 'Shilin Dist.',
-    '北投區': 'Beitou Dist.',
-    '內湖區': 'Neihu Dist.',
-    '南港區': 'Nangang Dist.',
-    '文山區': 'Wenshan Dist.',
-    '板橋區': 'Banqiao Dist.',
-    '三重區': 'Sanchong Dist.',
-    '中和區': 'Zhonghe Dist.',
-    '永和區': 'Yonghe Dist.',
-    '新莊區': 'Xinzhuang Dist.',
-    '新店區': 'Xindian Dist.',
-    '土城區': 'Tucheng Dist.',
-    '蘆洲區': 'Luzhou Dist.',
-    '汐止區': 'Xizhi Dist.',
-    '林口區': 'Linkou Dist.',
-    '淡水區': 'Tamsui Dist.'
-  };
-
-  let out = text;
-  for (const item of cityMap) {
-    if (out.includes(item.zh)) {
-      out = out.replace(item.zh, `${item.en} `);
-      break;
-    }
-  }
-  for (const [zhDist, enDist] of Object.entries(distMap)) {
-    if (out.includes(zhDist)) {
-      out = out.replace(zhDist, `(${enDist})`);
-    }
-  }
-  return out.replace(/\s+/g, ' ').trim();
-}
     window.addEventListener('DOMContentLoaded', () => {
       applyTranslations();
       renderPipeline();
