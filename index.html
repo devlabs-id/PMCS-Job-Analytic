@@ -73,6 +73,18 @@
       background-color: rgba(234, 179, 8, 0.28);
       border-bottom: 2px solid #facc15;
     }
+    .page-section.is-hidden-page {
+      display: none;
+    }
+    .nav-link.is-active-nav {
+      background-color: rgba(37, 99, 235, 0.12);
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+    .dark .nav-link.is-active-nav {
+      background-color: rgba(59, 130, 246, 0.22);
+      color: #93c5fd;
+    }
     .section-pager {
       margin-top: 2.25rem;
       padding-top: 1.25rem;
@@ -143,7 +155,7 @@
   <header class="sticky top-0 z-40 glass-header bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 gap-2">
-        <a href="#overview" class="flex items-center gap-2.5 min-w-0">
+        <a href="#overview" onclick="showPage('overview')" class="flex items-center gap-2.5 min-w-0">
           <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-sm shrink-0 shadow-sm">
             PM
           </div>
@@ -227,10 +239,10 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[72vh]">
 
-    <!-- SECTION 1: OVERVIEW -->
-    <section id="overview" class="space-y-8 scroll-mt-20">
+    <!-- PAGE 1: OVERVIEW -->
+    <section id="overview" class="page-section space-y-8">
       <div class="rounded-2xl border border-blue-200 dark:border-blue-900/70 bg-gradient-to-r from-blue-50 via-indigo-50/60 to-blue-50 dark:from-blue-950/50 dark:via-indigo-950/30 dark:to-blue-950/50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
         <div class="flex items-start sm:items-center gap-3">
           <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shrink-0 shadow-xs">
@@ -265,16 +277,16 @@
               An AI-powered PM/PjM Job Discovery and Career Intelligence Platform built exclusively around authorized 104 Job Bank vacancy evidence. Understand what Product and Project Management roles actually do, distinguish explicit requirements from AI inferences, and evaluate your career fit.
             </p>
             <div class="flex flex-wrap gap-3 pt-1">
-              <a href="#explorer" class="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-sm shadow-sm transition inline-flex items-center gap-2">
+              <button type="button" onclick="showPage('explorer')" class="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-sm shadow-sm transition inline-flex items-center gap-2">
                 <span data-i18n="hero.ctaExplorer">Explore 104 Vacancies</span>
                 <span>→</span>
-              </a>
-              <a href="#guide" class="px-5 py-3 rounded-xl bg-white/90 dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 font-semibold text-sm transition" data-i18n="hero.ctaGuide">
+              </button>
+              <button type="button" onclick="showPage('guide')" class="px-5 py-3 rounded-xl bg-white/90 dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 font-semibold text-sm transition" data-i18n="hero.ctaGuide">
                 Learn PM vs PjM
-              </a>
-              <a href="#assessment" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800/70 font-semibold text-sm transition" data-i18n="hero.ctaFit">
+              </button>
+              <button type="button" onclick="showPage('assessment')" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800/70 font-semibold text-sm transition" data-i18n="hero.ctaFit">
                 Try Career Fit Check
-              </a>
+              </button>
             </div>
           </div>
 
@@ -319,8 +331,8 @@
       </div>
     </section>
 
-    <!-- SECTION 2: CAREER GUIDE -->
-    <section id="guide" class="space-y-6 scroll-mt-20">
+    <!-- PAGE 2: CAREER GUIDE -->
+    <section id="guide" class="page-section is-hidden-page space-y-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="guide.eyebrow">01 • Career Foundation</span>
@@ -386,8 +398,8 @@
       </div>
     </section>
 
-    <!-- SECTION 3: JOB EXPLORER -->
-    <section id="explorer" class="space-y-6 scroll-mt-20">
+    <!-- PAGE 3: JOB EXPLORER -->
+    <section id="explorer" class="page-section is-hidden-page space-y-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="explorer.eyebrow">02 • Evidence-Backed Discovery</span>
@@ -490,8 +502,8 @@
       <div id="jobsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
     </section>
 
-    <!-- SECTION 4: COMPETENCY INSIGHTS -->
-    <section id="insights" class="space-y-6 scroll-mt-20">
+    <!-- PAGE 4: COMPETENCY INSIGHTS -->
+    <section id="insights" class="page-section is-hidden-page space-y-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="insights.eyebrow">03 • Dataset Patterns</span>
@@ -517,8 +529,8 @@
       </div>
     </section>
 
-    <!-- SECTION 5: CAREER FIT ASSESSMENT -->
-    <section id="assessment" class="space-y-6 scroll-mt-20">
+    <!-- PAGE 5: CAREER FIT ASSESSMENT -->
+    <section id="assessment" class="page-section is-hidden-page space-y-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" data-i18n="fit.eyebrow">04 • Exploratory Reflection</span>
@@ -576,8 +588,8 @@
       </div>
     </section>
 
-    <!-- SECTION 6: HOW IT WORKS -->
-    <section id="how-it-works" class="space-y-6 scroll-mt-20">
+    <!-- PAGE 6: HOW IT WORKS -->
+    <section id="how-it-works" class="page-section is-hidden-page space-y-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400" data-i18n="pipeline.eyebrow">05 • Architecture & Data Pipeline</span>
@@ -592,8 +604,8 @@
       </div>
     </section>
 
-    <!-- SECTION 7: AGENT ACTIVITY & TEAM -->
-    <section id="operations" class="space-y-8 scroll-mt-20">
+    <!-- PAGE 7: AGENT ACTIVITY & TEAM -->
+    <section id="operations" class="page-section is-hidden-page space-y-8">
       <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
@@ -645,7 +657,7 @@
 
   </main>
 
-  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-16">
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
       <div>
         <strong class="text-slate-800 dark:text-slate-200">PMCS_G1_TP_v1.0</strong> — AI-Powered PM/PjM Job Discovery & Career Intelligence Platform
@@ -745,9 +757,20 @@
   <script>
     const API_BASE_URL = "https://pmcs-job-analytic.onrender.com";
 
+    const PAGE_ORDER = [
+      { id: 'overview', labelEn: 'Overview', labelZh: '平台總覽' },
+      { id: 'guide', labelEn: 'Career Guide', labelZh: '職涯指南' },
+      { id: 'explorer', labelEn: 'Job Explorer', labelZh: '職缺探索與比較' },
+      { id: 'insights', labelEn: 'Competency Insights', labelZh: '職能洞察' },
+      { id: 'assessment', labelEn: 'Career Fit', labelZh: '適配度評估' },
+      { id: 'how-it-works', labelEn: 'How It Works', labelZh: '運作架構' },
+      { id: 'operations', labelEn: 'Agent & Team', labelZh: '系統狀態與團隊' }
+    ];
+
     const appState = {
       lang: 'en',
       theme: 'light',
+      activePage: 'overview',
       activePipelineStep: 0,
       searchMode: 'keyword',
       selectedCategories: new Set(['PM', 'PjM', 'Hybrid', 'Unclear', 'Other']),
@@ -1121,27 +1144,33 @@
       return job.location || '台灣';
     }
 
-    function scrollToSection(sectionId) {
-      const target = document.getElementById(sectionId);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function showPage(sectionId, shouldScrollTop = true) {
+      const validIds = PAGE_ORDER.map((p) => p.id);
+      const targetId = validIds.includes(sectionId) ? sectionId : 'overview';
+      appState.activePage = targetId;
+
+      document.querySelectorAll('.page-section').forEach((sec) => {
+        sec.classList.toggle('is-hidden-page', sec.id !== targetId);
+      });
+
+      document.querySelectorAll('.nav-link').forEach((link) => {
+        const hrefId = (link.getAttribute('href') || '').replace('#', '');
+        link.classList.toggle('is-active-nav', hrefId === targetId);
+      });
+
+      if (shouldScrollTop) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    function renderSectionPagers() {
-      const sections = [
-        { id: 'overview', labelEn: 'Overview', labelZh: '平台總覽' },
-        { id: 'guide', labelEn: 'Career Guide', labelZh: '職涯指南' },
-        { id: 'explorer', labelEn: 'Job Explorer', labelZh: '職缺探索與比較' },
-        { id: 'insights', labelEn: 'Competency Insights', labelZh: '職能洞察' },
-        { id: 'assessment', labelEn: 'Career Fit', labelZh: '適配度評估' },
-        { id: 'how-it-works', labelEn: 'How It Works', labelZh: '運作架構' },
-        { id: 'operations', labelEn: 'Agent & Team', labelZh: '系統狀態與團隊' }
-      ];
+    function scrollToSection(sectionId) {
+      showPage(sectionId, true);
+    }
 
+    function renderSectionPagers() {
       const isEn = appState.lang === 'en';
 
-      sections.forEach((sec, idx) => {
+      PAGE_ORDER.forEach((sec, idx) => {
         const secEl = document.getElementById(sec.id);
         if (!secEl) return;
 
@@ -1152,8 +1181,8 @@
           secEl.appendChild(pagerEl);
         }
 
-        const prevSec = idx > 0 ? sections[idx - 1] : null;
-        const nextSec = idx < sections.length - 1 ? sections[idx + 1] : null;
+        const prevSec = idx > 0 ? PAGE_ORDER[idx - 1] : null;
+        const nextSec = idx < PAGE_ORDER.length - 1 ? PAGE_ORDER[idx + 1] : null;
 
         const prevText = prevSec
           ? (isEn ? `← Previous: ${prevSec.labelEn}` : `← 上一頁：${prevSec.labelZh}`)
@@ -1165,22 +1194,22 @@
 
         const topText = isEn ? '↑ Return to Top' : '↑ 回到頂部';
         const stepIndicator = isEn
-          ? `Page ${idx + 1} / ${sections.length}`
-          : `第 ${idx + 1} / ${sections.length} 頁`;
+          ? `Page ${idx + 1} / ${PAGE_ORDER.length}`
+          : `第 ${idx + 1} / ${PAGE_ORDER.length} 頁`;
 
         pagerEl.innerHTML = `
           <div class="flex items-center gap-2 flex-wrap">
             <button
               type="button"
               class="section-pager-btn"
-              ${prevSec ? `onclick="scrollToSection('${prevSec.id}')"` : 'disabled'}
+              ${prevSec ? `onclick="showPage('${prevSec.id}')"` : 'disabled'}
             >
               ${prevText}
             </button>
             <button
               type="button"
               class="section-pager-btn"
-              ${nextSec ? `onclick="scrollToSection('${nextSec.id}')"` : 'disabled'}
+              ${nextSec ? `onclick="showPage('${nextSec.id}')"` : 'disabled'}
             >
               ${nextText}
             </button>
@@ -1190,7 +1219,7 @@
             <button
               type="button"
               class="section-pager-btn section-pager-top"
-              onclick="scrollToSection('overview')"
+              onclick="showPage('overview')"
             >
               ${topText}
             </button>
@@ -1348,7 +1377,7 @@
       appState.selectedCategories = new Set([cat]);
       renderClassificationPills();
       renderJobs();
-      document.getElementById('explorer').scrollIntoView({ behavior: 'smooth' });
+      showPage('explorer');
     }
 
     function setSearchMode(mode) {
@@ -2115,6 +2144,7 @@
       populateFitTargetDropdown();
       renderTeamCards();
       renderSectionPagers();
+      showPage(appState.activePage, false);
       updateAssistantContextBadge();
       if (appState.activeDetailJobId) openJobDetailModal(appState.activeDetailJobId);
       if (!document.getElementById('comparisonModal').classList.contains('hidden')) openComparisonModal();
@@ -2158,6 +2188,17 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('header a[href^="#"], #mobileMenuDrawer a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (e) => {
+          const targetId = (link.getAttribute('href') || '').replace('#', '');
+          if (PAGE_ORDER.some((p) => p.id === targetId)) {
+            e.preventDefault();
+            showPage(targetId, true);
+            closeMobileMenu();
+          }
+        });
+      });
+
       applyTranslations();
       renderPipeline();
       renderCareerGuide();
@@ -2167,6 +2208,7 @@
       populateFitTargetDropdown();
       renderTeamCards();
       renderSectionPagers();
+      showPage(appState.activePage, false);
       updateAssistantContextBadge();
       loadLive104Jobs();
     });
