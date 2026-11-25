@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import httpx
 
-app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.0")
+app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.1")
 
 ALLOWED_ORIGINS = [
     "https://devlabs-id.github.io",
@@ -59,6 +59,7 @@ class CareerMatchTopRequest(BaseModel):
 class AssistantRequest(BaseModel):
     question: str = Field(..., min_length=1)
     language: Literal["en", "zh-TW"] = "en"
+    context: Optional[str] = None
     selected_job: Optional[dict[str, Any]] = None
 
 
@@ -78,17 +79,28 @@ def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
     models: list[str] = []
     try:
         if provider == "gemini" and GEMINI_API_KEY:
-            r = client.get(f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}")
+            r = client.get(
+                f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}",
+                timeout=15.0,
+            )
             if r.status_code == 200:
                 for m in r.json().get("models", []):
                     name = m.get("name", "").replace("models/", "")
-                    if "generateContent" in m.get("supportedGenerationMethods", []) and "gemini" in name:
-                        models.append(name)
-                models.sort(key=lambda x: (0 if "flash" in x else 1, x))
+                    methods = m.get("supportedGenerationMethods", [])
+                    if "generateContent" in methods and "gemini" in name.lower():
+                        if not any(x in name.lower() for x in ("exp", "vision-old", "embedding")):
+                            models.append(name)
+                models.sort(
+                    key=lambda x: (
+                        0 if "2.5-flash" in x else (1 if "2.0-flash" in x else (2 if "flash" in x else 3)),
+                        x,
+                    )
+                )
         elif provider == "groq" and GROQ_API_KEY:
             r = client.get(
                 "https://api.groq.com/openai/v1/models",
                 headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+                timeout=15.0,
             )
             if r.status_code == 200:
                 models = [
@@ -98,7 +110,7 @@ def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
                 ]
                 models.sort(key=lambda x: (0 if "70b" in x else (1 if "llama" in x else 2), x))
         elif provider == "openrouter" and OPENROUTER_API_KEY:
-            r = client.get("https://openrouter.ai/api/v1/models")
+            r = client.get("https://openrouter.ai/api/v1/models", timeout=15.0)
             if r.status_code == 200:
                 for m in r.json().get("data", []):
                     mid = m.get("id", "")
@@ -110,7 +122,7 @@ def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
     except Exception:
         pass
 
-    result = models[:5]
+    result = models[:4]
     if result:
         _MODEL_CACHE[provider] = (now, result)
     return result
@@ -127,7 +139,7 @@ def call_gemini_with_fallback(
     combined_prompt = f"{system_prompt}\n\n{user_prompt}".strip()
     errors: list[str] = []
 
-    with httpx.Client(timeout=45.0) as client:
+    with httpx.Client(timeout=35.0) as client:
         # 1. Gemini
         for model_name in _get_cached_models(client, "gemini"):
             try:
@@ -228,6 +240,7 @@ def career_fit(req: CareerFitRequest) -> dict[str, Any]:
     system_prompt = (
         "Compare the user's self-reported experience narrative against target vacancy requirements. "
         "Categorize points as Matched, Partially Matched, Not Demonstrated, or Insufficient Evidence. "
+        "Keep the response concise and easy to scan in short lines. "
         "Explicitly state this is an exploratory comparison, not a hiring prediction or verified ability score."
     )
     user_prompt = (
@@ -269,19 +282,23 @@ def career_match_top(req: CareerMatchTopRequest) -> dict[str, Any]:
 
 @app.post("/api/assistant")
 def assistant_chat(req: AssistantRequest) -> dict[str, Any]:
-    context_block = (
-        f"Selected Vacancy Context: {req.selected_job}"
-        if req.selected_job
-        else "No vacancy selected. Answer using general PM/PjM career guidance."
-    )
+    context_parts: list[str] = []
+    if req.selected_job:
+        context_parts.append(f"Selected Vacancy Context: {json.dumps(req.selected_job, ensure_ascii=False)}")
+    if req.context:
+        context_parts.append(f"Dataset & Platform Context: {req.context[:3500]}")
+    context_block = "\n".join(context_parts) if context_parts else "No specific vacancy selected. Answer using general PM/PjM career guidance and platform details."
+
     system_prompt = (
-        "You are the PMCS AI Career Assistant. Clearly state whether your answer uses the selected vacancy "
-        "or general PM/PjM career guidance. Never fabricate details absent from the source JD."
+        "You are the PMCS AI Career Assistant. Answer concisely and accurately in the requested language. "
+        "Clearly state whether your answer uses a specific vacancy/dataset context or general PM/PjM career guidance. "
+        "Never fabricate details absent from the provided context or source JD."
     )
     user_prompt = f"Language: {req.language}\n{context_block}\nQuestion: {req.question}"
     reply, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
     return {
-        "context_mode": "selected_vacancy" if req.selected_job else "general_career",
+        "context_mode": "selected_vacancy" if req.selected_job else ("dataset_context" if req.context else "general_career"),
         "model": used_model,
+        "answer": reply,
         "reply": reply,
     }
