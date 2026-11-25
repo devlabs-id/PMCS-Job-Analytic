@@ -35,8 +35,32 @@
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
     }
     .glass-header {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .hero-surface {
+      background-image:
+        radial-gradient(at 90% 10%, rgba(37, 99, 235, 0.11) 0px, transparent 48%),
+        radial-gradient(at 10% 90%, rgba(79, 70, 229, 0.08) 0px, transparent 50%),
+        radial-gradient(rgba(148, 163, 184, 0.24) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 22px 22px;
+    }
+    .dark .hero-surface {
+      background-image:
+        radial-gradient(at 90% 10%, rgba(59, 130, 246, 0.16) 0px, transparent 48%),
+        radial-gradient(at 10% 90%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 22px 22px;
+    }
+    .card-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.12);
+    }
+    .dark .card-lift:hover {
+      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.45);
     }
     .evidence-highlight {
       background-color: rgba(250, 204, 21, 0.35);
@@ -93,6 +117,7 @@
           <a href="#explorer" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.explorer">Job Explorer</a>
           <a href="#insights" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.insights">Competency Insights</a>
           <a href="#assessment" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.assessment">Career Fit</a>
+          <a href="#how-it-works" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.howItWorks">How It Works</a>
           <a href="#operations" class="nav-link px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" data-i18n="nav.operations">Agent & Team</a>
         </nav>
 
@@ -153,6 +178,7 @@
       <a href="#explorer" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.explorer">Job Explorer & Comparison</a>
       <a href="#insights" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.insights">Competency Insights</a>
       <a href="#assessment" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.assessment">Career Fit Assessment</a>
+      <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.howItWorks">How It Works</a>
       <a href="#operations" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800" data-i18n="nav.operations">Agent Activity & Team</a>
     </div>
   </header>
@@ -161,34 +187,34 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
 
     <!-- =========================================================
-         SECTION 1: OVERVIEW & PIPELINE SUMMARY
+         SECTION 1: OVERVIEW & SNAPSHOT METRICS
     ========================================================== -->
     <section id="overview" class="space-y-8 scroll-mt-20">
-      <!-- Top Course & Provenance Banner -->
-      <div class="rounded-2xl border border-blue-200 dark:border-blue-900/70 bg-blue-50/80 dark:bg-blue-950/40 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <!-- Top Course & Provenance Banner (Option C) -->
+      <div class="rounded-2xl border border-blue-200 dark:border-blue-900/70 bg-gradient-to-r from-blue-50 via-indigo-50/60 to-blue-50 dark:from-blue-950/50 dark:via-indigo-950/30 dark:to-blue-950/50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
         <div class="flex items-start sm:items-center gap-3">
-          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shrink-0">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white shrink-0 shadow-xs">
             PMCS_G1_TP_v1.0
           </span>
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
             <span class="font-semibold" data-i18n="banner.advisorLabel">Faculty Advisor:</span>
             <span class="font-bold text-blue-700 dark:text-blue-300">PROF. SHIHMIN LO</span>
             <span class="mx-1.5">•</span>
-            <span data-i18n="banner.scopeNotice">Course MVP Demo • Curated 104 Job Bank PM/PjM sample (55 vacancies)</span>
+            <span data-i18n="banner.scopeNotice">Daily synced 104 Job Bank PM/PjM vacancies analyzed by AI.</span>
           </p>
         </div>
-        <div class="text-xs font-medium text-slate-600 dark:text-slate-400 shrink-0 flex items-center gap-1.5">
+        <div class="text-xs font-medium text-slate-600 dark:text-slate-400 shrink-0 flex items-center gap-1.5 bg-white/80 dark:bg-slate-900/70 px-3 py-1.5 rounded-xl border border-blue-100 dark:border-slate-800">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span data-i18n="banner.syncLabel">Last Successful Sync:</span>
           <span id="bannerSyncTime" class="font-mono font-semibold text-slate-800 dark:text-slate-200">2026-11-23 06:00 CST</span>
         </div>
       </div>
 
-      <!-- Hero Card -->
-      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
+      <!-- Hero Card with Subtle Mesh & Dot-Grid Depth -->
+      <div class="hero-surface rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-7 space-y-5">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shadow-2xs">
               <span>PRD v1.6</span>
               <span>•</span>
               <span data-i18n="hero.badge">Responsibilities Over Titles • Evidence Over Assumptions</span>
@@ -200,54 +226,57 @@
               An AI-powered PM/PjM Job Discovery and Career Intelligence Platform built exclusively around authorized 104 Job Bank vacancy evidence. Understand what Product and Project Management roles actually do, distinguish explicit requirements from AI inferences, and evaluate your career fit.
             </p>
             <div class="flex flex-wrap gap-3 pt-1">
-              <a href="#explorer" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition inline-flex items-center gap-2">
+              <a href="#explorer" class="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-sm shadow-sm transition inline-flex items-center gap-2">
                 <span data-i18n="hero.ctaExplorer">Explore 104 Vacancies</span>
                 <span>→</span>
               </a>
-              <a href="#guide" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold text-sm transition" data-i18n="hero.ctaGuide">
+              <a href="#guide" class="px-5 py-3 rounded-xl bg-white/90 dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 font-semibold text-sm transition" data-i18n="hero.ctaGuide">
                 Learn PM vs PjM
               </a>
-              <a href="#assessment" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/70 font-semibold text-sm transition" data-i18n="hero.ctaFit">
+              <a href="#assessment" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800/70 font-semibold text-sm transition" data-i18n="hero.ctaFit">
                 Try Career Fit Check
               </a>
             </div>
           </div>
 
-          <!-- Dataset Snapshot Metrics -->
+          <!-- Dataset Snapshot Metrics with Top Accent & Icons -->
           <div class="lg:col-span-5 grid grid-cols-2 gap-3.5">
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
-              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.totalLabel">Curated 104 Sample</div>
-              <div class="text-2xl sm:text-3xl font-extrabold mt-1 text-blue-600 dark:text-blue-400"><span id="heroTotalJobsCount">6</span> <span class="text-sm font-semibold text-slate-500" data-i18n="metrics.rolesUnit">Vacancies</span></div>
-              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.totalSub">100% preserved original JDs</div>
+            <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-blue-500">
+              <div class="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span data-i18n="metrics.totalLabel">Synced 104 Dataset</span>
+                <span class="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-[11px]">104</span>
+              </div>
+              <div class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-blue-600 dark:text-blue-400"><span id="heroTotalJobsCount">6</span> <span class="text-sm font-semibold text-slate-500" data-i18n="metrics.rolesUnit">Vacancies</span></div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.totalSub">Live sync from 104 Job Bank</div>
             </div>
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
-              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.taxonomyLabel">Role Breakdown</div>
-              <div id="heroRoleBreakdown" class="text-lg sm:text-xl font-extrabold mt-1.5 text-slate-800 dark:text-slate-100">2 PM • 1 PjM • 1 Hybrid</div>
+
+            <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-indigo-500">
+              <div class="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span data-i18n="metrics.taxonomyLabel">Role Breakdown</span>
+                <span class="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-[11px]">AI</span>
+              </div>
+              <div id="heroRoleBreakdown" class="text-lg sm:text-xl font-extrabold mt-2 text-slate-800 dark:text-slate-100">2 PM • 1 PjM • 1 Hybrid</div>
               <div id="heroRoleExtra" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.taxonomySub">+ 1 Unclear, 1 Other</div>
             </div>
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
-              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.ksaLabel">Extracted KSA Signals</div>
-              <div id="ksaTotalCount" class="text-2xl sm:text-3xl font-extrabold mt-1 text-emerald-600 dark:text-emerald-400">24</div>
+
+            <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-emerald-500">
+              <div class="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span data-i18n="metrics.ksaLabel">Extracted KSA Signals</span>
+                <span class="w-6 h-6 rounded-lg bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-[11px]">KSA</span>
+              </div>
+              <div id="ksaTotalCount" class="text-2xl sm:text-3xl font-extrabold mt-1.5 text-emerald-600 dark:text-emerald-400">24</div>
               <div id="ksaBreakdownText" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">16 Explicit • 8 AI-Inferred</div>
             </div>
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
-              <div class="text-xs font-medium text-slate-500 dark:text-slate-400" data-i18n="metrics.sourceLabel">Exclusive Data Source</div>
-              <div class="text-lg sm:text-xl font-extrabold mt-1.5 text-amber-600 dark:text-amber-400">104 Job Bank</div>
+
+            <div class="card-lift p-4 rounded-2xl bg-white/90 dark:bg-slate-800/80 border border-slate-200/90 dark:border-slate-700/80 border-t-4 border-t-amber-500">
+              <div class="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span data-i18n="metrics.sourceLabel">Exclusive Data Source</span>
+                <span class="w-6 h-6 rounded-lg bg-amber-50 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-[11px]">DB</span>
+              </div>
+              <div class="text-lg sm:text-xl font-extrabold mt-2 text-amber-600 dark:text-amber-400">104 Job Bank</div>
               <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" data-i18n="metrics.sourceSub">Authorized API design</div>
             </div>
           </div>
-        </div>
-
-        <!-- 4-Step End-to-End Design Rationale & Data Pipeline -->
-        <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="pipeline.heading">
-              End-to-End Design Rationale & Data Pipeline (4-Step Flow)
-            </h2>
-            <span class="text-xs text-slate-500 dark:text-slate-400" data-i18n="pipeline.note">Click any step to inspect data governance rules</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="pipelineStages"></div>
-          <div id="pipelineDetailBox" class="mt-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300"></div>
         </div>
       </div>
     </section>
@@ -267,7 +296,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="rounded-3xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900/60 p-6 shadow-sm space-y-4">
+        <div class="card-lift rounded-3xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900/60 border-t-4 border-t-blue-600 p-6 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200">PM • Product Manager</span>
             <span class="text-xs font-semibold text-blue-600 dark:text-blue-400" data-i18n="guide.pmObjectTag">Object: The Product</span>
@@ -289,7 +318,7 @@
           </div>
         </div>
 
-        <div class="rounded-3xl bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-900/60 p-6 shadow-sm space-y-4">
+        <div class="card-lift rounded-3xl bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-900/60 border-t-4 border-t-emerald-600 p-6 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/70 dark:text-emerald-200">PjM • Project Manager</span>
             <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400" data-i18n="guide.pjmObjectTag">Object: The Project</span>
@@ -407,7 +436,7 @@
         </div>
       </div>
 
-      <div id="compareBar" class="rounded-2xl bg-indigo-600 text-white p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+      <div id="compareBar" class="rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 text-white p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
         <div class="flex items-center gap-3">
           <span class="px-2.5 py-1 rounded-lg bg-white/20 text-xs font-extrabold" id="compareCountBadge">0 Selected</span>
           <p class="text-xs sm:text-sm font-medium" id="compareStatusText" data-i18n="compare.hint">
@@ -518,13 +547,31 @@
     </section>
 
     <!-- =========================================================
-         SECTION 6: AGENT ACTIVITY & GROUP 1 TEAM / ADVISOR
+         SECTION 6: HOW IT WORKS (4-STEP PIPELINE & GOVERNANCE)
+    ========================================================== -->
+    <section id="how-it-works" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400" data-i18n="pipeline.eyebrow">05 • Architecture & Data Pipeline</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-1" data-i18n="pipeline.heading">End-to-End Design Rationale & Data Pipeline (4-Step Flow)</h2>
+        </div>
+        <span class="text-xs text-slate-500 dark:text-slate-400" data-i18n="pipeline.note">Click any step to inspect data governance rules</span>
+      </div>
+
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="pipelineStages"></div>
+        <div id="pipelineDetailBox" class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: AGENT ACTIVITY & GROUP 1 TEAM / ADVISOR
     ========================================================== -->
     <section id="operations" class="space-y-8 scroll-mt-20">
       <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400" data-i18n="ops.eyebrow">05 • Data Operations & Provenance</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400" data-i18n="ops.eyebrow">06 • Data Operations & Provenance</span>
             <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5" data-i18n="ops.title">Agent Activity & Daily 104 Sync Status</h2>
           </div>
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200" data-i18n="ops.statusBadge">
@@ -533,19 +580,19 @@
         </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+          <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.scheduleLabel">Scheduled Sync</div>
             <div class="font-bold mt-1">06:00 Asia/Taipei</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+          <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.lastSuccessLabel">Last Successful Sync</div>
             <div id="opsLastSyncTime" class="font-bold mt-1">2026-11-23 06:02:14</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+          <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.dedupLabel">Deduplication & Validation</div>
             <div id="opsDedupVal" class="font-bold mt-1" data-i18n="ops.dedupVal">6 Valid • 0 Corrupted</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+          <div class="card-lift p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
             <div class="text-slate-500 dark:text-slate-400 text-xs" data-i18n="ops.queueLabel">AI Batch Queue</div>
             <div id="opsQueueVal" class="font-bold mt-1" data-i18n="ops.queueVal">6/6 Analyzed (v1.6)</div>
           </div>
@@ -566,7 +613,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="teamCardsGrid"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4" id="teamCardsGrid"></div>
       </div>
     </section>
 
@@ -579,7 +626,7 @@
         <strong class="text-slate-800 dark:text-slate-200">PMCS_G1_TP_v1.0</strong> — AI-Powered PM/PjM Job Discovery & Career Intelligence Platform
       </div>
       <div>
-        <span data-i18n="footer.advisor">Faculty Advisor:</span> <strong class="text-slate-800 dark:text-slate-200">PROF. SHIHMIN LO</strong> • <span data-i18n="footer.source">Data Source: 104 Job Bank (Curated MVP Sample)</span>
+        <span data-i18n="footer.advisor">Faculty Advisor:</span> <strong class="text-slate-800 dark:text-slate-200">PROF. SHIHMIN LO</strong> • <span data-i18n="footer.source">Data Source: 104 Job Bank</span>
       </div>
     </div>
   </footer>
@@ -691,9 +738,10 @@
         'nav.explorer': 'Job Explorer',
         'nav.insights': 'Competency Insights',
         'nav.assessment': 'Career Fit',
+        'nav.howItWorks': 'How It Works',
         'nav.operations': 'Agent & Team',
         'banner.advisorLabel': 'Faculty Advisor:',
-        'banner.scopeNotice': 'Course MVP Demo using curated 104 Job Bank sample vacancies (illustrative dataset, not complete Taiwan market coverage).',
+        'banner.scopeNotice': 'Daily synced 104 Job Bank PM/PjM vacancies analyzed by AI.',
         'banner.syncLabel': 'Last Successful Sync:',
         'hero.badge': 'Responsibilities Over Titles • Evidence Over Assumptions',
         'hero.title': 'From Job Descriptions to Career Clarity',
@@ -708,6 +756,7 @@
         'metrics.ksaLabel': 'Extracted KSA Signals',
         'metrics.sourceLabel': 'Exclusive Data Source',
         'metrics.sourceSub': 'Authorized API design',
+        'pipeline.eyebrow': '05 • Architecture & Data Pipeline',
         'pipeline.heading': 'End-to-End Design Rationale & Data Pipeline (4-Step Flow)',
         'pipeline.note': 'Click any step to inspect data governance rules',
         'guide.eyebrow': '01 • Career Foundation',
@@ -727,7 +776,7 @@
         'guide.taxonomyRule': 'Rule: Unrelated vacancies are excluded during scope screening before labeling.',
         'explorer.eyebrow': '02 • Evidence-Backed Discovery',
         'explorer.title': 'Job Explorer & Multi-Job Comparison',
-        'explorer.sourceNote': 'Switch EN / 繁體中文 above to toggle language; original 104 source text stays preserved.',
+        'explorer.sourceNote': 'Original job titles and source JDs remain intact in their original language.',
         'explorer.modeKeyword': 'Keyword & Filters',
         'explorer.modeNl': 'AI Natural-Language Search',
         'explorer.resetBtn': 'Reset All Filters',
@@ -754,7 +803,7 @@
         'fit.targetJobLabel': 'Compare against vacancy:',
         'fit.clearBtn': 'Clear Session',
         'fit.analyzeBtn': 'Analyze Career Fit',
-        'ops.eyebrow': '05 • Data Operations & Provenance',
+        'ops.eyebrow': '06 • Data Operations & Provenance',
         'ops.title': 'Agent Activity & Daily 104 Sync Status',
         'ops.statusBadge': 'Status: Healthy (Last Run Verified)',
         'ops.scheduleLabel': 'Scheduled Sync',
@@ -779,9 +828,10 @@
         'nav.explorer': '職缺探索與比較',
         'nav.insights': '職能洞察',
         'nav.assessment': '適配度評估',
+        'nav.howItWorks': '運作架構',
         'nav.operations': '系統狀態與團隊',
         'banner.advisorLabel': '指導老師：',
-        'banner.scopeNotice': '課程 MVP 展示版：採用 104 人力銀行職缺資料進行職責分類與 KSA 實證分析。',
+        'banner.scopeNotice': '每日自動同步 104 人力銀行 PM/PjM 職缺並由 AI 解析。',
         'banner.syncLabel': '最近成功同步時間：',
         'hero.badge': '職責優先於職稱 • 實證優先於臆測',
         'hero.title': '從繁雜職缺描述，走向清晰職涯方向',
@@ -796,6 +846,7 @@
         'metrics.ksaLabel': '萃取 KSA 職能訊號',
         'metrics.sourceLabel': '唯一外部資料來源',
         'metrics.sourceSub': '104 職缺同步與原始證據保留',
+        'pipeline.eyebrow': '05 • 系統架構與資料管線',
         'pipeline.heading': '端到端設計理念與資料處理管線（四階段流程）',
         'pipeline.note': '點擊任一階段檢視資料治理與驗證規則',
         'guide.eyebrow': '01 • 職涯基礎認知',
@@ -842,7 +893,7 @@
         'fit.targetJobLabel': '選擇比對目標職缺：',
         'fit.clearBtn': '清除本次紀錄',
         'fit.analyzeBtn': '執行適配度實證比對',
-        'ops.eyebrow': '05 • 資料管線與來源透明度',
+        'ops.eyebrow': '06 • 資料管線與來源透明度',
         'ops.title': 'Agent 運行狀態與每日 104 同步監控',
         'ops.statusBadge': '狀態：正常運作（最近同步已驗證）',
         'ops.scheduleLabel': '排程同步時間',
@@ -862,7 +913,6 @@
       }
     };
 
-    // 4-step End-to-End Design Rationale & Data Pipeline
     const pipelineStagesData = [
       {
         step: '01',
@@ -884,11 +934,11 @@
       },
       {
         step: '03',
-        title: { en: 'FastAPI + OpenAI Engine', zh: 'FastAPI + OpenAI 引擎' },
+        title: { en: 'FastAPI + Multi-AI Engine', zh: 'FastAPI + 多模型 AI 引擎' },
         tag: { en: 'Render Backend', zh: 'Render 後端服務' },
         detail: {
-          en: 'Step 03 (FastAPI + OpenAI Engine) — Sends candidate narratives and target vacancy context to the Render backend (/api/career-fit) to generate grounded fit and gap insights.',
-          zh: '步驟 03（FastAPI + OpenAI 引擎）— 將個人經驗敘述與目標職缺資訊送往 Render 後端（/api/career-fit），產生適配度與落差分析。'
+          en: 'Step 03 (FastAPI + Multi-AI Engine) — Sends candidate narratives and target vacancy context to the Render backend (/api/career-fit) with multi-provider fallback to generate grounded fit and gap insights.',
+          zh: '步驟 03（FastAPI + 多模型 AI 引擎）— 將個人經驗敘述與目標職缺資訊送往 Render 後端（/api/career-fit），透過多引擎備援產生適配度與落差分析。'
         }
       },
       {
@@ -903,47 +953,47 @@
     ];
 
     const teamMembersData = [
-  {
-    roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
-    name: 'Jay',
-    tasks: {
-      en: 'Collaborated together as a team across all project tasks and deliverables.',
-      zh: '全組共同分工合作完成所有專案內容與交付項目。'
-    }
-  },
-  {
-    roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
-    name: 'Devina',
-    tasks: {
-      en: 'Collaborated together as a team across all project tasks and deliverables.',
-      zh: '全組共同分工合作完成所有專案內容與交付項目。'
-    }
-  },
-  {
-    roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
-    name: 'Gina',
-    tasks: {
-      en: 'Collaborated together as a team across all project tasks and deliverables.',
-      zh: '全組共同分工合作完成所有專案內容與交付項目。'
-    }
-  },
-  {
-    roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
-    name: 'Aldrich',
-    tasks: {
-      en: 'Collaborated together as a team across all project tasks and deliverables.',
-      zh: '全組共同分工合作完成所有專案內容與交付項目。'
-    }
-  },
-  {
-    roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
-    name: 'Jo-Anne',
-    tasks: {
-      en: 'Collaborated together as a team across all project tasks and deliverables.',
-      zh: '全組共同分工合作完成所有專案內容與交付項目。'
-    }
-  }
-];
+      {
+        roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
+        name: 'Jay',
+        tasks: {
+          en: 'Collaborated together as a team across all project tasks and deliverables.',
+          zh: '全組共同分工合作完成所有專案內容與交付項目。'
+        }
+      },
+      {
+        roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
+        name: 'Devina',
+        tasks: {
+          en: 'Collaborated together as a team across all project tasks and deliverables.',
+          zh: '全組共同分工合作完成所有專案內容與交付項目。'
+        }
+      },
+      {
+        roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
+        name: 'Gina',
+        tasks: {
+          en: 'Collaborated together as a team across all project tasks and deliverables.',
+          zh: '全組共同分工合作完成所有專案內容與交付項目。'
+        }
+      },
+      {
+        roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
+        name: 'Aldrich',
+        tasks: {
+          en: 'Collaborated together as a team across all project tasks and deliverables.',
+          zh: '全組共同分工合作完成所有專案內容與交付項目。'
+        }
+      },
+      {
+        roleBadge: { en: 'Group 1 Member', zh: '第一組組員' },
+        name: 'Jo-Anne',
+        tasks: {
+          en: 'Collaborated together as a team across all project tasks and deliverables.',
+          zh: '全組共同分工合作完成所有專案內容與交付項目。'
+        }
+      }
+    ];
 
     const jobsData = [
       {
@@ -1030,7 +1080,6 @@
       }
     ];
 
-    // Helper: pick job title & summary based on current global language (EN / ZH)
     function getDisplayJobTitle(job) {
       if (appState.lang === 'zh') {
         return job.titleOriginal || job.titleEn || '';
@@ -1045,7 +1094,6 @@
       return (job.summary && job.summary.en) || job.jdOriginal || '';
     }
 
-    // Dynamic KSA signals based on active vacancies count
     function syncKsaSignals(jobsList) {
       const count = Array.isArray(jobsList) ? jobsList.length : 0;
       const totalKsa = count * 4;
@@ -1106,13 +1154,13 @@
           <button
             type="button"
             onclick="selectPipelineStage(${idx})"
-            class="text-left p-4 rounded-2xl border transition ${
+            class="card-lift text-left p-4 rounded-2xl border transition ${
               active
-                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-blue-600 shadow-md'
                 : 'bg-slate-50 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 hover:border-blue-400'
             }"
           >
-            <div class="flex items-center justify-between text-xs font-bold opacity-80">
+            <div class="flex items-center justify-between text-xs font-bold opacity-85">
               <span>STEP ${stage.step}</span>
               <span>${stage.tag[appState.lang]}</span>
             </div>
@@ -1161,6 +1209,7 @@
       const taxonomy = [
         {
           code: 'PM',
+          accent: 'border-t-4 border-t-blue-500',
           color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200',
           desc: {
             en: 'Primarily manages a product and is accountable for product direction, requirements, prioritization, and user/business value.',
@@ -1169,6 +1218,7 @@
         },
         {
           code: 'PjM',
+          accent: 'border-t-4 border-t-emerald-500',
           color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/70 dark:text-emerald-200',
           desc: {
             en: 'Primarily manages a project and is accountable for planning, coordination, risk, constraints, and on-time delivery.',
@@ -1177,6 +1227,7 @@
         },
         {
           code: 'Hybrid',
+          accent: 'border-t-4 border-t-purple-500',
           color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/70 dark:text-purple-200',
           desc: {
             en: 'Carries meaningful accountability for both product-value outcomes (PM) and formal project-delivery governance (PjM).',
@@ -1185,6 +1236,7 @@
         },
         {
           code: 'Unclear',
+          accent: 'border-t-4 border-t-amber-500',
           color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/70 dark:text-amber-200',
           desc: {
             en: 'Within PM/PjM domain scope, but the source JD is too brief or ambiguous to verify primary accountability.',
@@ -1193,6 +1245,7 @@
         },
         {
           code: 'Other',
+          accent: 'border-t-4 border-t-slate-400',
           color: 'bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200',
           desc: {
             en: 'Adjacent domain role (tagged PM-related or PjM-related, e.g., Scrum Master) rather than a core PM or PjM.',
@@ -1202,7 +1255,7 @@
       ];
 
       document.getElementById('taxonomyGrid').innerHTML = taxonomy.map((item) => `
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2">
+        <div class="card-lift p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 ${item.accent} space-y-2">
           <span class="inline-block px-2.5 py-0.5 rounded-lg text-xs font-extrabold ${item.color}">${item.code}</span>
           <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${item.desc[appState.lang]}</p>
         </div>
@@ -1216,6 +1269,17 @@
         Hybrid: 'bg-purple-100 text-purple-800 dark:bg-purple-900/70 dark:text-purple-200 border-purple-200 dark:border-purple-800',
         Unclear: 'bg-amber-100 text-amber-800 dark:bg-amber-900/70 dark:text-amber-200 border-amber-200 dark:border-amber-800',
         Other: 'bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600'
+      };
+      return map[cat] || map.Other;
+    }
+
+    function getCardAccentClass(cat) {
+      const map = {
+        PM: 'border-l-4 border-l-blue-600',
+        PjM: 'border-l-4 border-l-emerald-600',
+        Hybrid: 'border-l-4 border-l-purple-600',
+        Unclear: 'border-l-4 border-l-amber-500',
+        Other: 'border-l-4 border-l-slate-400'
       };
       return map[cat] || map.Other;
     }
@@ -1395,7 +1459,7 @@
           : (appState.lang === 'en' ? '+ Compare' : '+ 加入比較');
 
         return `
-          <article class="rounded-3xl bg-white dark:bg-slate-900 border ${isSelected ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'} p-5 sm:p-6 shadow-sm flex flex-col justify-between gap-4 transition">
+          <article class="card-lift rounded-3xl bg-white dark:bg-slate-900 border ${isSelected ? 'border-indigo-500 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'} ${getCardAccentClass(job.classification)} p-5 sm:p-6 shadow-sm flex flex-col justify-between gap-4 transition">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2 flex-wrap">
                 <div class="flex items-center gap-1.5 flex-wrap">
@@ -1421,7 +1485,7 @@
                 </p>
               </div>
 
-              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl">
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-100 dark:border-slate-800">
                 ${escapeHtml(getDisplayJobSummary(job))}
               </p>
 
@@ -1443,7 +1507,7 @@
               <button
                 type="button"
                 onclick="openJobDetailModal('${job.id}')"
-                class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition"
+                class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-2xs"
               >
                 ${viewBtnLabel}
               </button>
@@ -1467,98 +1531,98 @@
     }
 
     function openJobDetailModal(jobId, highlightSnippet = '') {
-  const job = jobsData.find((j) => j.id === jobId);
-  if (!job) return;
-  appState.activeDetailJobId = jobId;
-  updateAssistantContextBadge();
+      const job = jobsData.find((j) => j.id === jobId);
+      if (!job) return;
+      appState.activeDetailJobId = jobId;
+      updateAssistantContextBadge();
 
-  document.getElementById('modalBadges').innerHTML = `
-    <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
-    <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-      104 Source Link ↗
-    </a>
-  `;
-  document.getElementById('modalJobTitle').textContent = getDisplayJobTitle(job);
-  document.getElementById('modalJobMeta').textContent = `${job.companyOriginal} • ${job.locationDisplay[appState.lang]} • ${job.salaryDisplay[appState.lang]}`;
+      document.getElementById('modalBadges').innerHTML = `
+        <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
+        <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+          104 Source Link ↗
+        </a>
+      `;
+      document.getElementById('modalJobTitle').textContent = getDisplayJobTitle(job);
+      document.getElementById('modalJobMeta').textContent = `${job.companyOriginal} • ${job.locationDisplay[appState.lang]} • ${job.salaryDisplay[appState.lang]}`;
 
-  const aiJdSummary = appState.lang === 'zh'
-    ? ((job.summary && job.summary.zh) || job.jdOriginal)
-    : ((job.summary && job.summary.en) || job.jdOriginal);
+      const aiJdSummary = appState.lang === 'zh'
+        ? ((job.summary && job.summary.zh) || job.jdOriginal)
+        : ((job.summary && job.summary.en) || job.jdOriginal);
 
-  let formattedJd = escapeHtml(job.jdOriginal);
-  if (highlightSnippet) {
-    const escapedSnippet = escapeHtml(highlightSnippet);
-    formattedJd = formattedJd.replace(escapedSnippet, `<mark class="evidence-highlight">${escapedSnippet}</mark>`);
-  }
+      let formattedJd = escapeHtml(job.jdOriginal);
+      if (highlightSnippet) {
+        const escapedSnippet = escapeHtml(highlightSnippet);
+        formattedJd = formattedJd.replace(escapedSnippet, `<mark class="evidence-highlight">${escapedSnippet}</mark>`);
+      }
 
-  const groupedKsa = { Knowledge: [], Skills: [], Attitudes: [] };
-  (job.competencies || []).forEach((comp) => {
-    const cat = groupedKsa[comp.category] ? comp.category : 'Skills';
-    groupedKsa[cat].push(comp);
-  });
+      const groupedKsa = { Knowledge: [], Skills: [], Attitudes: [] };
+      (job.competencies || []).forEach((comp) => {
+        const cat = groupedKsa[comp.category] ? comp.category : 'Skills';
+        groupedKsa[cat].push(comp);
+      });
 
-  const renderKsaGroup = (catKey, labelEn, labelZh) => {
-    const items = groupedKsa[catKey] || [];
-    const title = appState.lang === 'zh' ? labelZh : labelEn;
-    if (items.length === 0) {
-      return `
-        <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-400">
-          <strong>${title}:</strong> ${appState.lang === 'zh' ? '此職缺未明確列出獨立項目' : 'No distinct item extracted for this group'}
+      const renderKsaGroup = (catKey, labelEn, labelZh) => {
+        const items = groupedKsa[catKey] || [];
+        const title = appState.lang === 'zh' ? labelZh : labelEn;
+        if (items.length === 0) {
+          return `
+            <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-400">
+              <strong>${title}:</strong> ${appState.lang === 'zh' ? '此職缺未明確列出獨立項目' : 'No distinct item extracted for this group'}
+            </div>
+          `;
+        }
+        return `
+          <div class="space-y-2">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">${title}</div>
+            ${items.map((comp) => `
+              <button
+                type="button"
+                onclick="openJobDetailModal('${job.id}', '${String(comp.excerpt || '').replace(/'/g, "\\'")}')"
+                class="w-full text-left p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-800/50 transition space-y-1"
+              >
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <span class="font-bold text-xs sm:text-sm">${escapeHtml(comp.name[appState.lang])}</span>
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">${comp.evidenceType}</span>
+                </div>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">“${escapeHtml(comp.excerpt || '')}”</p>
+              </button>
+            `).join('')}
+          </div>
+        `;
+      };
+
+      document.getElementById('modalBody').innerHTML = `
+        <div class="p-4 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-1.5">
+          <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">
+            ${appState.lang === 'zh' ? 'AI 職缺描述解析（繁體中文）' : 'AI Job Description Analysis (English)'}
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">${escapeHtml(aiJdSummary)}</p>
+          <p class="text-xs text-slate-600 dark:text-slate-400 pt-1">
+            <strong>${appState.lang === 'zh' ? '分類依據：' : 'Classification Rationale:'}</strong> ${escapeHtml(job.rationale[appState.lang])}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-6 space-y-2">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              ${appState.lang === 'zh' ? '104 原始職缺描述（原文完整保留）' : 'Original 104 Job Description (Source Preserved)'}
+            </h4>
+            <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">${formattedJd}</pre>
+          </div>
+
+          <div class="lg:col-span-6 space-y-4">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              ${appState.lang === 'zh' ? 'AI 萃取 KSA 能力（點擊可標亮 104 原文）' : 'AI-Extracted KSA (Click to Highlight 104 JD)'}
+            </h4>
+            ${renderKsaGroup('Knowledge', 'Knowledge (K)', '知識 (Knowledge)')}
+            ${renderKsaGroup('Skills', 'Skills (S)', '技能 (Skills)')}
+            ${renderKsaGroup('Attitudes', 'Attitudes (A)', '態度 (Attitudes)')}
+          </div>
         </div>
       `;
+
+      document.getElementById('jobDetailModal').classList.remove('hidden');
     }
-    return `
-      <div class="space-y-2">
-        <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">${title}</div>
-        ${items.map((comp) => `
-          <button
-            type="button"
-            onclick="openJobDetailModal('${job.id}', '${String(comp.excerpt || '').replace(/'/g, "\\'")}')"
-            class="w-full text-left p-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 bg-white dark:bg-slate-800/50 transition space-y-1"
-          >
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="font-bold text-xs sm:text-sm">${escapeHtml(comp.name[appState.lang])}</span>
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">${comp.evidenceType}</span>
-            </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">“${escapeHtml(comp.excerpt || '')}”</p>
-          </button>
-        `).join('')}
-      </div>
-    `;
-  };
-
-  document.getElementById('modalBody').innerHTML = `
-    <div class="p-4 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 space-y-1.5">
-      <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">
-        ${appState.lang === 'zh' ? 'AI 職缺描述解析（繁體中文）' : 'AI Job Description Analysis (English)'}
-      </div>
-      <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">${escapeHtml(aiJdSummary)}</p>
-      <p class="text-xs text-slate-600 dark:text-slate-400 pt-1">
-        <strong>${appState.lang === 'zh' ? '分類依據：' : 'Classification Rationale:'}</strong> ${escapeHtml(job.rationale[appState.lang])}
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-      <div class="lg:col-span-6 space-y-2">
-        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          ${appState.lang === 'zh' ? '104 原始職缺描述（原文完整保留）' : 'Original 104 Job Description (Source Preserved)'}
-        </h4>
-        <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200">${formattedJd}</pre>
-      </div>
-
-      <div class="lg:col-span-6 space-y-4">
-        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          ${appState.lang === 'zh' ? 'AI 萃取 KSA 能力（點擊可標亮 104 原文）' : 'AI-Extracted KSA (Click to Highlight 104 JD)'}
-        </h4>
-        ${renderKsaGroup('Knowledge', 'Knowledge (K)', '知識 (Knowledge)')}
-        ${renderKsaGroup('Skills', 'Skills (S)', '技能 (Skills)')}
-        ${renderKsaGroup('Attitudes', 'Attitudes (A)', '態度 (Attitudes)')}
-      </div>
-    </div>
-  `;
-
-  document.getElementById('jobDetailModal').classList.remove('hidden');
-}
 
     function closeJobDetailModal() {
       document.getElementById('jobDetailModal').classList.add('hidden');
@@ -1733,8 +1797,8 @@
           <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping shrink-0"></span>
           <span class="font-medium text-blue-800 dark:text-blue-200">
             ${isEn
-              ? `Analyzing your experience & KSA alignment against "${escapeHtml(jobTitle)}" via Gemini AI...`
-              : `正在透過 Gemini AI 比對你的經驗與「${escapeHtml(jobTitle)}」的 KSA 職能要求...`}
+              ? `Analyzing your experience & KSA alignment against "${escapeHtml(jobTitle)}" via AI...`
+              : `正在透過 AI 比對你的經驗與「${escapeHtml(jobTitle)}」的 KSA 職能要求...`}
           </span>
         </div>
       `;
@@ -1762,7 +1826,7 @@
                 ${isEn ? 'AI Career Fit Comparison' : 'AI 職涯適配度分析'} — ${escapeHtml(jobTitle)}
               </div>
               <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">
-                Gemini (${escapeHtml(data.model || 'AI')})
+                ${escapeHtml(data.model || 'AI')}
               </span>
             </div>
             <div class="text-slate-700 dark:text-slate-200 leading-relaxed">${formattedAssessment}</div>
@@ -1793,7 +1857,7 @@
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="font-bold">${isEn ? 'Exploratory Fit Check (Offline Backup)' : '探索性適配度檢視（離線備援）'} — ${escapeHtml(jobTitle)}</div>
               <span class="px-2 py-0.5 rounded text-[11px] bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200">
-                ${isEn ? 'Backend waking up — retry in a few seconds for full Gemini AI' : '後端啟動中，稍後重試可取得完整 Gemini AI 分析'}
+                ${isEn ? 'Backend waking up — retry in a few seconds for full AI analysis' : '後端啟動中，稍後重試可取得完整 AI 分析'}
               </span>
             </div>
             <div class="text-slate-600 dark:text-slate-300 leading-relaxed">${fallbackSummary}</div>
@@ -1801,10 +1865,11 @@
         `;
       }
     }
+
     function renderTeamCards() {
       const grid = document.getElementById('teamCardsGrid');
       grid.innerHTML = teamMembersData.map((member, index) => `
-        <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2.5">
+        <div class="card-lift p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200">
               ${member.roleBadge[appState.lang]}
@@ -2180,8 +2245,8 @@
       container.innerHTML = `
         <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs sm:text-sm font-medium text-blue-800 dark:text-blue-200">
           ${mapBackendLang() === "en"
-            ? "Analyzing 104 vacancy & your narrative with OpenAI..."
-            : "正在透過 OpenAI 分析 104 職缺與你的經驗敘述..."}
+            ? "Analyzing 104 vacancy & your narrative with AI..."
+            : "正在透過 AI 分析 104 職缺與你的經驗敘述..."}
         </div>
       `;
 
@@ -2197,9 +2262,9 @@
           <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
             <div class="flex items-center justify-between gap-2 flex-wrap">
               <span class="text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                ${mapBackendLang() === "en" ? "AI Career Fit Analysis (Live 104 + OpenAI)" : "AI 職涯適配度分析（104 即時職缺 + OpenAI）"}
+                ${mapBackendLang() === "en" ? "AI Career Fit Analysis (Live 104)" : "AI 職涯適配度分析（104 即時職缺）"}
               </span>
-              <span class="text-[11px] font-mono text-slate-500">Model: ${escapeHtml(aiResult.model || "gpt-4o-mini")}</span>
+              <span class="text-[11px] font-mono text-slate-500">Model: ${escapeHtml(aiResult.model || "AI")}</span>
             </div>
             <pre class="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed text-slate-800 dark:text-slate-200">${escapeHtml(
               aiResult.assessment || JSON.stringify(aiResult, null, 2)
