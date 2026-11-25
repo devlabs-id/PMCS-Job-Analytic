@@ -917,6 +917,7 @@
         'guide.pjmObjectTag': '管理對象：專案 (Project)',
         'guide.pjmQuestion': '「如何在既定範疇、時程、資源與品質限制下成功交付成果？」',
         'guide.pjmUltimate': '專案目標與如期如質交付，協調跨部門資源並控管時程與風險。',
+        'guide.respLabel': '核心工作職責：',
         'guide.explorePjmBtn': '在職缺探索中篩選 PjM 職缺 →',
         'guide.taxonomyTitle': '五類別職責分類架構（5-Category Taxonomy）',
         'guide.taxonomyRule': '範圍篩選規則：與產品或專案管理無關的職缺會在分類前先被排除。',
@@ -1051,6 +1052,45 @@
       }
     ];
 
+    function extractRawSalaryFromItem(item, jdText = '') {
+      const candidateKeys = [
+        'salary_display',
+        'salaryDisplay',
+        'salaryDesc',
+        'salary_desc',
+        'salaryStr',
+        'salary_str',
+        'salaryText',
+        'salary_text',
+        'salaryRangeDesc',
+        'salary'
+      ];
+
+      for (const key of candidateKeys) {
+        const val = item && item[key];
+        if (val !== undefined && val !== null) {
+          if (typeof val === 'object') {
+            const picked = val.zh || val.en || '';
+            if (String(picked).trim() && !/^(not provided|none|null|nan)$/i.test(String(picked).trim())) {
+              return String(picked).trim();
+            }
+          } else {
+            const s = String(val).trim();
+            if (s && !/^(not provided|none|null|nan|0)$/i.test(s)) {
+              return s;
+            }
+          }
+        }
+      }
+
+      const textToScan = `${(item && item.job_title_original) || ''} ${jdText}`;
+      const match = textToScan.match(/(?:薪資待遇\s*[:：]?\s*)?((?:月薪|年薪|時薪|日薪)\s*[\d,]+(?:\s*[~\-－至到]\s*[\d,]+)?\s*元?(?:以上)?|待遇面議|面議)/);
+      if (match && match[1]) {
+        return match[1].trim();
+      }
+      return '';
+    }
+
     function parseSalaryMinFrom104(rawSalary) {
       if (!rawSalary) return 0;
       const text = String(rawSalary).trim();
@@ -1084,7 +1124,7 @@
       if (!cleaned) {
         return lang === 'zh' ? '104 未標示薪資' : 'Not listed on 104';
       }
-      if (/面議/.test(cleaned) && lang === 'en') {
+      if (/面議/.test(cleaned) && lang === 'en' && !/negotiable/i.test(cleaned)) {
         return `${cleaned} (Negotiable)`;
       }
       return cleaned;
@@ -1461,8 +1501,8 @@
       if (!raw) return;
       const lower = raw.toLowerCase();
       const matchedCats = [];
-      if (/pm|product manager|產品經理/.test(lower)) matchedCats.push('PM');
-      if (/pjm|project manager|專案經理/.test(lower)) matchedCats.push('PjM');
+      if (/ pm |product manager|產品經理/.test(lower)) matchedCats.push('PM');
+      if (/ pjm |project manager|專案經理/.test(lower)) matchedCats.push('PjM');
       if (/hybrid|混合/.test(lower)) matchedCats.push('Hybrid');
       if (matchedCats.length > 0) {
         appState.selectedCategories = new Set(matchedCats);
@@ -1514,6 +1554,8 @@
             job.titleEn || '',
             job.companyOriginal,
             getDisplayJobLocation(job),
+            (job.salaryDisplay && job.salaryDisplay.en) || '',
+            (job.salaryDisplay && job.salaryDisplay.zh) || '',
             job.jdOriginal,
             (job.summary && job.summary.en) || '',
             (job.summary && job.summary.zh) || ''
@@ -1555,6 +1597,7 @@
         const jobNo = getJobNumber(job, idx);
         const isSelected = appState.selectedForCompare.has(job.id);
         const locLabel = getDisplayJobLocation(job);
+        const salaryLabel = (job.salaryDisplay && job.salaryDisplay[appState.lang]) || format104SalaryDisplay('', appState.lang);
         const viewBtnLabel = appState.lang === 'en' ? 'View Details & Evidence' : '檢視詳情與實證';
         const fitBtnLabel = appState.lang === 'en' ? `Fit #${jobNo} →` : `適配度 #${jobNo} →`;
         const compareBtnLabel = isSelected
@@ -1581,7 +1624,7 @@
                     <span>📍 ${appState.lang === 'en' ? 'Location:' : '工作地點：'} ${escapeHtml(locLabel)}</span>
                   </span>
                   <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-200 border border-emerald-200/80 dark:border-emerald-800/70">
-                    <span>💰 ${appState.lang === 'en' ? '104 Salary:' : '104 薪資：'} ${escapeHtml(job.salaryDisplay[appState.lang])}</span>
+                    <span>💰 ${appState.lang === 'en' ? '104 Salary:' : '104 薪資：'} ${escapeHtml(salaryLabel)}</span>
                   </span>
                 </div>
               </div>
@@ -1630,6 +1673,7 @@
       const job = jobsData.find((j) => j.id === jobId);
       if (!job) return;
       const jobNo = getJobNumber(job);
+      const salaryLabel = (job.salaryDisplay && job.salaryDisplay[appState.lang]) || format104SalaryDisplay('', appState.lang);
       appState.activeDetailJobId = jobId;
       updateAssistantContextBadge();
 
@@ -1637,10 +1681,11 @@
         <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-mono">#${jobNo}</span>
         <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold border ${getCategoryBadgeClass(job.classification)}">${job.classification}</span>
         <span class="px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">📍 ${escapeHtml(getDisplayJobLocation(job))}</span>
+        <span class="px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-200">💰 ${escapeHtml(salaryLabel)}</span>
         <a href="${job.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">104 Source Link ↗</a>
       `;
       document.getElementById('modalJobTitle').textContent = getDisplayJobTitle(job);
-      document.getElementById('modalJobMeta').textContent = `#${jobNo} • 🏢 ${job.companyOriginal} • 📍 ${getDisplayJobLocation(job)} • ${job.salaryDisplay[appState.lang]}`;
+      document.getElementById('modalJobMeta').textContent = `#${jobNo} • 🏢 ${job.companyOriginal} • 📍 ${getDisplayJobLocation(job)} • 💰 ${salaryLabel}`;
 
       const fitBtn = document.getElementById('modalCareerFitBtn');
       if (fitBtn) {
@@ -1769,10 +1814,11 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             ${groups[cat].map((job) => {
               const jobNo = getJobNumber(job);
+              const salaryLabel = (job.salaryDisplay && job.salaryDisplay[appState.lang]) || format104SalaryDisplay('', appState.lang);
               return `
                 <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 space-y-2">
                   <div class="font-extrabold text-sm">#${jobNo} • ${escapeHtml(getDisplayJobTitle(job))}</div>
-                  <div class="text-xs font-semibold text-slate-600 dark:text-slate-300">🏢 ${escapeHtml(job.companyOriginal)} • 📍 ${escapeHtml(getDisplayJobLocation(job))} • 💰 ${escapeHtml(job.salaryDisplay[appState.lang])}</div>
+                  <div class="text-xs font-semibold text-slate-600 dark:text-slate-300">🏢 ${escapeHtml(job.companyOriginal)} • 📍 ${escapeHtml(getDisplayJobLocation(job))} • 💰 ${escapeHtml(salaryLabel)}</div>
                   <p class="text-xs text-slate-600 dark:text-slate-300">${escapeHtml(getDisplayJobSummary(job))}</p>
                 </div>
               `;
@@ -1903,14 +1949,14 @@
       const paragraphs = buildIde1ThreeParagraphs(rawText, jobTitle, isEn);
       const labels = isEn
         ? [
-            { title: '1. Core Fit Overview', badge: 'Overview', badgeClass: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200', borderClass: 'border-l-4 border-l-blue-500' },
-            { title: '2. Existing Strengths & Match', badge: 'Strengths', badgeClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200', borderClass: 'border-l-4 border-l-emerald-500' },
-            { title: '3. Areas to Practice & Develop', badge: 'Growth', badgeClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200', borderClass: 'border-l-4 border-l-indigo-500' }
+            { title: '1. Core Fit & Alignment Overview', borderClass: 'border-l-4 border-l-blue-500' },
+            { title: '2. Evidence Match & Skill/Experience Gaps', borderClass: 'border-l-4 border-l-emerald-500' },
+            { title: '3. Actionable Next Steps', borderClass: 'border-l-4 border-l-indigo-500' }
           ]
         : [
-            { title: '一、核心適配度概覽', badge: ' kecocokan inti ', badgeClass: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200', borderClass: 'border-l-4 border-l-blue-500' },
-            { title: '二、已具備的優勢與亮點', badge: ' kekuatan ', badgeClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200', borderClass: 'border-l-4 border-l-emerald-500' },
-            { title: '三、需要練習與發展的方向', badge: ' pengembangan ', badgeClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200', borderClass: 'border-l-4 border-l-indigo-500' }
+            { title: '一、核心適配度與優勢概覽', borderClass: 'border-l-4 border-l-blue-500' },
+            { title: '二、證據對照、能力缺口與敘事重點', borderClass: 'border-l-4 border-l-emerald-500' },
+            { title: '三、具體準備與行動建議', borderClass: 'border-l-4 border-l-indigo-500' }
           ];
 
       const paraCards = paragraphs.map((text, idx) => {
@@ -1928,7 +1974,7 @@
           <div class="flex items-center justify-between gap-2 flex-wrap border-b border-slate-200 dark:border-slate-700 pb-2.5">
             <div>
               <div class="text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                ${isEn ? '3-Paragraph Career Fit Summary' : '三段式職涯適配度分析'}
+                ${isEn ? '3-Paragraph Career Fit Analysis' : '三段式職涯適配度分析'}
               </div>
               <div class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">${escapeHtml(jobTitle)}</div>
             </div>
@@ -2158,13 +2204,15 @@
       } catch (_) {
         const fallbackLines = isEn
           ? [
-              `Matched: You shared project/team experience connected to ${jobTitle}.`,
-              `Needs Evidence: Add specific tools used, cross-team collaboration, and measurable outcomes.`
-            ].join('\n')
+              `Based on your background and target focus (${jobTitle}), your experience in coordination, planning, or problem-solving provides a clear starting point to compare against this role's core responsibilities.`,
+              `Some expectations in the vacancy may still lack explicit evidence in your current description—such as specific tools, stakeholder alignment details, or measurable outcomes—so reviewing the role's KSA items helps clarify what to highlight.`,
+              `As a practical next step (exploratory comparison only, not a hiring score), tailor your examples to show how you handled trade-offs or delivery milestones and add concrete metrics where possible.`
+            ].join('\n\n')
           : [
-              `已符合：你已提供與 ${jobTitle} 相關的專案或團隊經驗。`,
-              `待補充：建議補充實際使用工具、跨團隊合作方式與具體成果數據。`
-            ].join('\n');
+              `依據你目前的經驗敘述與目標職缺「${jobTitle}」，你在溝通協作、規劃推進或問題解決上的經歷，已具備與這份職務核心工作對照的基礎起點。`,
+              `在實證完整度方面，部分職缺要求（如特定工具運用、跨部門協調細節或可量化的成果表現）若尚未在敘述中明確呈現，建議對照該職缺的 KSA 項目進一步補充說明。`,
+              `作為探索性參考（非錄取機率評估），下一步可將過往專案成果具體化，並整理最貼近該職缺痛點的經驗案例，以提升求職與面試表達的清晰度。`
+            ].join('\n\n');
         container.innerHTML = formatReadableFitHtml(fallbackLines, jobTitle, isEn ? 'Offline Backup' : '離線備援', isEn);
       }
     };
@@ -2215,12 +2263,7 @@
           const cat = item.classification || 'PM';
           const locRaw = item.location || 'Taiwan';
 
-          const rawSalary104 =
-            item.salary_display ||
-            item.salary_text ||
-            item.salary_str ||
-            item.salary ||
-            '';
+          const rawSalary104 = extractRawSalaryFromItem(item, jdZh);
           const parsedMinSalary = parseSalaryMinFrom104(rawSalary104);
 
           let locFilterKey = 'Taipei';
