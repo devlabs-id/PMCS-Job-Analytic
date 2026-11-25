@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import httpx
 
-app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.1")
+app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.2")
 
 ALLOWED_ORIGINS = [
     "https://devlabs-id.github.io",
@@ -68,6 +68,46 @@ def _clean_json_text(raw_text: str) -> str:
     cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
     cleaned = re.sub(r"\s*```$", "", cleaned).strip()
     return cleaned
+
+
+def _format_three_paragraphs(raw_text: str, language: str) -> str:
+    text = str(raw_text or "").strip()
+    if not text:
+        return ""
+
+    try:
+        parsed = json.loads(_clean_json_text(text))
+        if isinstance(parsed, dict) and isinstance(parsed.get("paragraphs"), list):
+            items = [str(p).strip() for p in parsed["paragraphs"] if str(p).strip()]
+            if len(items) >= 3:
+                return "\n\n".join(items[:3])
+    except Exception:
+        pass
+
+    blocks = [b.strip() for b in re.split(r"\n{2,}|\r?\n", text) if b.strip()]
+    if len(blocks) >= 3:
+        return "\n\n".join(blocks[:3])
+
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?。！？])\s+", text) if s.strip()]
+    if len(sentences) >= 3:
+        size = max(1, len(sentences) // 3)
+        p1 = " ".join(sentences[:size])
+        p2 = " ".join(sentences[size : size * 2])
+        p3 = " ".join(sentences[size * 2 :])
+        return "\n\n".join([p for p in (p1, p2, p3) if p])
+
+    if language == "zh-TW":
+        return "\n\n".join([
+            text,
+            "在職能與經驗對照上，建議將你過往專案中負責的協調對象、決策依據與推進步驟，與目標職缺的核心要求逐一連結，突顯可遷移的實務能力。",
+            "作為後續準備方向，可補充具體的成果指標、工具運用或跨團隊合作細節，並針對該職缺最重視的關鍵任務整理 1 至 2 個完整案例。",
+        ])
+
+    return "\n\n".join([
+        text,
+        "In terms of competency alignment, connect the specific coordination, planning, or problem-solving steps in your experience directly to the core duties of the target role.",
+        "As a practical next step, add concrete outcomes, tools used, or cross-team collaboration details, and prepare one or two clear examples tied to the vacancy's key priorities.",
+    ])
 
 
 def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
@@ -140,7 +180,6 @@ def call_gemini_with_fallback(
     errors: list[str] = []
 
     with httpx.Client(timeout=35.0) as client:
-        # 1. Gemini
         for model_name in _get_cached_models(client, "gemini"):
             try:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
@@ -163,7 +202,6 @@ def call_gemini_with_fallback(
             except Exception as exc:
                 errors.append(f"gemini:{model_name} {exc}")
 
-        # 2. Groq -> OpenRouter -> OpenAI
         openai_providers = [
             ("groq", "https://api.groq.com/openai/v1/chat/completions", GROQ_API_KEY, {}),
             (
@@ -238,10 +276,13 @@ def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
 @app.post("/api/career-fit")
 def career_fit(req: CareerFitRequest) -> dict[str, Any]:
     system_prompt = (
-        "Compare the user's self-reported experience narrative against target vacancy requirements. "
-        "Categorize points as Matched, Partially Matched, Not Demonstrated, or Insufficient Evidence. "
-        "Keep the response concise and easy to scan in short lines. "
-        "Explicitly state this is an exploratory comparison, not a hiring prediction or verified ability score."
+        "You are a career fit advisor comparing a candidate's experience narrative against a 104 Job Bank vacancy. "
+        "Write in the requested language ('en' -> English, 'zh-TW' -> Traditional Chinese). "
+        "Structure your response into EXACTLY THREE clear, well-written narrative paragraphs separated by a blank line:\n"
+        "Paragraph 1: Overall alignment & core strengths matched to the target role.\n"
+        "Paragraph 2: Areas where evidence is partial or missing (Knowledge, Skills, Attitude) and how to frame existing experience.\n"
+        "Paragraph 3: Concrete next steps for portfolio/resume preparation and role readiness.\n"
+        "Do not use bullet points or numbered list prefixes inside paragraphs, and explicitly note this is an exploratory comparison rather than a hiring score."
     )
     user_prompt = (
         f"Language: {req.language}\n"
@@ -249,7 +290,8 @@ def career_fit(req: CareerFitRequest) -> dict[str, Any]:
         f"Vacancy Summary: {req.target_jd_summary}\n"
         f"User Narrative: {req.narrative}"
     )
-    assessment, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
+    raw_assessment, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
+    assessment = _format_three_paragraphs(raw_assessment, req.language)
     return {"model": used_model, "assessment": assessment}
 
 
