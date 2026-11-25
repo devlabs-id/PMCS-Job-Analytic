@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import httpx
 
-app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.8.2")
+app = FastAPI(title="PMCS Job Discovery & Career Intelligence API", version="1.9.0")
 
 ALLOWED_ORIGINS = [
     "https://devlabs-id.github.io",
@@ -70,21 +70,36 @@ def _clean_json_text(raw_text: str) -> str:
     return cleaned
 
 
-def _format_three_paragraphs(raw_text: str, language: str) -> str:
+def _is_prompt_echo(text: str) -> bool:
+    lower = text.lower()
+    echo_markers = ("language:", "target role:", "vacancy summary:", "user narrative:")
+    return any(m in lower for m in echo_markers) or len(text.strip()) < 140
+
+
+def _extract_three_paragraphs_from_json_or_text(raw_text: str, language: str) -> str:
     text = str(raw_text or "").strip()
     if not text:
-        return ""
+        raise ValueError("Empty model output")
 
     try:
         parsed = json.loads(_clean_json_text(text))
-        if isinstance(parsed, dict) and isinstance(parsed.get("paragraphs"), list):
-            items = [str(p).strip() for p in parsed["paragraphs"] if str(p).strip()]
-            if len(items) >= 3:
-                return "\n\n".join(items[:3])
+        if isinstance(parsed, dict):
+            p1 = str(parsed.get("paragraph_1") or parsed.get("strengths") or "").strip()
+            p2 = str(parsed.get("paragraph_2") or parsed.get("gaps") or "").strip()
+            p3 = str(parsed.get("paragraph_3") or parsed.get("next_steps") or "").strip()
+            if p1 and p2 and p3 and not _is_prompt_echo(f"{p1} {p2} {p3}"):
+                return f"{p1}\n\n{p2}\n\n{p3}"
+            if isinstance(parsed.get("paragraphs"), list):
+                items = [str(p).strip() for p in parsed["paragraphs"] if str(p).strip()]
+                if len(items) >= 3 and not _is_prompt_echo(" ".join(items[:3])):
+                    return "\n\n".join(items[:3])
     except Exception:
         pass
 
-    blocks = [b.strip() for b in re.split(r"\n{2,}|\r?\n", text) if b.strip()]
+    if _is_prompt_echo(text):
+        raise ValueError("Model echoed prompt labels instead of generating analysis")
+
+    blocks = [b.strip() for b in re.split(r"\n{2,}|\r?\n", text) if b.strip() and not _is_prompt_echo(b)]
     if len(blocks) >= 3:
         return "\n\n".join(blocks[:3])
 
@@ -96,18 +111,7 @@ def _format_three_paragraphs(raw_text: str, language: str) -> str:
         p3 = " ".join(sentences[size * 2 :])
         return "\n\n".join([p for p in (p1, p2, p3) if p])
 
-    if language == "zh-TW":
-        return "\n\n".join([
-            text,
-            "在職能與經驗對照上，建議將你過往專案中負責的協調對象、決策依據與推進步驟，與目標職缺的核心要求逐一連結，突顯可遷移的實務能力。",
-            "作為後續準備方向，可補充具體的成果指標、工具運用或跨團隊合作細節，並針對該職缺最重視的關鍵任務整理 1 至 2 個完整案例。",
-        ])
-
-    return "\n\n".join([
-        text,
-        "In terms of competency alignment, connect the specific coordination, planning, or problem-solving steps in your experience directly to the core duties of the target role.",
-        "As a practical next step, add concrete outcomes, tools used, or cross-team collaboration details, and prepare one or two clear examples tied to the vacancy's key priorities.",
-    ])
+    raise ValueError("Insufficient narrative length from model")
 
 
 def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
@@ -128,7 +132,7 @@ def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
                     name = m.get("name", "").replace("models/", "")
                     methods = m.get("supportedGenerationMethods", [])
                     if "generateContent" in methods and "gemini" in name.lower():
-                        if not any(x in name.lower() for x in ("exp", "vision-old", "embedding")):
+                        if not any(x in name.lower() for x in ("exp", "vision-old", "embedding", "lite")):
                             models.append(name)
                 models.sort(
                     key=lambda x: (
@@ -143,20 +147,23 @@ def _get_cached_models(client: httpx.Client, provider: str) -> list[str]:
                 timeout=15.0,
             )
             if r.status_code == 200:
+                blocked = ("whisper", "guard", "tts", "embed", "allam", "gemma", "8b", "7b", "instant")
                 models = [
                     m["id"]
                     for m in r.json().get("data", [])
-                    if m.get("id") and not any(b in m["id"].lower() for b in ("whisper", "guard", "tts", "embed"))
+                    if m.get("id") and not any(b in m["id"].lower() for b in blocked)
                 ]
-                models.sort(key=lambda x: (0 if "70b" in x else (1 if "llama" in x else 2), x))
+                models.sort(key=lambda x: (0 if "70b" in x or "3.3" in x else 1, x))
+                if not models:
+                    models = ["llama-3.3-70b-versatile"]
         elif provider == "openrouter" and OPENROUTER_API_KEY:
             r = client.get("https://openrouter.ai/api/v1/models", timeout=15.0)
             if r.status_code == 200:
                 for m in r.json().get("data", []):
                     mid = m.get("id", "")
-                    if mid.endswith(":free") and not any(b in mid.lower() for b in ("vision", "vl", "embed", "audio")):
+                    if mid.endswith(":free") and not any(b in mid.lower() for b in ("vision", "vl", "embed", "audio", "3b", "7b")):
                         models.append(mid)
-                models.sort(key=lambda x: (0 if any(k in x.lower() for k in ("llama", "qwen", "gemini", "mistral")) else 1, x))
+                models.sort(key=lambda x: (0 if any(k in x.lower() for k in ("llama-3.3", "70b", "qwen", "gemini", "mistral")) else 1, x))
         elif provider == "openai" and OPENAI_API_KEY:
             models = ["gpt-4o-mini"]
     except Exception:
@@ -172,6 +179,7 @@ def call_gemini_with_fallback(
     system_prompt: str,
     user_prompt: str,
     json_mode: bool = False,
+    validator: Optional[Any] = None,
 ) -> tuple[str, str]:
     if not any([GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, OPENAI_API_KEY]):
         raise HTTPException(status_code=503, detail="No AI provider API key configured.")
@@ -183,7 +191,7 @@ def call_gemini_with_fallback(
         for model_name in _get_cached_models(client, "gemini"):
             try:
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
-                gen_config: dict[str, Any] = {"temperature": 0.25}
+                gen_config: dict[str, Any] = {"temperature": 0.3}
                 if json_mode:
                     gen_config["responseMimeType"] = "application/json"
                 resp = client.post(
@@ -198,6 +206,8 @@ def call_gemini_with_fallback(
                 if json_mode:
                     text_out = _clean_json_text(text_out)
                     json.loads(text_out)
+                if validator:
+                    text_out = validator(text_out)
                 return text_out, f"gemini:{model_name}"
             except Exception as exc:
                 errors.append(f"gemini:{model_name} {exc}")
@@ -220,7 +230,7 @@ def call_gemini_with_fallback(
                 try:
                     body: dict[str, Any] = {
                         "model": model_name,
-                        "temperature": 0.25,
+                        "temperature": 0.3,
                         "messages": [
                             {"role": "system", "content": system_prompt},
                             {"role": "user", "content": user_prompt},
@@ -236,6 +246,8 @@ def call_gemini_with_fallback(
                     if json_mode:
                         text_out = _clean_json_text(text_out)
                         json.loads(text_out)
+                    if validator:
+                        text_out = validator(text_out)
                     return text_out, f"{pname}:{model_name}"
                 except Exception as exc:
                     errors.append(f"{pname}:{model_name} {exc}")
@@ -275,23 +287,27 @@ def analyze_job(req: AnalyzeJobRequest) -> dict[str, Any]:
 
 @app.post("/api/career-fit")
 def career_fit(req: CareerFitRequest) -> dict[str, Any]:
+    lang_label = "Traditional Chinese (繁體中文)" if req.language == "zh-TW" else "English"
     system_prompt = (
-        "You are a career fit advisor comparing a candidate's experience narrative against a 104 Job Bank vacancy. "
-        "Write in the requested language ('en' -> English, 'zh-TW' -> Traditional Chinese). "
-        "Structure your response into EXACTLY THREE clear, well-written narrative paragraphs separated by a blank line:\n"
-        "Paragraph 1: Overall alignment & core strengths matched to the target role.\n"
-        "Paragraph 2: Areas where evidence is partial or missing (Knowledge, Skills, Attitude) and how to frame existing experience.\n"
-        "Paragraph 3: Concrete next steps for portfolio/resume preparation and role readiness.\n"
-        "Do not use bullet points or numbered list prefixes inside paragraphs, and explicitly note this is an exploratory comparison rather than a hiring score."
+        f"You are an expert PM/PjM Career Advisor writing in {lang_label}. "
+        "Compare the candidate's experience narrative directly against the specific duties, domain, and requirements of the target 104 Job Bank vacancy. "
+        "Return ONLY a valid JSON object with EXACTLY three keys: 'paragraph_1', 'paragraph_2', and 'paragraph_3'. "
+        "Rules for each field:\n"
+        "- 'paragraph_1' (3-4 sentences): Explain specifically which parts of the candidate's background (e.g., leadership, product management, bilingual communication, domain skills) align with the target role and why.\n"
+        "- 'paragraph_2' (3-4 sentences): Identify specific Knowledge, Skills, or Attitude (KSA) requirements from the target vacancy that are missing or only partially evidenced in the candidate's narrative.\n"
+        "- 'paragraph_3' (3-4 sentences): Give concrete, actionable advice on how the candidate can strengthen their resume/interview examples for this exact vacancy (note briefly that this is an exploratory comparison, not a hiring probability score).\n"
+        "NEVER echo prompt headers like 'Target Role:' or 'Vacancy Summary:' inside the JSON values."
     )
     user_prompt = (
-        f"Language: {req.language}\n"
-        f"Target Role: {req.target_job_title}\n"
-        f"Vacancy Summary: {req.target_jd_summary}\n"
-        f"User Narrative: {req.narrative}"
+        f"Candidate Experience Narrative:\n{req.narrative}\n\n"
+        f"Target Vacancy Details:\n{req.target_job_title}\n{req.target_jd_summary}"
     )
-    raw_assessment, used_model = call_gemini_with_fallback(system_prompt, user_prompt, json_mode=False)
-    assessment = _format_three_paragraphs(raw_assessment, req.language)
+    assessment, used_model = call_gemini_with_fallback(
+        system_prompt,
+        user_prompt,
+        json_mode=True,
+        validator=lambda out: _extract_three_paragraphs_from_json_or_text(out, req.language),
+    )
     return {"model": used_model, "assessment": assessment}
 
 
